@@ -1,0 +1,160 @@
+{% extends "base/bootstrap.html" %}
+
+{% block css %}
+<link href="/static/css/platformcenter/template.css" rel="stylesheet">
+{% endblock %}
+
+{% block js %}
+<script src="/static/js/platformcenter/template.js"></script>
+{% endblock %}
+
+{% block right %}
+<div class="col-md-10" style="padding:0px">
+  	<ul class="breadcrumb">
+    	<li><a href="/"><i class="glyphicon glyphicon-home"></i>Home</a></li>
+    	<li>平台中心</li>
+    	<li class="active">模版管理</li>
+	</ul>
+</div>
+
+<div class="col-md-10" id="component-show">
+	<div id="component-title">
+		<span>模版列表</span>
+		<div id="add-template">
+			<button data-toggle="modal" data-target="#templateinput" class="btn btn-default"><span class="glyphicon glyphicon-plus">新增模版</span></button>
+		</div>
+	</div>
+	
+<!-- 输入模态框（Modal） -->
+<form action="" id='template-form'>
+<div class="modal fade" id="templateinput" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					添加DCOS控制节点模版
+				</h4>
+			</div>
+			<div class="modal-body">
+		        <div class="input-group">
+		            <span class="input-group-addon">模版名称</span>
+		            <input type="text" class="form-control" name="name">
+		            <span class="input-group-addon">模版说明</span>
+		            <input type="text" class="form-control" name="label">
+		        </div>
+		        <br>
+		        <div class="input-group">
+		            <span class="input-group-addon">模版类型</span>
+		            <select class="form-control" name="type">
+		            	<option>mysql</option>
+		            	<option>redis</option>
+		            	<option>influxdb</option>
+		            	<option>rabbitmq</option>
+		            	<option>icloud</option>
+		            	<option>edgebox</option>
+		            	<option>dockbox</option>
+		            	<option>dockbox_celery</option>
+		            	<option>dockbox_flower</option>
+		            	<option>dockbox_task</option>
+		            </select>
+		        </div>
+		        <br>
+		        <div class="input-group">
+		            <span class="input-group-addon">网络模式</span>
+		            <select style="width:100px;" class="form-control" name="netmode">
+		            	<option>bridge</option>
+		            	<option>host</option>
+		            </select>
+		            <span class="input-group-addon">容器端口</span>
+		            <input type="text" class="form-control" name="cport">
+		            <span class="input-group-addon">主机端口</span>
+		            <input type="text" class="form-control" name="hport">
+		        </div>
+		        <br>
+		        <div class="input-group">
+		        	<span class="input-group-addon">容器镜像</span>
+		        	<input type="text" class="form-control" name="image">
+		        </div>
+		        <br>
+		        <div class="input-group">
+		        	<span class="input-group-addon">环境变量</span>
+		        	<textarea rows="3" class="form-control" name="env"></textarea>
+		        </div>
+		        <br>
+		        <div class="input-group">
+		        	<span class="input-group-addon">目录映射</span>
+		        	<textarea rows="3" class="form-control" name="volume"></textarea>
+		        </div>
+		        <br>
+		        <div class="input-group">
+		        	<span class="input-group-addon">dockerfile</span>
+		        	<textarea rows="3" class="form-control" name="dockerfile"></textarea>
+		        </div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="button" data-toggle="modal"  data-dismiss="modal" class="btn btn-primary" onclick="add_template();">保存</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+</form>	
+	
+	<div id="component-list">
+		<table class="table table-bordered">
+		  <thead>
+		    <tr>
+		      <th>模版名</th>
+		      <th>类型</th>
+		      <th>说明</th>
+		      <th>网络模式</th>
+		      <th>端口映射</th>
+		      <th>镜像</th>
+		      <th>创建时间</th>
+		      <th></th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  {% for template in templates.pagedata %}
+		    <tr>
+		      <td>{{ template.name }}</td>
+		      <td>{{ template.type }}</td>
+		      <td>{{ template.label }}</td>
+		      <td>{{ template.netmode }}</td>
+		      <td>{{ template.cport }}:{{ template.hport }}</td>
+		      <td>{{ template.image }}</td>
+		      <td>{{ template.createtime|date:'Y/m/d H:i:s' }}</td>
+		      <td><button type="button" class="btn btn-info" title="{{ template.name }}模版详情" data-container="body" 
+		      data-toggle="popover" data-placement="left"
+		      data-content="<table class='table table-bordered'>
+		      <tr><th width='75'>Env:</th><td><pre>{{ template.env }}</pre></td></tr>
+		      <tr><th width='75'>Volume:</th><td><pre>{{ template.volume }}</pre></td></tr>
+		      <tr><th width='90'>dockerfile:</th><td><pre>{{ template.dockerfile }}</pre></td></tr>
+		      </table>">详情</button></td>
+		    </tr>
+		   {% endfor %}
+		  </tbody>
+		</table>
+	</div>
+</div>
+
+<div class="col-md-10" id="template-footer">
+	<ul class="pager">
+    	<li><button>&laquo;</button></li>
+    	<li>| Page <input disabled type="text"  name="pagenum" value="{{ templates.pagenum }}" style="width:30px;text-align:center;"> of {{ templates.pagecount }} |</li>
+    	<li><button>&raquo;</button></li>
+    	<li style="margin-left:20px;">
+    		<select name="datarow" style="height:25px;" onchange="change_data_row(this);">
+    			<option>10</option>
+    			<option>5</option>
+    			<option>15</option>
+    		</select>
+    	</li>
+    	<li style="margin-left:20px;">共  {{ templates.itemcount }} 条数据</li>
+	</ul>
+</div>
+
+{% endblock %}

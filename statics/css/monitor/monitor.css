@@ -1,0 +1,142 @@
+#zabbix_config{
+	border:1px solid #d7dde4;
+	border-radius:4px;
+	margin-left:15px;
+	height:555px;
+	width:1105px;
+	overflow:auto;
+}
+
+#zabbix-title{
+	display: inline-block;
+	font-size: 1.5em;
+    -webkit-margin-before: 0.83em;
+    -webkit-margin-after: 0.83em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+}
+
+#zabbix-menu{
+	margin-top:10px;
+	border-bottom:1px solid #d7dde4;
+}
+
+
+#zabbix-menu div{
+	padding:5px;
+	margin-right:20px;
+	width:70px;
+	display:inline-block;
+	cursor:pointer;
+}
+
+.add-underline{
+	border-bottom:2px solid #2d8cf0;
+	color:#2d8cf0;
+}
+
+#zabbix-detail{
+	margin-top:15px;
+}
+
+.zabbix-detail{
+	display:none;
+}
+
+#add-button{
+	font-size:12px;
+	background-color:#2d8cf0;
+	border-color: #2d8cf0;
+}
+
+#zabbix-detail-host button,#zabbix-detail-template button{
+	width:35px;
+	height:20px;
+	padding:3px 6px;
+	font-size:12px;
+}
+
+
+
+#zabbix-detail-host,#zabbix-detail-template{
+	margin-top:10px;
+}
+
+.checkbox-radio{
+    font-size:16px;
+    margin-right:10px;
+}
+
+.add_host td{
+	padding:10px;
+}
+
+.add_host_agent{
+	border-collapse: collapse;
+	border:1px solid #d7dde4;
+}
+
+.add_host_agent td{
+	padding:2px;
+	text-align:left;
+}
+
+.status-green,.status-red,.notify-status-green,.notify-status-grey{
+	padding: 2px 3px 1px 3px;
+    font-size: 0.917em;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: .7em;
+    line-height: 1em;
+    display: inline-block;
+    color: #fff;
+    border: 1px solid #2f9f5e;
+    background-color: #34af67;
+}
+
+.status-red{
+    border: 1px solid red;
+    background-color: red;
+}
+
+.notify-status-green,.notify-status-grey{
+	cursor:pointer;
+}
+
+.notify-status-grey{
+	border: 1px solid grey;
+    background-color: grey;
+}
+
+
+.graph_time{
+	cursor:pointer;
+	
+}
+
+.popover{
+	max-width:510px;
+	word-break: break-all;
+}
+
+.popover-content{
+	max-height:620px;
+	overflow:auto;
+}
+
+pre{
+	max-width:400px;
+}
+
+#mySuccessAlert,#myFailureAlert{
+	display:none;
+}
+
+.alert{
+	position:absolute;
+	margin-left:780px;
+	width:300px;
+	max-height:300px;
+	
+}	

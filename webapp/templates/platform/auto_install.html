@@ -1,0 +1,224 @@
+{% extends "base/bootstrap.html" %}
+
+{% block css %}
+<link href="/static/css/platformcenter/install.css" rel="stylesheet">
+{% endblock %}
+
+{% block right %}
+<div class="col-md-10" style="padding:0px">
+  	<ul class="breadcrumb">
+    	<li><a href="/"><i class="glyphicon glyphicon-home"></i>Home</a></li>
+    	<li>平台中心</li>
+    	<li class="active">一键安装</li>
+	</ul>
+</div>
+
+<div class="col-md-10">
+	<div id="install-title">
+		<span>一键安装信息填写</span>
+	</div>
+	<table class="table table-striped table-condensed">
+	  <tbody>
+	    <tr>
+	      <th>集群基本信息：</th>
+	      <td>集群名<input type="text" name="cluster"></td>
+	      <td colspan="2">基本版本<input type="text" name="version"></td>
+	    </tr>
+	    
+	    <tr>
+	      <th>mysql组件</th>
+	      <td>容器名<input type="text" name="myname"></td>
+	      <td>使用模版
+	      	<select name="mytemplate">
+	      	{% for template in templates %}
+	      		<option>{{ template.name }}</option>
+	      	{% endfor %}
+	      	</select>
+	      </td>
+	      <td>部署主机
+	      	<select name="myhost">
+	      	{% for host in hosts %}
+	      		<option>{{ host.address }}</option>
+	      	{% endfor %}
+	      	</select>
+	      </td>
+	    </tr>
+	    <tr>
+	      <th>redis组件</th>
+	      <td>容器名<input type="text" name="rename"></td>
+	      <td>使用模版
+	      	<select name="retemplate">
+	      	{% for template in templates %}
+	      		<option>{{ template.name }}</option>
+	      	{% endfor %}
+	      	</select>
+	      </td>
+	      <td>部署主机
+	      	<select name="rehost">
+	      	{% for host in hosts %}
+	      		<option>{{ host.address }}</option>
+	      	{% endfor %}
+	      	</select>
+	      </td>
+	    </tr>
+	    <tr>
+	      <th>influxdb组件</th>
+	      <td>容器名<input type="text" name="inname"></td>
+	      <td>使用模版
+	      	<select name="intemplate">
+	      	{% for template in templates %}
+	      		<option>{{ template.name }}</option>
+	      	{% endfor %}
+	      	</select>
+	      </td>
+	      <td>部署主机
+	      	<select name="inhost">
+	      	{% for host in hosts %}
+	      		<option>{{ host.address }}</option>
+	      	{% endfor %}
+	      	</select>
+	      </td>
+	    </tr>
+	    <tr>
+	      <th>rabbitmq组件</th>
+	      <td>容器名<input type="text" name="raname"></td>
+	      <td>使用模版
+	      	<select name="ratemplate">
+	      	{% for template in templates %}
+	      		<option>{{ template.name }}</option>
+	      	{% endfor %}
+	      	</select>
+	      </td>
+	      <td>部署主机
+	      	<select name="rahost">
+	      	{% for host in hosts %}
+	      		<option>{{ host.address }}</option>
+	      	{% endfor %}
+	      	</select>
+	      </td>
+	    </tr>
+	    <tr>
+	      <th>dockbox组件</th>
+	      <td>容器名<input type="text" name="do1name"></td>
+	      <td>使用模版
+	      	<select name="do1template">
+	      	{% for template in templates %}
+	      		<option>{{ template.name }}</option>
+	      	{% endfor %}
+	      	</select>
+	      </td>
+	      <td>部署主机
+	      	<select name="do1host">
+	      	{% for host in hosts %}
+	      		<option>{{ host.address }}</option>
+	      	{% endfor %}
+	      	</select>
+	      </td>
+	    </tr>
+	    <tr>
+	      <th>dockbox_celery组件</th>
+	      <td>容器名<input type="text" name="do2name"></td>
+	      <td>使用模版
+	      	<select name="do2template">
+	      	{% for template in templates %}
+	      		<option>{{ template.name }}</option>
+	      	{% endfor %}
+	      	</select>
+	      </td>
+	      <td>部署主机
+	      	<select name="do2host">
+	      	{% for host in hosts %}
+	      		<option>{{ host.address }}</option>
+	      	{% endfor %}
+	      	</select>
+	      </td>
+	    </tr>
+	   <tr>
+	      <th>dockbox_flower组件</th>
+	      <td>容器名<input type="text" name="do3name"></td>
+	      <td>使用模版
+	      	<select name="do3template">
+	      	{% for template in templates %}
+	      		<option>{{ template.name }}</option>
+	      	{% endfor %}
+	      	</select>
+	      </td>
+	      <td>部署主机
+	      	<select name="do3host">
+	      	{% for host in hosts %}
+	      		<option>{{ host.address }}</option>
+	      	{% endfor %}
+	      	</select>
+	      </td>
+	    </tr>
+	    <tr>
+	      <th>dockbox_task组件</th>
+	      <td>容器名<input type="text" name="do4name"></td>
+	      <td>使用模版
+	      	<select name="do4template">
+	      	{% for template in templates %}
+	      		<option>{{ template.name }}</option>
+	      	{% endfor %}
+	      	</select>
+	      </td>
+	      <td>部署主机
+	      	<select name="do4host">
+	      	{% for host in hosts %}
+	      		<option>{{ host.address }}</option>
+	      	{% endfor %}
+	      	</select>
+	      </td>
+	    </tr>
+	    <tr>
+	      <th>icloud组件</th>
+	      <td>容器名<input type="text" name="icname"></td>
+	      <td>使用模版
+	      	<select name="ictemplate">
+	      	{% for template in templates %}
+	      		<option>{{ template.name }}</option>
+	      	{% endfor %}
+	      	</select>
+	      </td>
+	      <td>部署主机
+	      	<select name="ichost">
+	      	{% for host in hosts %}
+	      		<option>{{ host.address }}</option>
+	      	{% endfor %}
+	      	</select>
+	      </td>
+	    </tr>
+	     <tr>
+	      <th>edgebox组件</th>
+	      <td>容器名<input type="text" name="edname"></td>
+	      <td>使用模版
+	      	<select name="edtemplate">
+	      	{% for template in templates %}
+	      		<option>{{ template.name }}</option>
+	      	{% endfor %}
+	      	</select>
+	      </td>
+	      <td>部署主机
+	      	<select name="edhost">
+	      	{% for host in hosts %}
+	      		<option>{{ host.address }}</option>
+	      	{% endfor %}
+	      	</select>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td colspan="4">
+	         <div id="auto_install-button">
+				<button type="submit" class="btn btn-success">提交</button>
+			</div>
+		   </td>
+	    </tr>
+	  </tbody>
+	</table>  	
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+<script src="/static/js/platformcenter/install.js"></script>
+{% endblock %}

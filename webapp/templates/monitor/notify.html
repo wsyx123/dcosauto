@@ -1,0 +1,108 @@
+{% extends "base/bootstrap.html" %}
+
+{% block css %}
+<link href="/static/css/monitor/monitor.css" rel="stylesheet">
+{% endblock %}
+
+{% block js %}
+<script src="/static/js/monitor/monitor.js"></script>
+{% endblock %}
+
+{% block right %}
+<div class="col-md-10" style="padding:0px">
+  	<ul class="breadcrumb">
+    	<li><a href="/"><i class="glyphicon glyphicon-home"></i>Home</a></li>
+    	<li>监控告警</li>
+    	<li class="active">告警通知</li>
+	</ul>
+</div>
+
+<div class="col-md-10" id="zabbix_config">
+	<div>
+		<div style="display:inline-block;">
+			<h4 id="zabbix-title">告警通知</h4>
+			<span style="font-size:12px;color:#9b9b9b;margin-left:18px;">支持Email、SMS、微信通知,默认使用Email</span>
+		</div>
+		<div style="display:inline-block;margin-left:50px;">
+			<h4 id="zabbix-title">Email配置信息</h4>
+			<span style="margin-left:18px;">SMTP服务器:</span>
+			<span style="font-size:12px;color:#9b9b9b;">mail.company.com </span>
+			<span style="margin-left:18px;">邮箱:</span>
+			<span style="font-size:12px;color:#9b9b9b;">admin@company.com</span>
+		</div>
+		<div style="display:inline-block;margin-left:15px;margin-top:20px;">
+				<button type="button" class="btn btn-info">报警媒介配置</button>
+		</div>
+	</div>
+	
+	<div>
+		<div id="zabbix-menu">
+			<div style="border-bottom:2px solid #2d8cf0;color:#2d8cf0">问题列表</div>
+			<div>通知列表</div>
+		</div>
+		<div id="zabbix-detail">
+			<div class="zabbix-detail" style="display:block;">
+				<div id="zabbix-detail-host">
+					<table class="table table-bordered">
+					  <thead>
+					    <tr>
+					      <th>时间</th>
+					      <th>主机</th>
+					      <th>问题</th>
+					      <th>级别</th>
+					      <th>状态</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td>2018/03/29 23:49:21</td>
+					      <td>192.168.10.3</td>
+					      <td>CPU负载>1</td>
+					      <td><span style="background-color:#CC6600;color:white;">warning</span></td>
+					      <td class="notify-status"><a class="notify-status-green">已确认</a></td>
+					    </tr>
+					    <tr>
+					      <td>2018/03/29 23:49:25</td>
+					      <td>192.168.10.3</td>
+					      <td>内存使用率>90%</td>
+					      <td><span style="background-color:#880000;color:white;">danger</span></td>
+					      <td class="notify-status"><a class="notify-status-grey">未确认</a></td>
+					    </tr>
+					  </tbody>
+					</table>
+				</div>
+			</div>
+			<div class="zabbix-detail">
+				<div id="zabbix-detail-template">
+					<table class="table table-bordered">
+					  <thead>
+					    <tr>
+					      <th>通知类型</th>
+					      <th>主题</th>
+					      <th>内容</th>
+					      <th>接收人</th>
+					      <th>状态</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td>Email</td>
+					      <td>可用内存小于100MB</td>
+					      <td>
+					      	<p>时间：2018/03/29 01:22:21</p>
+					      	<p>主机：192.168.10.3</p>
+					      	<p>事件：可用内存为99MB，已使用内存15.4GB</p>
+					      	<p>级别：danger</p>
+					      </td>
+					      <td>yangxu@qq.com</td>
+					      <td style="color:green">发送成功</td>
+					    </tr>
+					  </tbody>
+					</table>
+				</div>
+			</div>
+		</div><!--  detail -->
+		
+	</div>
+</div>
+{% endblock %}

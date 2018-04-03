@@ -1,0 +1,76 @@
+#component-show{
+	margin:0px;
+	height:510px;
+	overflow:auto;
+}
+
+#component-title{
+	padding:10px;
+	color:white;
+	background-color:#5599FF;
+}
+
+#add-template{
+	float:right;
+	margin-bottom:4px;
+}
+
+#component-list{
+	margin:0px;
+	overflow:auto;
+}
+
+
+.btn{
+	font-size:12px;
+	padding:3px 6px;
+}
+
+.popover{
+	max-width:510px;
+	word-break: break-all;
+}
+
+.popover-content{
+	max-height:620px;
+	overflow:auto;
+}
+
+pre{
+	width:360px;
+}
+
+.table{
+	margin:0px;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 6px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+
+#template-footer{
+	width:1091px;
+	margin-left:15px;
+	height:45px;
+	padding-top:8px;
+	text-align:center;
+	border:1px solid #ddd;
+	background-color:#eff3f8;
+}
+
+#template-footer button{
+	width:35px;
+	height:25px;
+	border-radius:10px;
+	border:1px solid;
+	color:#337ab7;
+	background-color:white;
+}
+
+#template-footer .pager{
+	margin:0px;
+}
+

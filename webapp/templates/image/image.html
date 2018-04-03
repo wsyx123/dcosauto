@@ -1,0 +1,175 @@
+{% extends "base/bootstrap.html" %}
+
+{% block css %}
+<link href="/static/css/image/image.css" rel="stylesheet">
+{% endblock %}
+
+{% block js %}
+<script src="/static/js/image/image.js"></script>
+{% endblock %}
+
+{% block right %}
+<div class="col-md-10" style="padding:0px">
+  	<ul class="breadcrumb">
+    	<li><a href="/"><i class="glyphicon glyphicon-home"></i>Home</a></li>
+    	<li class="active">镜像管理</li>
+	</ul>
+</div>
+
+<div class="col-md-10" id="image">
+	<div>
+		<h3 id="image-title">镜像管理</h3>
+		<span style="font-size:12px;color:#9b9b9b;margin-left:18px;">可以添加镜像主机，查看下载镜像</span>
+	</div>
+	
+	<div>
+		<div id="image-menu">
+			<div style="border-bottom:2px solid #2d8cf0;color:#2d8cf0">镜像主机</div>
+			<div>镜像列表</div>
+		</div>
+		<div id="image-detail">
+			<div class="image-detail" style="display:block;">
+				<button id="add-button" data-toggle="modal" data-target="#myModal" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>添加镜像主机</button>
+				<div id="image-detail-host">
+					<table class="table table-bordered">
+					  <thead>
+					    <tr>
+					      <th>仓库地址</th>
+					      <th>备注</th>
+					      <th>API类型</th>
+					      <th>镜像数量</th>
+					      <th>创建时间</th>
+					      <th>状态</th>
+					      <th></th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  {% for host in hosts %}
+					    <tr>
+					      <td>{{ host.address }}</td>
+					      <td>{{ host.label }}</td>
+					      <td>{{ host.type }}</td>
+					      <td>{{ host.count }}</td>
+					      <td>{{ host.createtime|date:'Y/m/d H:i:s'}}</td>
+					      {% ifequal host.status 'up' %}
+					      <td><span style="background-color:#006400;color:white;">up</span></td>
+					      {% else %}
+					      <td><span style="background-color:#880000;color:white;">down</span></td>
+					      {% endifequal %}
+					      <td>
+					      	<button type="button" onclick="refresh_repository(this);" class="btn btn-info"><i class="glyphicon glyphicon-refresh"></i></button>
+					      	<button type="button" onclick="delete_repository(this);" class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i></button>
+					      </td>
+					    </tr>
+					    {% endfor %}
+					  </tbody>
+					</table>
+				</div>
+			</div>
+			<div class="image-detail">
+				<div id="image-detail-image">
+					<table class="table table-bordered">
+					  <thead>
+					    <tr>
+					      <th>镜像名</th>
+					      <th>镜像ID</th>
+					      <th>docker版本</th>
+					      <th>镜像服务器</th>
+					      <th>创建时间</th>
+					      <th>压缩大小</th>
+					      <th></th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  {% for image in images %}
+					    <tr>
+					      <td>{{ image.imagename }}</td>
+					      <td>{{ image.imageid }}</td>
+					      <td>{{ image.imagedockerversion }}</td>
+					      <td>{{ image.address }}</td>
+					      <td>{{ image.imagetime }}</td>
+					      <td>{{ image.imagesize }}</td>
+					      <td><button type="button" onclick="download_image(this);" data-toggle="modal" data-target="#mydownload" class="btn btn-success"><i class="glyphicon glyphicon-save"></i></button></td>
+					    </tr>
+					    {% endfor %}
+					  </tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 输入模态框（Modal） -->
+<form action="" id="image-form">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4>
+					添加镜像仓库主机
+				</h4>
+			</div>
+			<div class="modal-body">
+		        <div class="form-group">
+		            <label for="address">镜像仓库地址</label>
+		            <input type="text" class="form-control" name="address" placeholder="192.168.10.3:5000">
+		        </div>
+		        <div class="form-group">
+		            <label for="address">备注</label>
+		            <input type="text" class="form-control" name="label">
+		        </div>
+		        <div class="form-group">
+		            <label for="address">API类型</label>
+		            <select class="form-control" name="type">
+		            	<option>Docker Hub</option>
+		            	<option>VMware Harbor</option>
+		            </select>
+		        </div>
+		        <div class="form-group">
+		            <label for="address">状态</label>
+		            <select class="form-control" name="status">
+		            	<option>up</option>
+		            	<option>down</option>
+		            </select>
+		        </div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="button" onclick="save_repository();" data-dismiss="modal" class="btn btn-primary">确定</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+</form>
+
+
+<!-- 下载模态框（Modal） -->
+<div class="modal fade" id="mydownload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4>
+					<span>拉取版本:<span id="imgversion"></span></span>
+				</h4>
+			</div>
+			<div class="modal-body">
+		        <div>
+		            <label for="address">拉取命令:</label>
+		            <pre id='cmds'></pre>
+		        </div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+
+{% endblock %}

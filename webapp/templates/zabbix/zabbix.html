@@ -1,0 +1,123 @@
+{% extends "base/bootstrap.html" %}
+
+{% block css %}
+<link href="/static/css/zabbix/zabbix.css" rel="stylesheet">
+{% endblock %}
+
+{% block js %}
+<script src="/static/js/zabbix/zabbix.js"></script>
+{% endblock %}
+
+{% block right %}
+<div class="col-md-10" style="padding:0px">
+  	<ul class="breadcrumb">
+    	<li><a href="/"><i class="glyphicon glyphicon-home"></i>Home</a></li>
+    	<li>Zabbix监控</li>
+    	<li class="active">Zabbix配置</li>
+	</ul>
+</div>
+
+<div class="col-md-10" id="zabbix_config">
+	<div>
+		<div >
+			<div style="float:left;padding:0px;">
+				<h4 id="zabbix-title">Zabbix服务</h4>
+			</div>
+			<div style="margin:20px;display:inline-block;color:#C0C0C0;">
+				<div>
+					<span style="font-weight:bold;">Zabbix API:</span>
+					<span style="margin-left:20px;">http://192.168.10.3:5001/zabbix/api_jsonrpc.php</span> 
+				</div>
+				<div>
+					<span style="font-weight:bold;">Zabbix 邮件报警:</span>
+					<span style="margin-left:20px;">SMTP:mail.company.com</span>
+					<div style="margin-left:137px;">user:zabbix@company.com</div>
+				</div>
+			</div>
+			<div style="float:right;margin:20px;">
+				<button type="button" class="btn btn-info">zabbix api 配置</button>
+				<button type="button" class="btn btn-info">zabbix 报警配置</button>
+			</div>
+		</div>
+	</div>
+	
+	<div>
+		<div id="zabbix-menu">
+			<div style="border-bottom:2px solid #2d8cf0;color:#2d8cf0">主机</div>
+			<div>模版</div>
+		</div>
+		<div id="zabbix-detail">
+			<div class="zabbix-detail" style="display:block;">
+				<a href="addHost/" id="add-button" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>创建主机</a>
+				<div id="zabbix-detail-host">
+					<table class="table table-bordered">
+					  <thead>
+					    <tr>
+					      <th>名称</th>
+					      <th>接口</th>
+					      <th>监控项</th>
+					      <th>模版</th>
+					      <th>状态</th>
+					      <th>可用性</th>
+					      <th></th>
+					      <th></th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  {% for host in hosts %}
+					    <tr>
+					      <td>{{ host.address }}</td>
+					      <td>{{ host.label }}</td>
+					      <td>{{ host.type }}</td>
+					      <td>{{ host.count }}</td>
+					      <td>{{ host.createtime|date:'Y/m/d H:i:s'}}</td>
+					      {% ifequal host.status 'up' %}
+					      <td><span style="background-color:#006400;color:white;">up</span></td>
+					      {% else %}
+					      <td><span style="background-color:#880000;color:white;">down</span></td>
+					      {% endifequal %}
+					      <td>
+					      	<button type="button" onclick="refresh_repository(this);" class="btn btn-info"><i class="glyphicon glyphicon-refresh"></i></button>
+					      	<button type="button" onclick="delete_repository(this);" class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i></button>
+					      </td>
+					    </tr>
+					    {% endfor %}
+					  </tbody>
+					</table>
+				</div>
+			</div>
+			<div class="zabbix-detail">
+				<button id="add-button" onclick="add_template();" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>创建模版</button>
+				<div id="zabbix-detail-template">
+					<table class="table table-bordered">
+					  <thead>
+					    <tr>
+					      <th>名称</th>
+					      <th>已链接到</th>
+					      <th>应用集</th>
+					      <th>监控项</th>
+					      <th>触发器</th>
+					      <th></th>
+					      <th></th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  {% for image in images %}
+					    <tr>
+					      <td>{{ image.imagename }}</td>
+					      <td>{{ image.imageid }}</td>
+					      <td>{{ image.imagedockerversion }}</td>
+					      <td>{{ image.address }}</td>
+					      <td>{{ image.imagetime }}</td>
+					      <td>{{ image.imagesize }}</td>
+					      <td><button type="button" onclick="download_image(this);" data-toggle="modal" data-target="#mydownload" class="btn btn-success"><i class="glyphicon glyphicon-save"></i></button></td>
+					    </tr>
+					    {% endfor %}
+					  </tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

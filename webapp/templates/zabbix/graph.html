@@ -1,0 +1,28 @@
+{% extends "base/bootstrap.html" %}
+
+{% block css %}
+<link href="/static/css/zabbix/zabbix.css" rel="stylesheet">
+{% endblock %}
+
+{% block js %}
+<script src="/static/js/zabbix/zabbix.js"></script>
+{% endblock %}
+
+{% block right %}
+<div class="col-md-10" style="padding:0px">
+  	<ul class="breadcrumb">
+    	<li><a href="/"><i class="glyphicon glyphicon-home"></i>Home</a></li>
+    	<li>监控告警</li>
+    	<li class="active">图形展示</li>
+	</ul>
+</div>
+
+<div class="col-md-10" id="zabbix_config">
+	<div>
+		<img style="width:300px;height:200px;" alt="" src="/static/images/zabbix/cpu.png">
+		<img style="width:300px;height:200px;" alt="" src="/static/images/zabbix/cpu.png"></div>
+	<div><img style="width:300px;height:200px;" alt="" src="/static/images/zabbix/cpu.png">
+		<img style="width:300px;height:200px;" alt="" src="/static/images/zabbix/cpu.png"></div>
+</div>
+
+{% endblock %}

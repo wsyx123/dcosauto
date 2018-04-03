@@ -1,0 +1,81 @@
+#zabbix_config{
+	border:1px solid #d7dde4;
+	border-radius:4px;
+	margin-left:15px;
+	height:555px;
+	width:1105px;
+	overflow:auto;
+}
+
+#zabbix-title{
+	display: inline-block;
+	font-size: 1.5em;
+    -webkit-margin-before: 0.83em;
+    -webkit-margin-after: 0.83em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+}
+
+#zabbix-menu{
+	margin-top:10px;
+	border-bottom:1px solid #d7dde4;
+	cursor:pointer;
+}
+
+#zabbix-menu div{
+	padding:5px;
+	width:70px;
+	display:inline-block;
+}
+
+.add-underline{
+	border-bottom:2px solid #2d8cf0;
+	color:#2d8cf0;
+}
+
+#zabbix-detail{
+	margin-top:15px;
+}
+
+.zabbix-detail{
+	display:none;
+}
+
+#add-button{
+	font-size:12px;
+	background-color:#2d8cf0;
+	border-color: #2d8cf0;
+}
+
+#zabbix-detail-host button,#zabbix-detail-template button{
+	width:26px;
+	height:20px;
+	padding:3px 6px;
+	font-size:12px;
+}
+
+
+#zabbix-detail-host,#zabbix-detail-template{
+	margin-top:10px;
+}
+
+.checkbox-radio{
+    width: 18px;
+    height: 18px;
+}
+
+.add_host td{
+	padding:10px;
+}
+
+.add_host_agent{
+	border-collapse: collapse;
+	border:1px solid #d7dde4;
+}
+
+.add_host_agent td{
+	padding:2px;
+	text-align:left;
+}
+

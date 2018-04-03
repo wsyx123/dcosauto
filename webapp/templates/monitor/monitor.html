@@ -1,0 +1,181 @@
+{% extends "base/bootstrap.html" %}
+{% load monitor_template %}
+{% block css %}
+<link href="/static/css/monitor/monitor.css" rel="stylesheet">
+{% endblock %}
+
+{% block js %}
+<script src="/static/js/monitor/monitor.js"></script>
+{% endblock %}
+
+{% block right %}
+<div class="col-md-10" style="padding:0px">
+  	<ul class="breadcrumb">
+    	<li><a href="/"><i class="glyphicon glyphicon-home"></i>Home</a></li>
+    	<li>监控告警</li>
+    	<li class="active">配置中心</li>
+	</ul>
+</div>
+
+<div class="col-md-10" id="zabbix_config">
+	<div>
+		<div style="display:inline-block;">
+			<h4 id="zabbix-title">监控配置</h4>
+			<span style="font-size:12px;color:#9b9b9b;margin-left:18px;">目前只支持监控CPU,内存,磁盘,网络</span>
+		</div>
+		<div style="display:inline-block;margin-left:100px;">
+			<h4 id="zabbix-title">Server API信息</h4>
+			<span style="margin-left:18px;"><a id="server-api-show">http://192.168.10.3:7001</a></span>
+		</div>
+		<div style="display:inline-block;margin-left:200px;margin-top:20px;">
+				<button type="button" onclick="server_api_edit_start();" data-toggle="modal" data-target="#server-api-edit" class="btn btn-info">Server API配置</button>
+		</div>
+	</div>
+	
+	<div>
+		<div id="zabbix-menu">
+			<div style="border-bottom:2px solid #2d8cf0;color:#2d8cf0">主机</div>
+			<div>模版</div>
+			<div>告警策略</div>
+		</div>
+		
+		<!-- 删除结果（Alert） -->	
+		<div id="mySuccessAlert" class="alert alert-success">
+			<a href="#" class="close">&times;</a>
+			<strong>删除成功！</strong>
+		</div>
+		<div id="myFailureAlert" class="alert alert-warning">
+			<a href="#" class="close">&times;</a>
+			<strong>删除失败！</strong><span id='delete-failure'></span>。
+		</div>
+		
+		<div id="zabbix-detail">
+			<div class="zabbix-detail" style="display:block;">
+				<a href="addHost/" id="add-button" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>创建主机</a>
+				<div id="zabbix-detail-host">
+					<table class="table table-bordered">
+					  <thead>
+					    <tr>
+					      <th>可见名称</th>
+					      <th>Agent接口</th>
+					      <th>使用模版</th>
+					      <th>状态</th>
+					      <th>可用性</th>
+					      <th>维护</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  {% for host in hosts %}
+					    <tr>
+					      <td>{{host.name}}</td>
+					      <td>{{host.address}}:{{host.port}}</td>
+					      <td>{{host.template}}</td>
+					  {% if host.status %}
+					      <td class="monitor-status"><a style="cursor:pointer;color:green">已启用</a></td>
+					  {% else %}
+					      <td class="monitor-status"><a style="cursor:pointer;color:red;">停用的</a></td>
+					  {% endif %}
+					  {% ifequal host.agent 'up' %}
+					      <td><span class="status-green">agent</span></td>
+					  {% else %}
+					  	  <td><span class="status-red">agent</span></td>
+					  {% endifequal %}
+					      <td>
+					      	<button title="检测" type="button" onclick="refresh_agent(this);" class="btn btn-info"><i class="glyphicon glyphicon-repeat"></i></button>
+					      	<button title="编辑" class="btn btn-info"><i class="glyphicon glyphicon-edit"></i></button>
+					      	<button title="删除" type="button" onclick="delete_agent(this);" class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i></button>
+					      </td>
+					    </tr>
+					   {% endfor %}
+					  </tbody>
+					</table>
+				</div>
+			</div>
+			<div class="zabbix-detail">
+				<a href="addTemplate/" id="add-button" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>创建模版</a>
+				<div id="zabbix-detail-template">
+					<table class="table table-bordered">
+					  <thead>
+					    <tr>
+					      <th>名称</th>
+					      <th>监控项</th>
+					      <th>监控频率</th>
+					      <th>告警策略</th>
+					      <th></th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  {% for template in templates %}
+					    <tr>
+					      <td>{{template.name}}</td>
+					      <td>{{template.items}}</td>
+					      <td>{{template.interval}}</td>
+					      <td>{{template.policy}}</td>
+					      <td>
+					      	<button type="button" class="btn btn-info" title="dcos模版详情" data-container="body" 
+						      data-toggle="popover" data-placement="left"
+						      data-content="{% show_template_detail template %}">详情
+						    </button>
+						    <button onclick="del_template(this);" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i></button>
+					      </td>
+					    </tr>
+					  {% endfor %}
+					  </tbody>
+					</table>
+				</div>
+			</div>
+			<div class="zabbix-detail">
+			<button id="add-button" onclick="add_template();" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>报警策略</button>
+			<div id="zabbix-detail-template">
+				<table class="table table-bordered">
+				  <thead>
+				    <tr>
+				      <th>策略别名</th>
+				      <th>warning阀值</th>
+				      <th>danger阀值</th>
+				      <th>告警升级/次</th>
+				      <th></th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  {% for policy in policys %}
+				    <tr>
+				      <td>{{ policy.name }}</td>
+				      <td>{{ policy.warning_threshold }}</td>
+				      <td>{{ policy.danger_threshold }}</td>
+				      <td>{{ policy.promote }}</td>
+				      <td>
+				      	<button class="btn btn-info"><i class="glyphicon glyphicon-edit"></i></button>
+				      	<button title="删除" type="button" onclick="delete_policy(this);" class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i></button>
+				      </td>
+				    </tr>
+				   {% endfor %}
+				  </tbody>
+				</table>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- 选择模态框（Modal） -->
+<div class="modal fade" id="server-api-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">编辑Server API 信息</h4>
+            </div>
+            <div class="modal-body">
+            	<input style="width:100%;" name="server-api">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="server_api_edit_save();">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+{% endblock %}
