@@ -95,6 +95,9 @@ class MonitorHost(models.Model):
     template = models.ForeignKey('MonitorTemplate',on_delete=models.PROTECT,verbose_name='模版')
     status = models.CharField(max_length=15,default='enabled',verbose_name='状态')
     agent = models.CharField(max_length=5,default='down',verbose_name='Agent状态')
+    
+    def __unicode__(self):
+        return '%s' %(self.name)
 
 class MonitorProblem(models.Model):
     name = models.CharField(max_length=255,verbose_name='名称')
@@ -103,6 +106,9 @@ class MonitorProblem(models.Model):
     level = models.CharField(max_length=16,verbose_name='级别')
     status = models.CharField(max_length=16,default='unconfirmed',verbose_name='状态')
     
+    def __unicode__(self):
+        return '%s' %(self.name)
+    
 class MonitorNotifyDetail(models.Model):
     mode = models.CharField(max_length=10,verbose_name='通知方式')
     theme = models.CharField(max_length=32,verbose_name='主题')
@@ -110,10 +116,15 @@ class MonitorNotifyDetail(models.Model):
     send_to = models.CharField(max_length=64,verbose_name="接收人")
     status = models.CharField(max_length=10,default='send',verbose_name="发送状态")
     
+    def __unicode__(self):
+        return '%s' %(self.name)
+    
 class MonitorNotifyPolicy(models.Model):
     name = models.CharField(max_length=255,verbose_name='名称')
     warning_threshold = models.CharField(max_length=255,verbose_name='warning阀值')
     danger_threshold = models.CharField(max_length=255,verbose_name='danger阀值')
     promote = models.CharField(max_length=255,verbose_name='告警升级/次')
     
+    def __unicode__(self):
+        return '%s' %(self.name)
         

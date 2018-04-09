@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+#_*_ coding:utf-8 _*_
 """devops_ci URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -14,9 +16,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url,include
-import webapp
 
 
 urlpatterns = [
     url(r'',include('webapp.urls')),
+    url(r'^master',include('monitor_master.urls')),
 ]
