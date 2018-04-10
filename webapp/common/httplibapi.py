@@ -12,6 +12,7 @@ def get(host,port,url_context=None):
     try:
         conn.request("GET", url_context)
     except Exception as e:
+        print e
         return {'code':10060,'result':'连接失败'}
     else:
         httpres = conn.getresponse()

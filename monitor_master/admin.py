@@ -11,10 +11,7 @@ MonitorProblem,MonitorNotifyPolicy,MonitorItem
     
 class MonitorTemplateAdmin(admin.ModelAdmin):
     list_display = ('name','get_items','get_policy','interval')
-    def get_policy(self, MonitorNotifyPolicy):
-        return "\n".join([p.name for p in MonitorNotifyPolicy.objects.all()]) 
-    def get_items(self, MonitorItem):
-        return "\n".join([p.name for p in MonitorItem.objects.all()]) 
+
     
 class MonitorHostAdmin(admin.ModelAdmin):
     list_display = ('name','address','port','template','status','agent')  

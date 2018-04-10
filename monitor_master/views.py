@@ -3,6 +3,9 @@ from __future__ import unicode_literals
 from rest_framework import viewsets
 from .models import MonitorHost,MonitorNotifyDetail,MonitorNotifyPolicy,MonitorProblem,MonitorTemplate,MonitorItem
 from .serializers import HostSerializer,DetailSerializer,PolicySerializer,ProblemSerializer,TemplateSerializer,ItemSerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from forms import MonitorForms
 
 # Create your views here.
 
@@ -29,4 +32,8 @@ class TemplateViewSet(viewsets.ModelViewSet):
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = MonitorItem.objects.all()
     serializer_class = ItemSerializer
-    
+
+class MonitorHandler(APIView):
+    def post(self,request):
+        MonitorForms(request.data,request.META['REMOTE_ADDR'])
+        return Response('ok')
