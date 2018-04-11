@@ -45,11 +45,14 @@ class MonitorHost(models.Model):
 
 class MonitorProblem(models.Model):
     PROBLEM_STATUS = (('CONFIRMED','CONFIRMED'),('UNCONFIRMED','UNCONFIRMED'))
+    PROBLEM_LEVEL = (('WARNING','WARNING'),('DANGER','DANGER'))
+    PROBLEM_TYPE = (('CPU','CPU'),('NETWORK','NETWORK'),('DISK','DISK'),('MEMORY','MEMORY'))
     name = models.CharField(max_length=255,verbose_name='名称')
+    type = models.CharField(max_length=15,choices=PROBLEM_TYPE,verbose_name='类型')
     time = models.DateTimeField(default = timezone.now,verbose_name='时间')
-    address = models.CharField(max_length=32,verbose_name='主机')
-    level = models.CharField(max_length=16,verbose_name='级别')
-    status = models.CharField(max_length=16,default='CONFIRMED',choices=PROBLEM_STATUS,verbose_name='状态')
+    host = models.CharField(max_length=32,verbose_name='主机')
+    level = models.CharField(max_length=16,default='WARNING',choices=PROBLEM_LEVEL,verbose_name='级别')
+    status = models.CharField(max_length=16,default='UNCONFIRMED',choices=PROBLEM_STATUS,verbose_name='状态')
     
     def __unicode__(self):
         return '%s' %(self.name)

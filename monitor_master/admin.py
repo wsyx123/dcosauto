@@ -20,7 +20,7 @@ class MonitorNotifyPolicyAdmin(admin.ModelAdmin):
     list_display = ('name','warning_threshold','danger_threshold','promote')
     
 class MonitorProblemAdmin(admin.ModelAdmin):
-    list_display = ('name','time','address','level','status')
+    list_display = ('name','type','time','host','level','status')
     
 class MonitorNotifyDetailAdmin(admin.ModelAdmin):
     list_display = ('mode','theme','content','send_to','status')
