@@ -8,7 +8,6 @@ Created on 2018年4月10日
 cpu_mapping = {
         "settings" : {
                 "index" : {
-                    "number_of_shards" : 3, 
                     "number_of_replicas" : 1 
                         }
                       },
@@ -36,7 +35,6 @@ cpu_mapping = {
 memory_mapping = {
         "settings" : {
                 "index" : {
-                    "number_of_shards" : 3, 
                     "number_of_replicas" : 1 
                         }
                       },
@@ -64,7 +62,7 @@ memory_mapping = {
 disk_mapping = {
         "settings" : {
                 "index" : {
-                    "number_of_shards" : 3, 
+#                     "number_of_shards" : 3, 
                     "number_of_replicas" : 1 
                         }
                       },
@@ -96,7 +94,7 @@ disk_mapping = {
 network_mapping = {
         "settings" : {
                 "index" : {
-                    "number_of_shards" : 3, 
+#                     "number_of_shards" : 3, 
                     "number_of_replicas" : 1 
                         }
                       },

@@ -7,12 +7,12 @@ Created on 2018年4月11日
 '''
 from elasticsearch import es_api
 import datetime
-import json
+from filter import threshold_filter
 
 class MonitorForms(object):
     def __init__(self,data,address):
         self.data = data
-        self.host = self.data.get('host')
+        self.host = self.data.get('host',address)
         self.docops = es_api.DocumentApi('192.168.10.3',9200)
         self.dispatch()
         
@@ -34,7 +34,7 @@ class MonitorForms(object):
             'timestamp' : datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             'usage' : data['usage'],
             'iowait' : data['iowait']}
-        
+        threshold_filter.ThresholdFilter(self.host).cpu(data['usage'])
         print self.docops.create(index_name='dcos', doc_type='cpu', doc_id=None, doc_body=doc_body)
     
     def memory(self,data):

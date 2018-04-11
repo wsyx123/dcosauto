@@ -16,7 +16,7 @@ router.register(r'templates', TemplateViewSet)
 router.register(r'Items', ItemViewSet)
 
 urlpatterns = [
-    url(r'/api/', include(router.urls)),
-    url(r'/monitor/',MonitorHandler.as_view()),
+    url(r'api/', include(router.urls)),
+    url(r'monitor/',MonitorHandler.as_view()),
     url(r'docs/', include_docs_urls(title='Monitor Master API'))
 ]

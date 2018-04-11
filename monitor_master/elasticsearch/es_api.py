@@ -99,7 +99,25 @@ class DocumentApi(object):
         else:
             httpres = self.conn.getresponse()
             return {'code':httpres.status,'result':httpres.read()}
+    
+    def delete(self,index_name,doc_type):
+        doc_body = {
+                    "query": {
+                    "match_all": {}
+                    }
+                    }
         
+        url_context = '/{}/{}/_delete_by_query'.format(index_name,doc_type)
+        body=json.dumps(doc_body)
+        try:
+            self.conn.request('POST', url_context, body, {'Content-Type': 'application/json'})
+        except Exception as e:
+            print e
+        else:
+            httpres = self.conn.getresponse()
+            return {'code':httpres.status,'result':httpres.read()}
+        
+            
         
 # obj = IndexApi('192.168.10.3',9200)
 # print obj.delete('dcos')

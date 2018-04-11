@@ -20,5 +20,5 @@ from django.conf.urls import url,include
 
 urlpatterns = [
     url(r'',include('webapp.urls')),
-    url(r'^master',include('monitor_master.urls')),
+    url(r'^master/',include('monitor_master.urls')),
 ]

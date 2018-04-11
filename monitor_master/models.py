@@ -35,7 +35,7 @@ class MonitorHost(models.Model):
     HOST_STATUS = (('UP','UP'),('DOWN','DOWN'))
     name = models.CharField(max_length=64,unique=True,verbose_name='名称')
     address = models.CharField(max_length=32,unique=True,verbose_name='IP地址')
-    port = models.CharField(max_length=32,unique=True,verbose_name='端口')
+    port = models.CharField(max_length=32,verbose_name='端口')
     template = models.ForeignKey('MonitorTemplate',on_delete=models.PROTECT,verbose_name='模版')
     status = models.CharField(max_length=5,default='DOWN',choices=HOST_STATUS,verbose_name='状态')
     agent = models.CharField(max_length=5,default='DOWN',choices=HOST_STATUS,verbose_name='Agent状态')

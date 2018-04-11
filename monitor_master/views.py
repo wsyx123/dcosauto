@@ -5,13 +5,17 @@ from .models import MonitorHost,MonitorNotifyDetail,MonitorNotifyPolicy,MonitorP
 from .serializers import HostSerializer,DetailSerializer,PolicySerializer,ProblemSerializer,TemplateSerializer,ItemSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.http import Http404
+from rest_framework import status
 from forms import MonitorForms
+from filter import threshold_filter
 
 # Create your views here.
 
 class HostViewSet(viewsets.ModelViewSet):
     queryset = MonitorHost.objects.all()
     serializer_class = HostSerializer
+    lookup_field = 'name'
 
 class DetailViewSet(viewsets.ModelViewSet):
     queryset = MonitorNotifyDetail.objects.all()
@@ -28,11 +32,13 @@ class ProblemViewSet(viewsets.ModelViewSet):
 class TemplateViewSet(viewsets.ModelViewSet):
     queryset = MonitorTemplate.objects.all()
     serializer_class = TemplateSerializer
+    lookup_field = 'name'
 
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = MonitorItem.objects.all()
     serializer_class = ItemSerializer
 
+    
 class MonitorHandler(APIView):
     def post(self,request):
         MonitorForms(request.data,request.META['REMOTE_ADDR'])
