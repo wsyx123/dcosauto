@@ -49,25 +49,30 @@
 					      <th>时间</th>
 					      <th>主机</th>
 					      <th>问题</th>
+					      <th>类别</th>
 					      <th>级别</th>
 					      <th>状态</th>
 					    </tr>
 					  </thead>
 					  <tbody>
+					  {% for problem in problems %}
 					    <tr>
-					      <td>2018/03/29 23:49:21</td>
-					      <td>192.168.10.3</td>
-					      <td>CPU负载>1</td>
+					      <td>{{ problem.time|date:"Y-m-d H:i:s"}}</td>
+					      <td>{{ problem.host }}</td>
+					      <td>{{ problem.name }}</td>
+					      <td>{{ problem.type }}</td>
+					      {% ifequal problem.level 'WARNING' %}
 					      <td><span style="background-color:#CC6600;color:white;">warning</span></td>
-					      <td class="notify-status"><a class="notify-status-green">已确认</a></td>
-					    </tr>
-					    <tr>
-					      <td>2018/03/29 23:49:25</td>
-					      <td>192.168.10.3</td>
-					      <td>内存使用率>90%</td>
+					      {% else %}
 					      <td><span style="background-color:#880000;color:white;">danger</span></td>
+					      {% endifequal %}
+					      {% ifequal problem.status 'CONFIRMED'%}
+					      <td class="notify-status"><a class="notify-status-green">已确认</a></td>
+					      {% else %}
 					      <td class="notify-status"><a class="notify-status-grey">未确认</a></td>
+					      {% endifequal %}
 					    </tr>
+					  {% endfor %}
 					  </tbody>
 					</table>
 				</div>
