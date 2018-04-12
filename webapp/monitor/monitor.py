@@ -57,5 +57,5 @@ def monitor_graph(request):
 
 def monitor_notify(request):
     problems = MonitorProblem.objects.all().order_by('-time')
-    notifys = MonitorNotifyDetail.objects.all()
+    notifys = MonitorNotifyDetail.objects.all().order_by('-time')
     return render_to_response("monitor/notify.html",{'problems':problems,'notifys':notifys})

@@ -84,6 +84,7 @@
 					  <thead>
 					    <tr>
 					      <th>通知类型</th>
+					      <th>发送时间</th>
 					      <th>主题</th>
 					      <th>内容</th>
 					      <th>接收人</th>
@@ -94,13 +95,17 @@
 					  {% for notify in notifys %}
 					    <tr>
 					      <td>{{ notify.mode }}</td>
+					      <td>{{ notify.time|date:"Y-m-d H:i:s" }}</td>
 					      <td>{{ notify.theme }}</td>
 					      <td>{% notify_content notify.content %}</td>
 					      <td>{{ notify.send_to }}</td>
 					      {% ifequal notify.status 'SEND' %}
 					      <td style="color:green">发送成功</td>
 					      {% else %}
-					      <td style="color:red">发送失败</td>
+					      <td style="color:red">
+					      	发送失败
+					      	<p style="color:red">{{ notify.message }}</p>
+					      </td>
 					      {% endifequal %}
 					    </tr>
 					   {% endfor %}

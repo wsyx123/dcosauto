@@ -60,11 +60,13 @@ class MonitorProblem(models.Model):
 class MonitorNotifyDetail(models.Model):
     NOTIFY_WAY = (('Email','Email'),('SMS','SMS'))
     SEND_STATUS = (('SEND','SEND'),('UNSEND','UNSEND'))
+    time = models.DateTimeField(default = timezone.now,verbose_name='时间')
     mode = models.CharField(max_length=10,default='Email',choices=NOTIFY_WAY,verbose_name='通知方式')
     theme = models.CharField(max_length=32,verbose_name='主题')
     content = models.TextField(verbose_name="内容")
     send_to = models.CharField(max_length=64,verbose_name="接收人")
     status = models.CharField(max_length=10,default='SEND',choices=SEND_STATUS,verbose_name="发送状态")
+    message = models.CharField(max_length=255,blank=True,null=True)
     
     def __unicode__(self):
         return '%s' %(self.theme)
