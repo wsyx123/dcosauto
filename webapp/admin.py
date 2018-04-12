@@ -4,8 +4,7 @@ from __future__ import unicode_literals
 from django.contrib import admin
 
 from models import platformcluster,platformcomponent,platformtemplate,platformhosts
-from models import ImageRegistry,MonitorTemplate,MonitorHost,MonitorNotifyDetail,\
-MonitorProblem,MonitorNotifyPolicy
+from models import ImageRegistry
 
 class PlatformClusterAdmin(admin.ModelAdmin):
     list_display = ('name','version','createtime')
@@ -25,28 +24,28 @@ class PlatformHostsAdmin(admin.ModelAdmin):
 class ImageRegistryAdmin(admin.ModelAdmin):
     list_display = ('address','label','type','count','createtime','status')  
     
-class MonitorTemplateAdmin(admin.ModelAdmin):
-    list_display = ('name','items','interval','cpu','memory','disk','network')  
-    
-class MonitorHostAdmin(admin.ModelAdmin):
-    list_display = ('name','address','port','template','status','agent')  
-    
-class MonitorNotifyPolicyAdmin(admin.ModelAdmin):
-    list_display = ('name','warning_threshold','danger_threshold','promote')
-    
-class MonitorProblemAdmin(admin.ModelAdmin):
-    list_display = ('name','time','address','level','status')
-    
-class MonitorNotifyDetailAdmin(admin.ModelAdmin):
-    list_display = ('mode','theme','content','send_to','status')
+# class MonitorTemplateAdmin(admin.ModelAdmin):
+#     list_display = ('name','items','interval','cpu','memory','disk','network')  
+#     
+# class MonitorHostAdmin(admin.ModelAdmin):
+#     list_display = ('name','address','port','template','status','agent')  
+#     
+# class MonitorNotifyPolicyAdmin(admin.ModelAdmin):
+#     list_display = ('name','warning_threshold','danger_threshold','promote')
+#     
+# class MonitorProblemAdmin(admin.ModelAdmin):
+#     list_display = ('name','time','address','level','status')
+#     
+# class MonitorNotifyDetailAdmin(admin.ModelAdmin):
+#     list_display = ('mode','theme','content','send_to','status')
 
 admin.site.register(platformcluster, PlatformClusterAdmin)
 admin.site.register(platformcomponent, PlatformComponentAdmin)
 admin.site.register(platformtemplate, PlatformtemplateAdmin)
 admin.site.register(platformhosts, PlatformHostsAdmin)
 admin.site.register(ImageRegistry,ImageRegistryAdmin)
-admin.site.register(MonitorTemplate,MonitorTemplateAdmin)
-admin.site.register(MonitorHost,MonitorHostAdmin)
-admin.site.register(MonitorNotifyPolicy,MonitorNotifyPolicyAdmin)
-admin.site.register(MonitorProblem,MonitorProblemAdmin)
-admin.site.register(MonitorNotifyDetail,MonitorNotifyDetailAdmin)
+# admin.site.register(MonitorTemplate,MonitorTemplateAdmin)
+# admin.site.register(MonitorHost,MonitorHostAdmin)
+# admin.site.register(MonitorNotifyPolicy,MonitorNotifyPolicyAdmin)
+# admin.site.register(MonitorProblem,MonitorProblemAdmin)
+# admin.site.register(MonitorNotifyDetail,MonitorNotifyDetailAdmin)

@@ -36,6 +36,7 @@
 		<div id="zabbix-menu">
 			<div style="border-bottom:2px solid #2d8cf0;color:#2d8cf0">主机</div>
 			<div>模版</div>
+			<div>监控项</div>
 			<div>告警策略</div>
 		</div>
 		
@@ -69,20 +70,20 @@
 					    <tr>
 					      <td>{{host.name}}</td>
 					      <td>{{host.address}}:{{host.port}}</td>
-					      <td>{{host.template}}</td>
+					      <td onclick="tdclick(this);">{{host.template}}</td>
 					  {% if host.status %}
 					      <td class="monitor-status"><a style="cursor:pointer;color:green">已启用</a></td>
 					  {% else %}
 					      <td class="monitor-status"><a style="cursor:pointer;color:red;">停用的</a></td>
 					  {% endif %}
-					  {% ifequal host.agent 'up' %}
+					  {% ifequal host.agent 'UP' %}
 					      <td><span class="status-green">agent</span></td>
 					  {% else %}
 					  	  <td><span class="status-red">agent</span></td>
 					  {% endifequal %}
-					      <td>
+					      <td width="130">
 					      	<button title="检测" type="button" onclick="refresh_agent(this);" class="btn btn-info"><i class="glyphicon glyphicon-repeat"></i></button>
-					      	<button title="编辑" class="btn btn-info"><i class="glyphicon glyphicon-edit"></i></button>
+					      	<button title="编辑" type="button" onclick="edit_agent(this);" class="btn btn-info"><i class="glyphicon glyphicon-edit"></i></button>
 					      	<button title="删除" type="button" onclick="delete_agent(this);" class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i></button>
 					      </td>
 					    </tr>
@@ -101,7 +102,7 @@
 					      <th>监控项</th>
 					      <th>监控频率</th>
 					      <th>告警策略</th>
-					      <th></th>
+					      <th>维护</th>
 					    </tr>
 					  </thead>
 					  <tbody>
@@ -111,11 +112,8 @@
 					      <td>{{template|item_manytomany}}</td>
 					      <td>{{template.interval}}</td>
 					      <td>{{template|policy_manytomany}}</td>
-					      <td>
-					      	<button type="button" class="btn btn-info" title="dcos模版详情" data-container="body" 
-						      data-toggle="popover" data-placement="left"
-						      data-content="{% show_template_detail template %}">详情
-						    </button>
+					      <td width="130">
+					      	<button title="编辑" type="button" onclick="edit_agent(this);" class="btn btn-info"><i class="glyphicon glyphicon-edit"></i></button>
 						    <button onclick="del_template(this);" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i></button>
 					      </td>
 					    </tr>
@@ -124,6 +122,34 @@
 					</table>
 				</div>
 			</div>
+			
+			<div class="zabbix-detail">
+				<a href="addItem/" id="add-button" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>添加监控项</a>
+				<div id="zabbix-detail-template">
+					<table class="table table-bordered">
+					  <thead>
+					    <tr>
+					      <th>名称</th>
+					      <th>键值</th>
+					      <th>维护</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  {% for item in items %}
+					    <tr>
+					      <td>{{item.name}}</td>
+					      <td>{{item.value}}</td>
+					      <td width="130">
+					      	<button title="编辑" type="button" class="btn btn-info"><i class="glyphicon glyphicon-edit"></i></button>
+						    <button onclick="del_template(this);" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i></button>
+					      </td>
+					    </tr>
+					  {% endfor %}
+					  </tbody>
+					</table>
+				</div>
+			</div>
+			
 			<div class="zabbix-detail">
 			<button id="add-button" onclick="add_template();" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>报警策略</button>
 			<div id="zabbix-detail-template">
@@ -134,7 +160,7 @@
 				      <th>warning阀值</th>
 				      <th>danger阀值</th>
 				      <th>告警升级/次</th>
-				      <th></th>
+				      <th>维护</th>
 				    </tr>
 				  </thead>
 				  <tbody>
@@ -144,7 +170,7 @@
 				      <td>{{ policy.warning_threshold }}</td>
 				      <td>{{ policy.danger_threshold }}</td>
 				      <td>{{ policy.promote }}</td>
-				      <td>
+				      <td width="130">
 				      	<button class="btn btn-info"><i class="glyphicon glyphicon-edit"></i></button>
 				      	<button title="删除" type="button" onclick="delete_policy(this);" class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i></button>
 				      </td>

@@ -39,7 +39,6 @@
 					<table id="input-table-selected">
 						<tr>
 							<td>名称</td>
-							<td>键值</td>
 							<td><button data-toggle="modal" data-target="#choice" type="button">选择</button></td>
 						</tr>
 					</table>
@@ -51,9 +50,6 @@
 					<table id="policy-select-table">
 						<tr>
 							<td>名称</td>
-							<td>warning阀值</td>
-							<td>danger阀值</td>
-							<td>告警升级/次</td>
 							<td><button data-toggle="modal" data-target="#policy-choice" type="button">选择</button></td>
 						</tr>
 					</table>
@@ -95,55 +91,17 @@
 				    </tr>
 				  </thead>
 				  <tbody class="monitor_item">
+				  {% for item in items %}
 				    <tr>
 				      <td><input type="checkbox"></td>
-				      <td>cpu</td>
-				      <td>
-						<select id="cpu" name="cpu" class="selectpicker show-tick form-control" multiple data-live-search="false">
-	                        <option>usage</option>
-	                        <option>iowait</option>
-                         </select>
-				      </td>
+				      <td>{{item.name}}</td>
+				      <td>{{item.value}}</td>
 				    </tr>
-				    <tr>
-				      <td><input type="checkbox"></td>
-				      <td>memory</td>
-				      <td>
-						<select id="memory" name="memory" class="selectpicker show-tick form-control" multiple>
-	                        <option>free</option>
-	                        <option>total</option>
-                         </select>
-				      </td>
-				    </tr>
-				    <tr>
-				      <td><input type="checkbox"></td>
-				      <td>disk</td>
-				      <td>
-						<select id="disk" name="disk" class="selectpicker show-tick form-control" multiple>
-	                        <option>/</option>
-	                        <option>/data</option>
-	                        <option>/home</option>
-	                        <option>/boot</option>
-	                        <option>/run</option>
-	                        <option>/usr</option>
-	                        <option>/var</option>
-                         </select>
-				      </td>
-				    </tr>
-				    <tr>
-				      <td><input type="checkbox"></td>
-				      <td>network</td>
-				      <td>
-						<input style="width:300px;" type="text" id="network" name="network" placeholder="要监控的网卡名,多个网卡逗号隔开">
-				      </td>
-				    </tr>
+				    {% endfor %}
 				  </tbody>
 				</table>
             </div>
             <div class="modal-footer">
-            	<div>
-            	
-            	</div>
             	<button class="btn btn-default" onclick="select_all();">全选</button>
             	<button class="btn btn-default" onclick="unselect_all();" style="margin-right:300px;">全不选</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

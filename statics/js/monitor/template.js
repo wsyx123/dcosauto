@@ -1,5 +1,8 @@
 $(document).ready(function(){
 	templatejson = {};
+	$("#cpu").children().attr('checked','checked');
+	$("input[name='item']").attr('disabled',true);
+	$("#cpu").children().attr('disabled',false);
 //	$(".item-selected-delete").bind('click',function(){
 //		$(this).parent().remove();
 //	})
@@ -45,13 +48,13 @@ function unselect_all(){
 }
 
 function get_items(){
+	var items = new Array();
 	($(".monitor_item input[type='checkbox']:checked")).each(function(){ 
 		var key = $(this).parent().next().html();
-		var value = $("#"+key).val();
-		templatejson[key]=value;
+		items.push(key);
+		templatejson['items']=items;
 		$("#input-table-selected").append('<tr class="selected-detail">\
 				<td>'+key+'</td>\
-				<td>'+value+'</td>\
 				<td><a onclick="selected_detail_remove(this)">取消选择</a></td>\
 			</tr>')
 	})
@@ -91,12 +94,34 @@ function policy_get_items(){
 		policys.push(name);
 		$("#policy-select-table").append('<tr class="selected-detail">\
 				<td>'+name+'</td>\
-				<td>'+warning_threshold+'</td>\
-				<td>'+danger_threshold+'</td>\
-				<td>'+promote+'</td>\
 				<td><a onclick="selected_detail_remove(this)">取消选择</a></td>\
 			</tr>')
 	})
-	templatejson['policy']=policys;
+	templatejson['policys']=policys;
 }
 
+function disable_item(obj){
+	var item = $(obj).find('option:checked').html();
+	$("input[name='item']").attr('disabled',true);
+	//$("input[name='item']").prop('checked','checked');
+	$("#"+item).children().attr('disabled',false);
+	$("#"+item).children().attr('checked','checked');
+}
+
+function save_item(){
+	var name = $("input[name='name']").val();
+	var item = $("select[name='type']").val();
+	var value = $("select[name="+item+"]").val();
+	var itemjson = {"name":"","type":"","value":""};
+	itemjson["name"]=name;
+	itemjson["type"]=item;
+	itemjson["value"]=value.join(",");
+	$.ajax({
+		type: 'POST',
+		data: {'item':JSON.stringify(itemjson),},
+		success: function(){
+			window.location.href="/monitor/configure/";
+		}
+	})
+	
+}

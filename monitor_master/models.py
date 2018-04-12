@@ -25,7 +25,9 @@ class MonitorTemplate(models.Model):
         return '%s' %(self.name)
     
 class MonitorItem(models.Model):
+    ITEM_TYPE = (('cpu','cpu'),('disk','disk'),('memory','memory'),('network','network'))
     name =  models.CharField(max_length=20,unique=True,verbose_name='名称')
+    type = models.CharField(max_length=20,choices=ITEM_TYPE,verbose_name='类型')
     value = models.CharField(max_length=255,verbose_name='键值')
     
     def __unicode__(self):

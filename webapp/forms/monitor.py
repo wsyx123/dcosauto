@@ -6,32 +6,39 @@ Created on 2018年3月31日
 @author: yangxu
 '''
 
-from webapp.models import MonitorTemplate,MonitorHost
-
+from monitor_master.models import MonitorTemplate,MonitorHost,MonitorItem,MonitorNotifyPolicy
+from monitor_master.serializers import TemplateSerializer,ItemSerializer
 
 class TemplateForm(object):
     def __init__(self,data):
         self.data = data
-        self.modelname = MonitorTemplate
-        self.fields = ['name','interval','policy','cpu','memory','disk','network']
-        self.save()
-        
-    def save(self):
-        modelobj = self.modelname()
-        items = ''
-        for field in self.fields:
-            if self.data.has_key(field):
-                if field != 'name' and field != 'interval' and field != 'policy':
-                    items = items + field + ','
-                if field == 'network':
-                    value = self.data.get(field).split(',')
-                else:
-                    value = self.data.get(field)
-                setattr(modelobj, field, value)
-        items = items.strip(',')
-        setattr(modelobj, 'items', items)
-        modelobj.save()
+        self.template_data = {
+                            "name": self.data.get('name'),
+                            "interval": self.data.get('interval'),
+                            "items": [],
+                            "policy": []
+                            }
+        policy_id_list = []
+        item_id_list = []
+        for policy in self.data.get('policys'):
+            policy_id_list.append(MonitorNotifyPolicy.objects.get(name=policy).id)
+        for item in self.data.get('items'):
+            item_id_list.append(MonitorItem.objects.get(name=item).id)
+        self.template_data['policy'] = policy_id_list
+        self.template_data['items'] = item_id_list
+        tempserializer = TemplateSerializer(data=self.template_data)
+        if tempserializer.is_valid():
+            tempserializer.save()
 
+class ItemForm(object): 
+    def __init__(self,data):
+        self.data = data
+        itemserializer = ItemSerializer(data=self.data)
+        print self.data
+        if itemserializer.is_valid():
+            itemserializer.save()
+               
+        
 class HostForm(object):
     def __init__(self,data):
         self.data = data
@@ -46,6 +53,11 @@ class HostForm(object):
                 print self.data.get(field)
                 if field == 'template':
                     value = MonitorTemplate.objects.get(name=self.data.get(field))
+                elif field == 'status':
+                    if self.data.get(field):
+                        value = 'UP'
+                    else:
+                        value = 'DOWN'
                 else:
                     value = self.data.get(field)
                 setattr(modelobj, field, value)

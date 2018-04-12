@@ -22,7 +22,7 @@ from platformcenter.log import log
 from dashboard.dashboard import dashboard
 from system.system import system
 from monitor.monitor import monitor_configure,add_host,del_host,\
-monitor_graph,monitor_notify,add_template,del_template
+monitor_graph,monitor_notify,add_template,del_template,add_item
 from document.document import document,documentdownload
 from asset.asset import asset
 from image.image import image
@@ -48,6 +48,7 @@ urlpatterns = [
     url(r'^monitor/configure/delHost/$',del_host),
     url(r'^monitor/configure/addTemplate/$',add_template),
     url(r'^monitor/configure/delTemplate/$',del_template),
+    url(r'^monitor/configure/addItem/$',add_item),
     url(r'^monitor/notify/$',monitor_notify),
     url(r'^monitor/graph/$',monitor_graph),
 ]

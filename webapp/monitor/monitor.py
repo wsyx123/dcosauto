@@ -6,16 +6,17 @@ Created on 2018年3月25日
 @author: yangxu
 '''
 from django.shortcuts import render_to_response,HttpResponse
-from webapp.forms.monitor import TemplateForm,HostForm
+from webapp.forms.monitor import TemplateForm,HostForm,ItemForm
 from monitor_master.models import MonitorHost,MonitorTemplate,MonitorNotifyPolicy
 import json
-from monitor_master.models import MonitorProblem,MonitorNotifyDetail
+from monitor_master.models import MonitorProblem,MonitorNotifyDetail,MonitorItem
 
 def monitor_configure(request):
     hosts = MonitorHost.objects.all()
     templates = MonitorTemplate.objects.all()
+    items = MonitorItem.objects.all()
     policys = MonitorNotifyPolicy.objects.all()
-    return render_to_response("monitor/monitor.html",{'hosts':hosts,'templates':templates,'policys':policys})
+    return render_to_response("monitor/monitor.html",{'hosts':hosts,'templates':templates,'items':items,'policys':policys})
 
 def add_host(request):
     if request.method == 'POST':
@@ -38,8 +39,9 @@ def add_template(request):
     if request.method == 'POST':
         data = json.loads(request.POST.get('template'))
         TemplateForm(data)
+    items = MonitorItem.objects.all()
     policys = MonitorNotifyPolicy.objects.all()
-    return render_to_response("monitor/addTemplate.html",{'policys':policys})
+    return render_to_response("monitor/addTemplate.html",{'policys':policys,'items':items})
 
 def del_template(request):
     if request.method == 'POST':
@@ -51,6 +53,12 @@ def del_template(request):
             return HttpResponse(json.dumps({'status':False,'msg':str(e)}))
         else:
             return HttpResponse(json.dumps({'status':True}))
+
+def add_item(request):
+    if request.method == 'POST':
+        data = json.loads(request.POST.get('item'))
+        ItemForm(data)
+    return render_to_response("monitor/addItem.html")
 
 def monitor_graph(request):
     return render_to_response("monitor/graph.html")
