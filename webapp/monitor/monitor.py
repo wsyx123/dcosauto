@@ -9,7 +9,7 @@ from django.shortcuts import render_to_response,HttpResponse
 from webapp.forms.monitor import TemplateForm,HostForm
 from monitor_master.models import MonitorHost,MonitorTemplate,MonitorNotifyPolicy
 import json
-from monitor_master.models import MonitorProblem
+from monitor_master.models import MonitorProblem,MonitorNotifyDetail
 
 def monitor_configure(request):
     hosts = MonitorHost.objects.all()
@@ -56,5 +56,6 @@ def monitor_graph(request):
     return render_to_response("monitor/graph.html")
 
 def monitor_notify(request):
-    problems = MonitorProblem.objects.all().order_by('time')
-    return render_to_response("monitor/notify.html",{'problems':problems})
+    problems = MonitorProblem.objects.all().order_by('-time')
+    notifys = MonitorNotifyDetail.objects.all()
+    return render_to_response("monitor/notify.html",{'problems':problems,'notifys':notifys})

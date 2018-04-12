@@ -108,9 +108,9 @@
 					  {% for template in templates %}
 					    <tr>
 					      <td>{{template.name}}</td>
-					      <td>{{template.items}}</td>
+					      <td>{{template|item_manytomany}}</td>
 					      <td>{{template.interval}}</td>
-					      <td>{{template.policy}}</td>
+					      <td>{{template|policy_manytomany}}</td>
 					      <td>
 					      	<button type="button" class="btn btn-info" title="dcos模版详情" data-container="body" 
 						      data-toggle="popover" data-placement="left"

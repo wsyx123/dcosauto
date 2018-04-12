@@ -67,7 +67,7 @@ class MonitorNotifyDetail(models.Model):
     status = models.CharField(max_length=10,default='SEND',choices=SEND_STATUS,verbose_name="发送状态")
     
     def __unicode__(self):
-        return '%s' %(self.name)
+        return '%s' %(self.theme)
     
 class MonitorNotifyPolicy(models.Model):
     name = models.CharField(max_length=255,verbose_name='名称')
