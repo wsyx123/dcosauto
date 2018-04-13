@@ -125,3 +125,23 @@ function save_item(){
 	})
 	
 }
+
+function save_policy(){
+	var name = $("input[name='name']").val();
+	var warning_threshold = $("input[name='warning_threshold']").val();
+	var danger_threshold = $("input[name='danger_threshold']").val();
+	var promote = $("select[name='promote']").val();
+	var policyjson = {"name":"","warning_threshold":"","danger_threshold":"","promote":""};
+	policyjson["name"]=name;
+	policyjson["warning_threshold"]=warning_threshold;
+	policyjson["danger_threshold"]=danger_threshold;
+	policyjson["promote"]=promote;
+	$.ajax({
+		type: 'POST',
+		data: {'policy':JSON.stringify(policyjson),},
+		success: function(){
+			window.location.href="/monitor/configure/";
+		}
+	})
+	
+}

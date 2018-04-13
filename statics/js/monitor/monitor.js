@@ -101,6 +101,11 @@ function delete_agent(obj){
 	})
 }
 
+function edit_agent(obj){
+	var name = $(obj).parent().siblings().eq(0).html();
+	window.location.href="/monitor/configure/editHost/"+name;
+}
+
 function del_template(obj){
 	var name = $(obj).parent().siblings().eq(0).html();
 	$.ajax({
@@ -118,6 +123,11 @@ function del_template(obj){
 			}
 		}
 	})
+}
+
+function edit_template(obj){
+	var name = $(obj).parent().siblings().eq(0).html();
+	window.location.href="/monitor/configure/editTemplate/"+name;
 }
 
 function server_api_edit_start(){
@@ -170,4 +180,52 @@ function tdclick(tdobject){
   
     //6,清除点击事件  
     td.unbind("click");  
+}
+
+function del_item(obj){
+	var name = $(obj).parent().siblings().eq(0).html();
+	$.ajax({
+		type: 'POST',
+		url: 'delItem/',
+		data: {'name':name},
+		success: function(data){
+			var dataobj = eval('('+data+')');
+			if(dataobj.status){
+				$(obj).parent().parent().remove();
+				$("#mySuccessAlert").css('display','block');
+			}else{
+				$("#myFailureAlert").css('display','block');
+				$("#delete-failure").html(dataobj.msg);
+			}
+		}
+	})
+}
+
+function edit_item(obj){
+	var name = $(obj).parent().siblings().eq(0).html();
+	window.location.href="/monitor/configure/editItem/"+name;
+}
+
+function del_policy(obj){
+	var name = $(obj).parent().siblings().eq(0).html();
+	$.ajax({
+		type: 'POST',
+		url: 'delPolicy/',
+		data: {'name':name},
+		success: function(data){
+			var dataobj = eval('('+data+')');
+			if(dataobj.status){
+				$(obj).parent().parent().remove();
+				$("#mySuccessAlert").css('display','block');
+			}else{
+				$("#myFailureAlert").css('display','block');
+				$("#delete-failure").html(dataobj.msg);
+			}
+		}
+	})
+}
+
+function edit_policy(obj){
+	var name = $(obj).parent().siblings().eq(0).html();
+	window.location.href="/monitor/configure/editPolicy/"+name;
 }

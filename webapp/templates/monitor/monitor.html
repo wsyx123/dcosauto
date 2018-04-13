@@ -113,7 +113,7 @@
 					      <td>{{template.interval}}</td>
 					      <td>{{template|policy_manytomany}}</td>
 					      <td width="130">
-					      	<button title="编辑" type="button" onclick="edit_agent(this);" class="btn btn-info"><i class="glyphicon glyphicon-edit"></i></button>
+					      	<button title="编辑" type="button" onclick="edit_template(this);" class="btn btn-info"><i class="glyphicon glyphicon-edit"></i></button>
 						    <button onclick="del_template(this);" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i></button>
 					      </td>
 					    </tr>
@@ -140,8 +140,8 @@
 					      <td>{{item.name}}</td>
 					      <td>{{item.value}}</td>
 					      <td width="130">
-					      	<button title="编辑" type="button" class="btn btn-info"><i class="glyphicon glyphicon-edit"></i></button>
-						    <button onclick="del_template(this);" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i></button>
+					      	<button onclick="edit_item(this);" title="编辑" type="button" class="btn btn-info"><i class="glyphicon glyphicon-edit"></i></button>
+						    <button onclick="del_item(this);" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i></button>
 					      </td>
 					    </tr>
 					  {% endfor %}
@@ -151,7 +151,7 @@
 			</div>
 			
 			<div class="zabbix-detail">
-			<button id="add-button" onclick="add_template();" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>报警策略</button>
+			<a href="addPolicy/" id="add-button" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>告警策略</a>
 			<div id="zabbix-detail-template">
 				<table class="table table-bordered">
 				  <thead>
@@ -171,8 +171,8 @@
 				      <td>{{ policy.danger_threshold }}</td>
 				      <td>{{ policy.promote }}</td>
 				      <td width="130">
-				      	<button class="btn btn-info"><i class="glyphicon glyphicon-edit"></i></button>
-				      	<button title="删除" type="button" onclick="delete_policy(this);" class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i></button>
+				      	<button onclick="edit_policy(this);" class="btn btn-info"><i class="glyphicon glyphicon-edit"></i></button>
+				      	<button title="删除" type="button" onclick="del_policy(this);" class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i></button>
 				      </td>
 				    </tr>
 				   {% endfor %}

@@ -21,8 +21,7 @@ from platformcenter.install import auto_install, custom_install
 from platformcenter.log import log
 from dashboard.dashboard import dashboard
 from system.system import system
-from monitor.monitor import monitor_configure,add_host,del_host,\
-monitor_graph,monitor_notify,add_template,del_template,add_item
+from monitor.monitor import *
 from document.document import document,documentdownload
 from asset.asset import asset
 from image.image import image
@@ -46,9 +45,16 @@ urlpatterns = [
     url(r'^monitor/configure/$',monitor_configure),
     url(r'^monitor/configure/addHost/$',add_host),
     url(r'^monitor/configure/delHost/$',del_host),
+    url(r'^monitor/configure/editHost/(?P<name>.+)$',edit_host),
     url(r'^monitor/configure/addTemplate/$',add_template),
     url(r'^monitor/configure/delTemplate/$',del_template),
+    url(r'^monitor/configure/editTemplate/(?P<name>.+)$',edit_tempate),
     url(r'^monitor/configure/addItem/$',add_item),
+    url(r'^monitor/configure/delItem/$',del_item),
+    url(r'^monitor/configure/editItem/(?P<name>.+)$',edit_item),
+    url(r'^monitor/configure/addPolicy/$',add_policy),
+    url(r'^monitor/configure/delPolicy/$',del_policy),
+    url(r'^monitor/configure/editPolicy/(?P<name>.+)$',edit_policy),
     url(r'^monitor/notify/$',monitor_notify),
     url(r'^monitor/graph/$',monitor_graph),
 ]

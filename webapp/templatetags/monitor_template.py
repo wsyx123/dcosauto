@@ -14,7 +14,6 @@ def item_manytomany(templateobj):
     item_str = ""
     itemsobj = templateobj.items.all()
     for item in itemsobj:
-        print item
         item_str = item_str+item.name+'\n'
     return item_str
 
@@ -39,3 +38,17 @@ def show_template_detail(templateobj):
 #         result_dict[item] = getattr(templateobj, item)
 #     return {'result_dict':result_dict}
     
+# @register.inclusion_tag('monitor/_edit_item.html')
+@register.filter
+def item_value_show(itemobj):
+    item_options = {'cpu':['usage','iowait'],
+                    'memory':['free','total'],
+                    'disk':['/','/data','/home','/boot','/run','/usr','/var']}
+    option_html = ""
+    for item1 in item_options[itemobj.type]:
+        if item1 in itemobj.value.split(','):
+            option_html = option_html + "<option selected='selected'>{}</option>".format(item1)
+        else:
+            option_html = option_html +"<option>{}</option>".format(item1)
+    return option_html
+

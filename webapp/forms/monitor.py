@@ -7,7 +7,7 @@ Created on 2018年3月31日
 '''
 
 from monitor_master.models import MonitorTemplate,MonitorHost,MonitorItem,MonitorNotifyPolicy
-from monitor_master.serializers import TemplateSerializer,ItemSerializer
+from monitor_master.serializers import TemplateSerializer,ItemSerializer,PolicySerializer
 
 class TemplateForm(object):
     def __init__(self,data):
@@ -34,9 +34,15 @@ class ItemForm(object):
     def __init__(self,data):
         self.data = data
         itemserializer = ItemSerializer(data=self.data)
-        print self.data
         if itemserializer.is_valid():
             itemserializer.save()
+            
+class PolicyForm(object): 
+    def __init__(self,data):
+        self.data = data
+        policyserializer = PolicySerializer(data=self.data)
+        if policyserializer.is_valid():
+            policyserializer.save()
                
         
 class HostForm(object):
