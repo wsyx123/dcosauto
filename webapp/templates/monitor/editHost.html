@@ -1,0 +1,74 @@
+{% extends "base/bootstrap.html" %}
+
+{% block css %}
+<link href="/static/css/monitor/monitor.css" rel="stylesheet">
+{% endblock %}
+
+{% block js %}
+<script src="/static/js/monitor/monitor.js"></script>
+{% endblock %}
+
+{% block right %}
+<div class="col-md-10" style="padding:0px">
+  	<ul class="breadcrumb">
+    	<li><a href="/"><i class="glyphicon glyphicon-home"></i>Home</a></li>
+    	<li>监控告警</li>
+    	<li class="active"><a href="/monitor/configure/">配置中心</a></li>
+    	<li>编辑主机</li>
+	</ul>
+</div>
+
+<div class="col-md-10" id="zabbix_config" style="padding:0px;">
+	<div style="border-bottom:1px solid #d7dde4;padding:5px 50px;">
+		<h4 id="zabbix-title">编辑{{host.name}}主机</h4>
+		<span style="font-size:12px;color:#9b9b9b;margin-left:18px;">
+			添加需要被监控的主机，添加前先确认主机上已安装monitor agent
+		</span>
+	</div>
+	<div style="padding:10px 200px;">
+		<table class="add_host">
+			<tr>
+				<td>可见名称</td>
+				<td><input type="text" name="name" value="{{host.name}}"></td>
+			</tr>		
+			<tr>
+				<td>Agent接口</td>
+				<td>
+					<table style="border:1px solid gray;">
+						<tr style="color:blue;"><td>IP地址</td><td>端口</td></tr>
+						<tr>
+							<td><input type="text" name="address" value="{{host.address}}"></td>
+							<td><input type="text" name="port" value="{{host.port}}"></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>模版</td>
+				<td>
+					<select style="width:175px;height:25px;" name="template">
+					<option>{{host.template}}</option>
+					{% for template in templates %}
+						<option>{{template.name}}</option>
+					{% endfor %}
+					</select>
+				</td>
+			</tr>	
+			<tr>
+				<td>是否启用</td>
+				{% if host.status %}
+				<td><input type="checkbox" name="status" checked></td>
+				{% else %}
+				<td><input type="checkbox" name="status"></td>
+				{% endif %}
+			</tr>
+			<tr><td></td><td>
+							<button onclick="add_agent();" type="button" class="btn btn-primary">保存</button>
+							<button onclick="history.go(-1)" type="button" class="btn btn-default">取消</button>
+						 </td>
+			</tr>	
+		</table>
+	</div>
+</div>
+
+{% endblock %}

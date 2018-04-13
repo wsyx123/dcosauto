@@ -1,0 +1,20 @@
+使用django  custom tags filter return html nend to use django build-in  filter "safe"
+
+example:
+
+@register.filter
+def item_value_show(itemobj):
+    item_options = {'cpu':['usage','iowait'],
+                    'memory':['free','total'],
+                    'disk':['/','/data','/home','/boot','/run','/usr','/var']}
+    option_html = ""
+    for item in itemobj.value.split(','):
+        if item in item_options[itemobj.type]:
+            option_html = option_html + "<option selected='selected'>{}</option>".format(item)
+        else:
+            option_html = option_html +"<option>{}</option>".format(item)
+    return option_html
+
+在html中使用  （使用前需要{% load monitor_template %}）    
+{{ item|item_value_show|safe}}
+    

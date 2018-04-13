@@ -1,0 +1,169 @@
+{% extends "base/bootstrap.html" %}
+
+{% block css %}
+<link href="/static/bootstrap-select-1.12.4/dist/css/bootstrap-select.min.css" rel="stylesheet">
+<link href="/static/css/monitor/template.css" rel="stylesheet">
+{% endblock %}
+
+{% block js %}
+<script src="/static/js/monitor/template.js"></script>
+<script src="/static/bootstrap-select-1.12.4/dist/js/bootstrap-select.min.js"></script>
+{% endblock %}
+
+{% block right %}
+<div class="col-md-10" style="padding:0px">
+  	<ul class="breadcrumb">
+    	<li><a href="/"><i class="glyphicon glyphicon-home"></i>Home</a></li>
+    	<li>监控告警</li>
+    	<li class="active"><a href="/monitor/configure/">配置中心</a></li>
+    	<li>编辑模版</li>
+	</ul>
+</div>
+
+<div class="col-md-10" id="template_config">
+	<div id="template-title">
+		<h4>编辑{{template.name}}模版</h4>
+		<span>
+			目前可用的监控项为： CPU,Memery,Disk,Network
+		</span>
+	</div>
+	<div id="template-input">
+		<table id="template-input-table">
+			<tr>
+				<td>模版名</td>
+				<td><input type="text" name="name" value="{{template.name}}"></td>
+			</tr>		
+			<tr>
+				<td>监控项</td>
+				<td>
+					<table id="input-table-selected">
+						<tr>
+							<td>名称</td>
+							<td><button data-toggle="modal" data-target="#choice" type="button">选择</button></td>
+						</tr>
+						{% for item in items %}
+						<tr class="selected-detail">
+							<td>{{ item.name }}</td>
+							<td><a onclick="selected_detail_remove(this)">取消选择</a></td>
+						</tr>
+						{% endfor %}
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>告警策略</td>
+				<td>
+					<table id="policy-select-table">
+						<tr>
+							<td>名称</td>
+							<td><button data-toggle="modal" data-target="#policy-choice" type="button">选择</button></td>
+						</tr>
+						{% for policy in policys %}
+						<tr class="selected-detail">
+							<td>{{ policy.name }}</td>
+							<td><a onclick="selected_detail_remove(this)">取消选择</a></td>
+						</tr>
+						{% endfor %}
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>监控频率</td>
+				<td>
+					<select name="interval">
+						<option>{{template.interval}}</option>
+						<option>60s</option>
+						<option>120s</option>
+					</select>
+				</td>
+			</tr>
+			<tr><td></td><td>
+							<button onclick="save_template();" type="button" class="btn btn-primary">保存</button>
+							<button onclick="history.go(-1)" type="button" class="btn btn-default">取消</button>
+						 </td>
+			</tr>	
+		</table>
+	</div>
+</div>
+
+<!-- 选择模态框（Modal） -->
+<div class="modal fade" id="choice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">监控项</h4>
+            </div>
+            <div class="modal-body">
+            	<table class="table table-condensed">
+				  <thead>
+				    <tr>
+				      <th></th>
+				      <th>名称</th>
+				      <th>键值</th>
+				    </tr>
+				  </thead>
+				  <tbody class="monitor_item">
+				  {% for item in items %}
+				    <tr>
+				      <td><input type="checkbox"></td>
+				      <td>{{item.name}}</td>
+				      <td>{{item.value}}</td>
+				    </tr>
+				    {% endfor %}
+				  </tbody>
+				</table>
+            </div>
+            <div class="modal-footer">
+            	<button class="btn btn-default" onclick="select_all();">全选</button>
+            	<button class="btn btn-default" onclick="unselect_all();" style="margin-right:300px;">全不选</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="get_items();">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!-- 选择模态框（Modal） -->
+<div class="modal fade" id="policy-choice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">告警策略</h4>
+            </div>
+            <div class="modal-body">
+            	<table class="table table-condensed">
+				  <thead>
+				    <tr>
+				      <th></th>
+				      <th>名称</th>
+				      <th>warning阀值</th>
+				      <th>danger阀值</th>
+				      <th>告警升级/次</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  {% for policy in policys %}
+				    <tr class="policy_item">
+				      <td><input type="checkbox"></td>
+				      <td>{{ policy.name }}</td>
+				      <td>{{ policy.warning_threshold }}</td>
+				      <td>{{ policy.danger_threshold }}</td>
+				      <td>{{ policy.promote }}</td>
+				    </tr>
+				  {% endfor %}
+				  </tbody>
+				</table>
+            </div>
+            <div class="modal-footer">
+            	<button class="btn btn-default" onclick="policy_select_all();">全选</button>
+            	<button class="btn btn-default" onclick="policy_unselect_all();" style="margin-right:300px;">全不选</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="policy_get_items();">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+{% endblock %}
