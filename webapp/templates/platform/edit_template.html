@@ -1,0 +1,88 @@
+{% extends "base/bootstrap.html" %}
+
+{% block css %}
+<link href="/static/css/platformcenter/edit_template.css" rel="stylesheet">
+{% endblock %}
+
+{% block js %}
+<script src="/static/js/platformcenter/template.js"></script>
+{% endblock %}
+
+{% block right %}
+<div class="col-md-10" style="padding:0px">
+  	<ul class="breadcrumb">
+    	<li><a href="/"><i class="glyphicon glyphicon-home"></i>Home</a></li>
+    	<li>平台中心</li>
+    	<li class="active"><a href="/platform/template/">模版管理</a></li>
+    	<li>编辑模版</li>
+	</ul>
+</div>
+
+<div class="col-md-10" id="template_config">
+	<div id="template-title">
+		<h4>编辑   {{template.name}} 模版</h4>
+		<span>
+			模版可以作为组件安装的原型，请根据实际环境配置好模版！！！ 
+		</span>
+	</div>
+	<div id="template-input">
+		<div class="modal-body">
+		        <div class="input-group">
+		            <span class="input-group-addon">模版名称</span>
+		            <input type="text" class="form-control" name="name" value="{{template.name}}">
+		            <span class="input-group-addon">模版说明</span>
+		            <input type="text" class="form-control" name="label" value={{template.label}}>
+		        </div>
+		        <div class="input-group">
+		            <span class="input-group-addon">模版类型</span>
+		            <select class="form-control" name="type">
+		            	<option>{{template.type}}</option>
+		            	<option>mysql</option>
+		            	<option>redis</option>
+		            	<option>influxdb</option>
+		            	<option>rabbitmq</option>
+		            	<option>icloud</option>
+		            	<option>edgebox</option>
+		            	<option>dockbox</option>
+		            	<option>dockbox_celery</option>
+		            	<option>dockbox_flower</option>
+		            	<option>dockbox_task</option>
+		            </select>
+		        </div>
+		        <div class="input-group">
+		            <span class="input-group-addon">网络模式</span>
+		            <select style="width:100px;" class="form-control" name="netmode">
+		            	<option>{{template.netmode}}</option>
+		            	<option>bridge</option>
+		            	<option>host</option>
+		            </select>
+		            <span class="input-group-addon">容器端口</span>
+		            <input type="text" class="form-control" name="cport" value="{{template.cport}}">
+		            <span class="input-group-addon">主机端口</span>
+		            <input type="text" class="form-control" name="hport" value="{{template.hport}}">
+		        </div>
+		        <div class="input-group">
+		        	<span class="input-group-addon">容器镜像</span>
+		        	<input type="text" class="form-control" name="image" value="{{template.image}}">
+		        </div>
+		        <div class="input-group">
+		        	<span class="input-group-addon">环境变量</span>
+		        	<textarea rows="3" class="form-control" name="env">{{template.env}}</textarea>
+		        </div>
+		        <div class="input-group">
+		        	<span class="input-group-addon">目录映射</span>
+		        	<textarea rows="3" class="form-control" name="volume">{{template.volume}}</textarea>
+		        </div>
+		        <div class="input-group">
+		        	<span class="input-group-addon">dockerfile</span>
+		        	<textarea rows="3" class="form-control" name="dockerfile">{{template.dockerfile}}</textarea>
+		        </div>
+			</div>
+			<div id="edit_template_button">
+				<button onclick="add_agent();" type="button" class="btn btn-primary">保存</button>
+				<button onclick="history.go(-1)" type="button" class="btn btn-default">取消</button>
+			</div>
+	</div>
+</div>
+
+{% endblock %}
