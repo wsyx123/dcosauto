@@ -27,5 +27,8 @@ def template(request):
     
     return render_to_response('platform/template.html',{'templates':page(templates, pagenum, datarow)})
 
+def edit_template(request,name):
+    template = platformtemplate.objects.get(name=name)
+    return render_to_response('platform/edit_template.html',{'template':template})
     
         

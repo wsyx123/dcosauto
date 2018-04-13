@@ -20,6 +20,12 @@
 <div class="col-md-10" id="component-show">
 	<div id="component-title">
 		<span>模版列表</span>
+		<div id="template-action">
+		<a title="编辑" type="button" onclick="edit_template();" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i></a>
+		<span>|</span>
+		<a id="template-del" title="删除" type="button" onclick="del_template();" class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i></a>
+		<span>|</span>
+		</div>
 		<div id="add-template">
 			<button data-toggle="modal" data-target="#templateinput" class="btn btn-default"><span class="glyphicon glyphicon-plus">新增模版</span></button>
 		</div>
@@ -102,11 +108,11 @@
 	</div><!-- /.modal -->
 </div>
 </form>	
-	
 	<div id="component-list">
 		<table class="table table-bordered">
 		  <thead>
 		    <tr>
+		      <th><input type="radio" onclick="controller_all(this);"></th>
 		      <th>模版名</th>
 		      <th>类型</th>
 		      <th>说明</th>
@@ -120,6 +126,7 @@
 		  <tbody>
 		  {% for template in templates.pagedata %}
 		    <tr>
+		      <td><input type="radio" class="templateradio" onclick="controller(this);"></td>
 		      <td>{{ template.name }}</td>
 		      <td>{{ template.type }}</td>
 		      <td>{{ template.label }}</td>
@@ -133,7 +140,8 @@
 		      <tr><th width='75'>Env:</th><td><pre>{{ template.env }}</pre></td></tr>
 		      <tr><th width='75'>Volume:</th><td><pre>{{ template.volume }}</pre></td></tr>
 		      <tr><th width='90'>dockerfile:</th><td><pre>{{ template.dockerfile }}</pre></td></tr>
-		      </table>">详情</button></td>
+		      </table>">详情</button>
+		      </td>
 		    </tr>
 		   {% endfor %}
 		  </tbody>
@@ -142,7 +150,7 @@
 </div>
 
 <div class="col-md-10" id="template-footer">
-	<ul class="pager">
+	<ul class="pager" style="display:inline-block;">
     	<li><button>&laquo;</button></li>
     	<li>| Page <input disabled type="text"  name="pagenum" value="{{ templates.pagenum }}" style="width:30px;text-align:center;"> of {{ templates.pagecount }} |</li>
     	<li><button>&raquo;</button></li>

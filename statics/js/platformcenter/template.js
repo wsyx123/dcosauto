@@ -6,7 +6,53 @@ function add_template(){
 			window.location.href='/platform/template/';
 		}
 	})
+}
+
+function edit_template(){
+	var name = $(".templateradio:checked").parent().next().html();
+	if(name == undefined){
+		alert('请选择要编辑的模版!!!');
+	}else{
+		window.location.href="/platform/template/editTemplate/"+name;
+	}
 	
+	
+}
+
+function del_template(){
+	var templateobj = $(".templateradio:checked").parent().next();
+	for(i=0;i<templateobj.length;i++){
+		console.log($(templateobj[i]).html());
+	}
+	
+}
+
+function controller_all(obj){
+	if (obj.tag==1)
+    {
+        obj.checked=false;
+        obj.tag=0;
+        $(".templateradio").attr('checked',false);
+    }
+    else
+    {
+        obj.checked=true;
+        obj.tag=1;
+        $(".templateradio").attr('checked','checked');
+    }
+}
+
+function controller(obj){
+	if (obj.tag==1)
+    {
+        obj.checked=false;
+        obj.tag=0;
+    }
+    else
+    {
+        obj.checked=true;
+        obj.tag=1
+    }
 }
 
 function change_data_row(obj){
