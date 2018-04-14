@@ -17,7 +17,8 @@ if(currentURLlen.length >=4){
 $("#col-md-2 .nav-header").bind("click",function(){
 	$(this).children("span").toggleClass("glyphicon-chevron-down");
 });
-
+get_notify_amount();
+setInterval(get_notify_amount,120000);
 
 });
 
@@ -50,3 +51,13 @@ $(function(){
 		$(this).parent().css('display','none');
 	});
 });
+
+function get_notify_amount(){
+	$.ajax({
+		type: 'GET',
+		url: '/master/api/problems/?search=UNCONFIRMED',
+		success: function(data){
+			$(notify_amount).html(data.length);
+		}
+	})
+}

@@ -20,11 +20,30 @@ function edit_template(){
 }
 
 function del_template(){
+	var template_name_list = new Array();
 	var templateobj = $(".templateradio:checked").parent().next();
 	for(i=0;i<templateobj.length;i++){
-		console.log($(templateobj[i]).html());
+		template_name_list.push($(templateobj[i]).html());
 	}
-	
+	$.ajax({
+		type: 'POST',
+		url: '/platform/template/delTemplate/',
+		data: {'template_name_list':JSON.stringify(template_name_list)},
+		success:function(data){
+			dataobj = eval('('+data+')');
+			for(var i=0;i<template_name_list.length;i++){
+				if(dataobj[template_name_list[i]]=='success'){
+					for(j=0;j<templateobj.length;j++){
+						if($(templateobj[j]).html()==template_name_list[i]){
+							$(templateobj[j]).parent().remove();
+						}
+					}
+				}else{
+					console.log('failure');
+				}
+			}
+		}
+	})
 }
 
 function controller_all(obj){

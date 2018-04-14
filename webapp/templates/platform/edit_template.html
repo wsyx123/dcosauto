@@ -25,6 +25,7 @@
 			模版可以作为组件安装的原型，请根据实际环境配置好模版！！！ 
 		</span>
 	</div>
+	<form action="" id='template-form'>
 	<div id="template-input">
 		<div class="modal-body">
 		        <div class="input-group">
@@ -79,10 +80,11 @@
 		        </div>
 			</div>
 			<div id="edit_template_button">
-				<button onclick="add_agent();" type="button" class="btn btn-primary">保存</button>
+				<button onclick="add_template();" type="button" class="btn btn-primary">保存</button>
 				<button onclick="history.go(-1)" type="button" class="btn btn-default">取消</button>
 			</div>
 	</div>
+	</form>
 </div>
 
 {% endblock %}

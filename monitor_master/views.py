@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from rest_framework import viewsets
+from rest_framework import viewsets,filters
 from .models import MonitorHost,MonitorNotifyDetail,MonitorNotifyPolicy,MonitorProblem,MonitorTemplate,MonitorItem
 from .serializers import HostSerializer,DetailSerializer,PolicySerializer,ProblemSerializer,TemplateSerializer,ItemSerializer
 from rest_framework.views import APIView
@@ -16,6 +16,8 @@ class HostViewSet(viewsets.ModelViewSet):
     queryset = MonitorHost.objects.all()
     serializer_class = HostSerializer
     lookup_field = 'name'
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name','id')
 
 class DetailViewSet(viewsets.ModelViewSet):
     queryset = MonitorNotifyDetail.objects.all()
@@ -28,6 +30,9 @@ class PolicyViewSet(viewsets.ModelViewSet):
 class ProblemViewSet(viewsets.ModelViewSet):
     queryset = MonitorProblem.objects.all()
     serializer_class = ProblemSerializer
+    lookup_field = 'name'
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('status','level')
 
 class TemplateViewSet(viewsets.ModelViewSet):
     queryset = MonitorTemplate.objects.all()
