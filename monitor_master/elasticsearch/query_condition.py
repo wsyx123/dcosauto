@@ -7,16 +7,21 @@ Created on 2018年4月10日
 '''
 import datetime
 
-condition_data = {
-    "query": {
-        "bool": {
-                 "must": [
-                          { "term":  { "host": "keystone" }}, 
-                          {"range" : {"timestamp" : {
-                                    "gte": (datetime.datetime.now()-datetime.timedelta(hours=1)).strftime("%Y-%m-%d %H:%M:%S"), 
-                                    "lte": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), }}},
-                          ]
-                 }
-        
-        }
-    }       
+def generate_condition_data(host,time_value):
+    condition_data = {
+        "sort": [
+            {"timestamp":{"order":"asc"}}
+                 ],
+        "query": {
+            "bool": {
+                     "must": [
+                            { "term":  { "host": host }}, 
+                            {"range" : {"timestamp" : {
+                                        "gte": (datetime.datetime.now()-datetime.timedelta(minutes=time_value)).strftime("%Y-%m-%d %H:%M:%S"), 
+                                        "lte": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), }}},
+                              ]
+                     }
+            
+            }
+    }
+    return condition_data       

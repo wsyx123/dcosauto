@@ -9,7 +9,7 @@ import httplib
 import json
 import datetime
 from index_mapping import cpu_mapping
-from query_condition import condition_data
+from query_condition import generate_condition_data
 
 class IndexApi(object):
     def __init__(self,host,port):
@@ -89,8 +89,8 @@ class DocumentApi(object):
             httpres = self.conn.getresponse()
             return {'code':httpres.status,'result':httpres.read()}
         
-    def search(self,index_name,doc_type):
-        body = json.dumps(condition_data)
+    def search(self,index_name,doc_type,host,time_value):
+        body = json.dumps(generate_condition_data(host,time_value))
         url_context = '/{}/{}/_search'.format(index_name,doc_type)
         try:
             self.conn.request('GET', url_context, body, {'Content-Type': 'application/json'})

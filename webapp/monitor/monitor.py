@@ -10,6 +10,7 @@ from webapp.forms.monitor import TemplateForm,HostForm,ItemForm,PolicyForm
 from monitor_master.models import MonitorHost,MonitorTemplate,MonitorNotifyPolicy
 import json
 from monitor_master.models import MonitorProblem,MonitorNotifyDetail,MonitorItem
+from format_es_data import FormatData
 
 def monitor_configure(request):
     hosts = MonitorHost.objects.all()
@@ -113,7 +114,14 @@ def edit_policy(request,name):
     return render_to_response("monitor/editPolicy.html",{'policy':policy})
 
 def monitor_graph(request):
-    return render_to_response("monitor/graph.html")
+    if request.method == 'POST':
+        data = json.loads(request.POST.get("data"))
+        formatobj = FormatData(data)
+        return_data = formatobj.dispatch()
+        print return_data
+        return HttpResponse(json.dumps(return_data))
+    hosts = MonitorHost.objects.all()
+    return render_to_response("monitor/graph.html",{'hosts':hosts})
 
 def monitor_notify(request):
     problems = MonitorProblem.objects.all().order_by('-time')

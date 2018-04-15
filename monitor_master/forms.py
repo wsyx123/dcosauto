@@ -36,14 +36,14 @@ class MonitorForms(object):
             'usage' : data['usage'],
             'iowait' : data['iowait']}
         threshold_filter.ThresholdFilter(self.host).cpu(data['usage'],self.date)
-        print self.docops.create(index_name='dcos', doc_type='cpu', doc_id=None, doc_body=doc_body)
+        self.docops.create(index_name='dcos', doc_type='cpu', doc_id=None, doc_body=doc_body)
     
     def memory(self,data):
         doc_body = {'host' : str(self.host),
             'timestamp' : self.date,
             'total' : data['total'],
             'free' : data['free']}
-        print self.docops.create(index_name='dcos', doc_type='memory', doc_id=None, doc_body=doc_body)
+        self.docops.create(index_name='dcos', doc_type='memory', doc_id=None, doc_body=doc_body)
     
     def disk(self,data):
         for key,value in data.items():
@@ -52,7 +52,7 @@ class MonitorForms(object):
                 'partition' : key,
                 'total' : value['total'],
                 'used' : value['used']}
-            print self.docops.create(index_name='dcos', doc_type='disk', doc_id=None, doc_body=doc_body)
+            self.docops.create(index_name='dcos', doc_type='disk', doc_id=None, doc_body=doc_body)
     
     def network(self,data):
         for key,value in data.items():
@@ -62,4 +62,4 @@ class MonitorForms(object):
                 'transmit' : value['transmit_total'],
                 'receive' : value['receive_total'],
                 'drop' : value['drop_total']}
-            print self.docops.create(index_name='dcos', doc_type='network', doc_id=None, doc_body=doc_body)
+            self.docops.create(index_name='dcos', doc_type='network', doc_id=None, doc_body=doc_body)

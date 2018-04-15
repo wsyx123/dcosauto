@@ -26,43 +26,34 @@
 			<h4 id="zabbix-title">图形展示</h4>
 			<span style="font-size:12px;color:#9b9b9b;margin-left:18px;">使用百度echarts插件</span>
 		</div>
-		<div style="display:inline-block;margin-left:200px;margin-top:20px;">
+		<div style="display:inline-block;margin-left:450px;margin-top:20px;">
 			<span>主机</span>
-			<select>
-				<option>keystone</option>
-				<option>glance</option>
+			<select name="host" onchange="select_host(this);">
+			{% for host in hosts %}
+				<option>{{host.name}}</option>
+			{% endfor %}
 			</select>
 		</div>
 		<div style="display:inline-block;margin-left:15px;margin-top:20px;">
 			<span>图形</span>
-			<select>
-				<option>All</option>
-				<option>CPU</option>
-				<option>内存</option>
-				<option>磁盘</option>
-				<option>网络</option>
+			<select name='graph-item'>
+				<option value='all'>All</option>
+				<option value='cpu'>CPU</option>
+				<option value='memory'>内存</option>
+				<option value='disk'>磁盘</option>
+				<option value='network'>网络</option>
 			</select>
 		</div>
 		<div style="display:inline-block;margin-left:10px;margin-top:20px;">
 			<span>时间段:</span>
-			<span><input type="text" class="dateinfo_start"></span>
-			<span> - </span>
-			<span><input type="text" class="dateinfo_end"></span>
-			<script type="text/javascript">
-    		$(".dateinfo_start").jeDate({
-    			isinitVal:true,
-    		    initDate:[{mm:"-10"},true],
-    		    minDate:'2017-06-16 10:20:25', 
-    		    maxDate:'2019-06-16 18:30:35', 
-    			format: 'YYYY-MM-DD hh:mm:ss'
-		    })
-		    $(".dateinfo_end").jeDate({
-    			isinitVal:true,
-    		    minDate:'2017-06-16 10:20:25', 
-    		    maxDate:'2019-06-16 18:30:35', 
-    			format: 'YYYY-MM-DD hh:mm:ss'
-		    })
-			</script>
+			<span>
+				<select name='time-range' onchange="select_time();">
+					<option value="10">过去10分钟</option>
+					<option value="20">过去20分钟</option>
+					<option value="30">过去30分钟</option>
+					<option value="60">过去60分钟</option>
+				</select>
+			</span>
 		</div>
 	</div>
 	<div style="padding-left:20px;">

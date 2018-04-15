@@ -1,11 +1,11 @@
 $(document).ready(function(){
-	var cpuChart = echarts.init(document.getElementById('cpu'));
-	var memChart = echarts.init(document.getElementById('mem'));
-	var diskChart = echarts.init(document.getElementById('disk'));
-	var netChart = echarts.init(document.getElementById('net'));
+	cpuChart = echarts.init(document.getElementById('cpu'));
+	memChart = echarts.init(document.getElementById('mem'));
+	diskChart = echarts.init(document.getElementById('disk'));
+	netChart = echarts.init(document.getElementById('net'));
 	var cpuoption = {
 		    title: {
-		        text: 'cpu 利用率 (10m)',
+		        text: 'cpu 利用率 ',
 		    },
 		    legend:{
 		    	data:['use','iowait'],
@@ -20,7 +20,7 @@ $(document).ready(function(){
 		    xAxis:  {
 		        type: 'category',
 		        boundaryGap: false,
-		        data: ['21:01', '21:02', '21:03', '21:04', '21:05', '21:06', '21:07', '21:08', '21:09', '21:10']
+		        data: []
 		    },
 		    yAxis: {
 		        type: 'value',
@@ -50,7 +50,7 @@ $(document).ready(function(){
 		    			label : {show:true,position:'top',formatter:'{c}'}
 		    		}},
 		            smooth: true,
-		            data: [10.1,6.5,38.6,66.8,9.3,29.3,49.5,19.3,39.3,75.7],
+		            data: [],
 		        },
 		        {
 		            name:'iowait',
@@ -60,14 +60,14 @@ $(document).ready(function(){
 		    			label : {show:true,position:'top',formatter:'{c}'}
 		    		}},
 		            smooth: true,
-		            data: ['0.0','0.1','0.0','0.0','0.0','0.2','0.0','0.0','0.0','0.4'],
+		            data: [],
 		        }
 		    ]
 		}; 
 	
 		var memoption = {
 		    title: {
-		        text: '可用内存 (10m)',
+		        text: '可用内存 ',
 		    },
 		    legend:{
 		    	data:['可用','总量'],
@@ -81,7 +81,7 @@ $(document).ready(function(){
 		    xAxis:  {
 		        type: 'category',
 		        boundaryGap: false,
-		        data: ['21:01', '21:02', '21:03', '21:04', '21:05', '21:06', '21:07', '21:08', '21:09', '21:10']
+		        data: []
 		    },
 		    yAxis: {
 		        type: 'value',
@@ -139,7 +139,7 @@ $(document).ready(function(){
 			        }
 			    },
 			    legend: {
-			        data: ['已用', '可用'],
+			        data: ['已用', '总量'],
 			    },
 			    grid: {
 			        left: '3%',
@@ -154,7 +154,7 @@ $(document).ready(function(){
 			    },
 			    yAxis: {
 			        type: 'category',
-			        data: ['/','/home','/data','/boot','/run'],
+			        data: [],
 			    },
 			    series: [
 			        {
@@ -164,16 +164,16 @@ $(document).ready(function(){
 			            itemStyle: {normal: {
 			    			label : {show:true,position:'right',formatter:'{c} GB'}
 			    		}},
-			            data: [18, 3, 29, 1, 3]
+			            data: []
 			        },
 			        {
-			            name: '可用',
+			            name: '总量',
 			            color: 'green',
 			            type: 'bar',
 			            itemStyle: {normal: {
 			    			label : {show:true,position:'right',formatter:'{c} GB'}
 			    		}},
-			            data: [19, 23, 71, 9, 7]
+			            data: []
 			        }
 			    ]
 			};
@@ -181,7 +181,7 @@ $(document).ready(function(){
 		
 		netoption = {
 			    title: {
-			        text: 'eth0网络流量'
+			        text: '网络流量'
 			    },
 			    tooltip : {
 			        trigger: 'axis',
@@ -240,11 +240,172 @@ $(document).ready(function(){
        memChart.setOption(memoption);
        diskChart.setOption(diskoption);
        netChart.setOption(netoption);
+       select_time();
       
 	
 })
 
+function select_host(obj){
+	host = $(obj).find("option:selected").html();
+	console.log(host);
+	$.ajax({
+		type: 'POST',
+		data: {'host':host},
+		success: function(data){
+			console.log(data);
+		}
+	})
+}
 
+function set_cpu_option(dataobj){
+	cpuChart.setOption({
+		xAxis:  {
+	        type: 'category',
+	        boundaryGap: false,
+	        data: dataobj.cpu.timestamp,
+	    },
+	    series: [
+			        {
+			            name:'use',
+			            type:'line',
+			            itemStyle: {normal: {
+			    			label : {show:true,position:'top',formatter:'{c}'}
+			    		}},
+			            smooth: true,
+			            data: dataobj.cpu.usage,
+			        },
+			        {
+			            name:'iowait',
+			            type:'line',
+			            color: 'red',
+			            itemStyle: {normal: {
+			    			label : {show:true,position:'top',formatter:'{c}'}
+			    		}},
+			            smooth: true,
+			            data: dataobj.cpu.iowait,
+			        }
+			    ]
+	});
+}
+
+function set_memory_option(dataobj){
+	memChart.setOption({
+		xAxis:  {
+	        type: 'category',
+	        boundaryGap: false,
+	        data: dataobj.memory.timestamp,
+	    },
+	    series: [
+			        {
+		            name:'可用',
+		            type:'line',
+		            color: 'green',
+		            areaStyle: {},
+		            itemStyle: {normal: {
+		    			label : {show:true,position:'top',formatter:'{c}'}
+		    		}},
+		            smooth: true,
+		            data: dataobj.memory.free,
+			        },
+			        {
+		            name:'总量',
+		            type:'line',
+		            areaStyle: {},
+		            itemStyle: {normal: {
+		    			label : {show:true,position:'top',formatter:'{c}'}
+		    		}},
+		            smooth: true,
+		            data: dataobj.memory.total,
+			        },
+			    ]
+	});
+}
+
+function set_disk_option(dataobj){
+	diskChart.setOption({
+		yAxis: {
+	        type: 'category',
+	        data: dataobj.disk.partition,
+	    },
+	    series: [
+			        {
+			            name: '已用',
+			            type: 'bar',
+			            color: 'red',
+			            itemStyle: {normal: {
+			    			label : {show:true,position:'right',formatter:'{c} GB'}
+			    		}},
+			            data: dataobj.disk.used,
+			        },
+			        {
+			            name: '总量',
+			            color: 'green',
+			            type: 'bar',
+			            itemStyle: {normal: {
+			    			label : {show:true,position:'right',formatter:'{c} GB'}
+			    		}},
+			            data: dataobj.disk.total,
+			        }
+			    ]
+	});
+}
+
+function set_network_option(dataobj){
+	netChart.setOption({
+		title: {
+	        text: dataobj.network.device+'网络流量'
+	    },
+		xAxis : [
+			        {
+			            type : 'category',
+			            boundaryGap : false,
+			            data: dataobj.network.timestamp,
+			        }
+			    ],
+	    series : [
+			        {
+			            name:'发送',
+			            type:'line',
+			            areaStyle: {normal: {}},
+			            data: dataobj.network.transmit,
+			        },
+			        {
+			            name:'接收',
+			            type:'line',
+			            areaStyle: {normal: {}},
+			            data: dataobj.network.receive,
+			        },
+			        {
+			            name:'丢弃',
+			            type:'line',
+			            areaStyle: {normal: {}},
+			            data: dataobj.network.drop,
+			        },
+			    ]
+
+	});
+}
+
+function select_time(){
+	var data = {};
+	var host = $("select[name='host']").find("option:selected").val();
+	var graph_item = $("select[name='graph-item']").find("option:selected").val();
+	var time_value = $("select[name='time-range']").find("option:selected").val();
+	data["host"] = host;
+	data["graph_item"] = graph_item;
+	data["time_value"] = time_value;
+	$.ajax({
+		type: 'POST',
+		data: {"data": JSON.stringify(data)},
+		success: function(data){
+			dataobj = eval('('+data+')');
+			set_cpu_option(dataobj);
+			set_memory_option(dataobj);
+			set_disk_option(dataobj);
+			set_network_option(dataobj);
+		}
+	})
+}
 
 
 

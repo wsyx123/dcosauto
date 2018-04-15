@@ -37,6 +37,7 @@ encoding//webapp/forms/monitor.py=utf-8
 encoding//webapp/forms/template.py=utf-8
 encoding//webapp/image/image.py=utf-8
 encoding//webapp/models.py=utf-8
+encoding//webapp/monitor/format_es_data.py=utf-8
 encoding//webapp/monitor/monitor.py=utf-8
 encoding//webapp/platformcenter/component.py=utf-8
 encoding//webapp/platformcenter/install.py=utf-8
