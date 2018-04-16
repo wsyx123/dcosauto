@@ -6,7 +6,8 @@ Created on 2018年4月9日
 @author: yangxu
 '''
 from rest_framework import serializers
-from models import MonitorHost,MonitorItem,MonitorNotifyDetail,MonitorNotifyPolicy,MonitorProblem,MonitorTemplate
+from models import MonitorHost,MonitorItem,MonitorNotifyDetail,\
+MonitorNotifyPolicy,MonitorProblem,MonitorTemplate,SystemConfig,MonitorNotifyConfig
 
 class HostSerializer(serializers.ModelSerializer):
     class Meta:
@@ -37,4 +38,14 @@ class TemplateSerializer(serializers.ModelSerializer):
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = MonitorItem
+        fields = '__all__'
+        
+class ConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SystemConfig
+        fields = '__all__'
+        
+class NotifyConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MonitorNotifyConfig
         fields = '__all__'

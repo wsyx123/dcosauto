@@ -36,10 +36,22 @@
 		</div>
 	</div>
 	
+	<!-- 删除结果（Alert） -->	
+		<div id="mySuccessAlert" class="alert alert-success">
+			<a href="#" class="close">&times;</a>
+			<strong>删除<span id="delete-name"></span>成功！</strong>
+		</div>
+		<div id="myFailureAlert" class="alert alert-warning">
+			<a href="#" class="close">&times;</a>
+			<strong>删除<span id="delete-name">失败！</strong><span id='delete-failure'></span>。
+		</div>
+	
+	
 	<div>
 		<div id="zabbix-menu">
 			<div style="border-bottom:2px solid #2d8cf0;color:#2d8cf0">问题列表</div>
 			<div>通知列表</div>
+			<div>通知设置</div>
 		</div>
 		<div id="zabbix-detail">
 			<div class="zabbix-detail" style="display:block;">
@@ -109,6 +121,36 @@
 					      {% endifequal %}
 					    </tr>
 					   {% endfor %}
+					  </tbody>
+					</table>
+				</div>
+			</div>
+			<div class="zabbix-detail">
+				<a href="addNotify/" id="add-button" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>通知设置</a>
+				<div id="zabbix-detail-template">
+					<table class="table table-bordered">
+					  <thead>
+					    <tr>
+					      <th>名称</th>
+					      <th>通知类型</th>
+					      <th>接收人</th>
+					      <th>通知主机</th>
+					      <th>维护</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  {% for notifyconfig in notifyconfigs %}
+					    <tr>
+					      <td>{{notifyconfig.name}}</td>
+					      <td>{{notifyconfig.type}}</td>
+					      <td>{{notifyconfig.account}}</td>
+					      <td>{{notifyconfig|host_manytomany}}</td>
+					      <td width="130">
+					      	<button title="编辑" type="button" onclick="edit_notify(this);" class="btn btn-info"><i class="glyphicon glyphicon-edit"></i></button>
+					      	<button title="删除" type="button" onclick="del_notify(this);" class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i></button>
+					      </td>
+					    </tr>
+					  {% endfor %}
 					  </tbody>
 					</table>
 				</div>

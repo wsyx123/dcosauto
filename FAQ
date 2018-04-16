@@ -1,0 +1,68 @@
+问题一：
+使用django  custom tags filter return html nend to use django build-in  filter "safe"
+
+example:
+
+@register.filter
+def item_value_show(itemobj):
+    item_options = {'cpu':['usage','iowait'],
+                    'memory':['free','total'],
+                    'disk':['/','/data','/home','/boot','/run','/usr','/var']}
+    option_html = ""
+    for item in itemobj.value.split(','):
+        if item in item_options[itemobj.type]:
+            option_html = option_html + "<option selected='selected'>{}</option>".format(item)
+        else:
+            option_html = option_html +"<option>{}</option>".format(item)
+    return option_html
+
+在html中使用  （使用前需要{% load monitor_template %}）    
+{{ item|item_value_show|safe}}
+    
+
+    
+问题二：
+
+html jquery  radio操作问题：
+
+这里的主要原因是用attr()函数来设置元素的属性，如果换成prop()函数来设置属性就正常了
+具有true和false属性的属性，就使用prop()，比如checked    selected   disabled等，其他的使用attr()
+
+
+问题三：
+forbidden 403 error in 'PUT' request Ajax in django rest framwork
+(http://www.django-rest-framework.org/api-guide/authentication/)
+
+SessionAuthentication
+This authentication scheme uses Django's default session backend for authentication.
+Session authentication is appropriate for AJAX clients that are running in the same session
+ context as your website.
+
+如何在ajax请求中设置csrftoken 参考下面链接 
+https://docs.djangoproject.com/en/2.0/ref/csrf/#ajax
+在这个链接中，提供了javascript 去获取csrftoken，也有直接使用javascript cookie library去获取
+The above code could be simplified by using the JavaScript Cookie library to replace getCookie:
+var csrftoken = Cookies.get('csrftoken');
+
+然后在ajax请求的data中加入csrfmiddlewaretoken，如下例子：
+data:{"name": "ES API","value": edit,csrfmiddlewaretoken: '{{ csrf_token }}'},
+ 
+还有一个方法，就是使用中间件（middleware）去disabled csrf
+
+创建一个middleware app，创建一个模块，内容如下：
+from django.utils.deprecation import MiddlewareMixin 
+class DisableCSRF(MiddlewareMixin):
+    def process_request(self, request):
+        setattr(request, '_dont_enforce_csrf_checks', True)
+        
+ 
+问题四：
+ajax 中 post  到django rest framework 需要设置 ：Content-Type:application/json
+$.ajax({
+		beforeSend: function(request) {
+            request.setRequestHeader("Content-Type", "application/json");
+        },
+		type: 'POST',
+		url: 'http://192.168.10.1:9000/master/api/notifys/',
+		data:JSON.stringify(json),
+	})

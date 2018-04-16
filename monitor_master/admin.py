@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.contrib import admin
 
 from models import MonitorTemplate,MonitorHost,MonitorNotifyDetail,\
-MonitorProblem,MonitorNotifyPolicy,MonitorItem
+MonitorProblem,MonitorNotifyPolicy,MonitorItem,SystemConfig
 
     
 
@@ -28,9 +28,13 @@ class MonitorNotifyDetailAdmin(admin.ModelAdmin):
 class MonitorItemAdmin(admin.ModelAdmin):
     list_display = ('name','value')
 
+class SystemConfigAdmin(admin.ModelAdmin):
+    list_display = ('name','value')
+
 admin.site.register(MonitorTemplate,MonitorTemplateAdmin)
 admin.site.register(MonitorHost,MonitorHostAdmin)
 admin.site.register(MonitorNotifyPolicy,MonitorNotifyPolicyAdmin)
 admin.site.register(MonitorProblem,MonitorProblemAdmin)
 admin.site.register(MonitorNotifyDetail,MonitorNotifyDetailAdmin)
 admin.site.register(MonitorItem,MonitorItemAdmin)
+admin.site.register(SystemConfig,SystemConfigAdmin)

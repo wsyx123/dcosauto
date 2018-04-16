@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from rest_framework import viewsets,filters
-from .models import MonitorHost,MonitorNotifyDetail,MonitorNotifyPolicy,MonitorProblem,MonitorTemplate,MonitorItem
-from .serializers import HostSerializer,DetailSerializer,PolicySerializer,ProblemSerializer,TemplateSerializer,ItemSerializer
+from .models import MonitorHost,MonitorNotifyDetail,MonitorNotifyPolicy,\
+MonitorProblem,MonitorTemplate,MonitorItem,SystemConfig,MonitorNotifyConfig
+from .serializers import HostSerializer,DetailSerializer,PolicySerializer,\
+ProblemSerializer,TemplateSerializer,ItemSerializer,ConfigSerializer,NotifyConfigSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import Http404
@@ -26,6 +28,13 @@ class DetailViewSet(viewsets.ModelViewSet):
 class PolicyViewSet(viewsets.ModelViewSet):
     queryset = MonitorNotifyPolicy.objects.all()
     serializer_class = PolicySerializer
+    
+class NotifyConfigViewSet(viewsets.ModelViewSet):
+    queryset = MonitorNotifyConfig.objects.all()
+    serializer_class = NotifyConfigSerializer
+    lookup_field = 'name'
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name','type')
 
 class ProblemViewSet(viewsets.ModelViewSet):
     queryset = MonitorProblem.objects.all()
@@ -43,6 +52,12 @@ class ItemViewSet(viewsets.ModelViewSet):
     queryset = MonitorItem.objects.all()
     serializer_class = ItemSerializer
 
+class ConfigViewSet(viewsets.ModelViewSet):
+    queryset = SystemConfig.objects.all()
+    serializer_class = ConfigSerializer
+    lookup_field = 'name'
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name',)
     
 class MonitorHandler(APIView):
     def post(self,request):

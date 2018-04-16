@@ -7,6 +7,7 @@ Created on 2018年4月15日
 '''
 from monitor_master.elasticsearch.es_api import DocumentApi
 import json
+from common.get_es_connect_info import get_es_connect_info
 
 class FormatData(object):
     def __init__(self,query_data):
@@ -15,7 +16,8 @@ class FormatData(object):
                        'disk':{'partition':[],'used':[],'total':[]},
                        'network':{'device':"",'timestamp':[],'transmit':[],'receive':[],'drop':[]}
                        }
-        self.doc_api_obj = DocumentApi('192.168.10.3',9200)
+        es_api_info = get_es_connect_info('192.168.10.1', 9000, '/master/api/config/ES%20API/')
+        self.doc_api_obj = DocumentApi(str(es_api_info[0]),int(es_api_info[1]))
         self.query_data = query_data
     
     def cpu(self):

@@ -113,7 +113,7 @@ $(document).ready(function(){
 	    			label : {show:true,position:'top',formatter:'{c}'}
 	    		}},
 	            smooth: true,
-	            data: [6.1,6.5,6.7,6.8,6.3,6.3,6.5,6.3,6.9,7.0],
+	            data: [],
 		        },
 		        {
 	            name:'总量',
@@ -123,7 +123,7 @@ $(document).ready(function(){
 	    			label : {show:true,position:'top',formatter:'{c}'}
 	    		}},
 	            smooth: true,
-	            data: [8,8,8,8,8,8,8,8,8,8],
+	            data: [],
 		        },
 		    ]
 		}; 
@@ -205,7 +205,7 @@ $(document).ready(function(){
 			        {
 			            type : 'category',
 			            boundaryGap : false,
-			            data: ['21:01', '21:02', '21:03', '21:04', '21:05', '21:06', '21:07', '21:08', '21:09', '21:10']
+			            data: []
 			        }
 			    ],
 			    yAxis : [
@@ -219,19 +219,19 @@ $(document).ready(function(){
 			            name:'发送',
 			            type:'line',
 			            areaStyle: {normal: {}},
-			            data:[120, 132, 101, 134, 134, 134, 134,134,112,154]
+			            data:[]
 			        },
 			        {
 			            name:'接收',
 			            type:'line',
 			            areaStyle: {normal: {}},
-			            data:[100, 92, 81, 34, 94, 56, 78,84,112,100]
+			            data:[]
 			        },
 			        {
 			            name:'丢弃',
 			            type:'line',
 			            areaStyle: {normal: {}},
-			            data:[10, 9, 6, 0, 1, 4, 3,0,0,0]
+			            data:[]
 			        },
 			    ]
 			};

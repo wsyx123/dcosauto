@@ -140,3 +140,7 @@ pre{
 	max-height:300px;
 	
 }	
+
+.dropdown-menu{
+    min-width:100px;
+}

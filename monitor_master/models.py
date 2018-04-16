@@ -81,4 +81,16 @@ class MonitorNotifyPolicy(models.Model):
     
     def __unicode__(self):
         return '%s' %(self.name)
+class MonitorNotifyConfig(models.Model):
+    NOTIFY_TYPE = (('Email','Email'),('SMS','SMS'),('weChat','weChat'))
+    name = models.CharField(max_length=255,verbose_name='名称')
+    type = models.CharField(max_length=10,choices=NOTIFY_TYPE,verbose_name='通知类型')
+    account = models.CharField(max_length=255,verbose_name='接收帐号')
+    hosts = models.ManyToManyField('MonitorHost',verbose_name='事件主机')
         
+class SystemConfig(models.Model):
+    name = models.CharField(max_length=255,verbose_name="配置名称")
+    value = models.CharField(max_length=255,verbose_name="配置值")
+    
+    def __unicode__(self):
+        return '%s' %(self.name)

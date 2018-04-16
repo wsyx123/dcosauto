@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//common/get_es_connect_info.py=utf-8
 encoding//devops_ci/settings.py=utf-8
 encoding//devops_ci/urls.py=utf-8
 encoding//monitor_master/admin.py=utf-8

@@ -9,7 +9,7 @@ from django.shortcuts import render_to_response,HttpResponse
 from webapp.forms.monitor import TemplateForm,HostForm,ItemForm,PolicyForm
 from monitor_master.models import MonitorHost,MonitorTemplate,MonitorNotifyPolicy
 import json
-from monitor_master.models import MonitorProblem,MonitorNotifyDetail,MonitorItem
+from monitor_master.models import MonitorProblem,MonitorNotifyDetail,MonitorItem,SystemConfig,MonitorNotifyConfig
 from format_es_data import FormatData
 
 def monitor_configure(request):
@@ -17,7 +17,9 @@ def monitor_configure(request):
     templates = MonitorTemplate.objects.all()
     items = MonitorItem.objects.all()
     policys = MonitorNotifyPolicy.objects.all()
-    return render_to_response("monitor/monitor.html",{'hosts':hosts,'templates':templates,'items':items,'policys':policys})
+    serverapi = SystemConfig.objects.get(name='Server API')
+    esapi = SystemConfig.objects.get(name='ES API')
+    return render_to_response("monitor/monitor.html",{'hosts':hosts,'templates':templates,'items':items,'policys':policys,'serverapi':serverapi,'esapi':esapi})
 
 def add_host(request):
     if request.method == 'POST':
@@ -126,4 +128,11 @@ def monitor_graph(request):
 def monitor_notify(request):
     problems = MonitorProblem.objects.all().order_by('-time')
     notifys = MonitorNotifyDetail.objects.all().order_by('-time')
-    return render_to_response("monitor/notify.html",{'problems':problems,'notifys':notifys})
+    notifyconfigs = MonitorNotifyConfig.objects.all()
+    return render_to_response("monitor/notify.html",{'problems':problems,'notifys':notifys,'notifyconfigs':notifyconfigs})
+
+def add_notify(request):
+    if request.method == 'POST':
+        pass
+    hosts = MonitorHost.objects.all()
+    return render_to_response("monitor/addNotify.html",{'hosts':hosts})

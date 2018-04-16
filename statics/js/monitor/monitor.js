@@ -59,27 +59,9 @@ function add_agent(){
 	})
 }
 
-function get_template_id(name){
-	$.ajax({
-		type: 'GET',
-		url: '/master/api/templates/'+name+'/',
-		success: function(data){
-			return data.id;
-		}
-	})
-}
-
-function edit_agent(name,template_name){
-	template_id = get_template_id(template_name);
-	$.ajax({
-		type: 'GET',
-		url: '/master/api/hosts/'+name+'/',
-		data: {'template':template_id,'name':name},
-		success: function(data){
-			//var dataobj = eval('('+data+')');
-			console.log(data.template);
-		}
-	})
+function edit_agent(obj){
+	var name = $(obj).parent().siblings().eq(0).html();
+	window.location.href="/monitor/configure/editHost/"+name;
 }
 
 function delete_agent(obj){
@@ -101,9 +83,14 @@ function delete_agent(obj){
 	})
 }
 
-function edit_agent(obj){
-	var name = $(obj).parent().siblings().eq(0).html();
-	window.location.href="/monitor/configure/editHost/"+name;
+function get_template_id(name){
+	$.ajax({
+		type: 'GET',
+		url: '/master/api/templates/'+name+'/',
+		success: function(data){
+			return data.id;
+		}
+	})
 }
 
 function del_template(obj){
@@ -130,13 +117,29 @@ function edit_template(obj){
 	window.location.href="/monitor/configure/editTemplate/"+name;
 }
 
-function server_api_edit_start(){
+function server_api_edit_start(obj){
 	var current = $("#server-api-show").html();
 	$("input[name='server-api']").val(current);
 }
+
+function es_api_edit_start(obj){
+	var current = $("#es-api-show").html();
+	$("input[name='es-api']").val(current);
+}
+
 function server_api_edit_save(){
 	var edit = $("input[name='server-api']").val();
 	$("#server-api-show").html(edit);
+}
+
+function es_api_edit_save(){
+	var edit = $("input[name='es-api']").val();
+	$("#es-api-show").html(edit);
+	$.ajax({
+		type: 'PUT',
+		url: 'http://192.168.10.1:9000/master/api/configs/ES%20API/',
+		data:{"name": "ES API","value": edit,},
+	})
 }
 
 function tdclick(tdobject){  
@@ -228,4 +231,58 @@ function del_policy(obj){
 function edit_policy(obj){
 	var name = $(obj).parent().siblings().eq(0).html();
 	window.location.href="/monitor/configure/editPolicy/"+name;
+}
+
+function str_convert_int(list){
+	var temp_list = new Array();
+	for(var i=0;i<list.length;i++){
+		temp_list.push(parseInt(list[i]));
+	}
+	return temp_list;
+}
+
+function add_notify(){
+	//data = $("#monitor-notify").serialize();
+	var name = $("input[name='name']").val();
+	var type = $("select[name='type']").val();
+	var account = ($("select[name='account']").val()).join(",");
+	var hosts = $("select[name='hosts']").val();
+	var hosts = str_convert_int(hosts);
+	var json = {"name":name,"type":type,"account":account,"hosts":hosts}
+	$.ajax({
+		beforeSend: function(request) {
+            request.setRequestHeader("Content-Type", "application/json");
+        },
+		type: 'POST',
+		url: 'http://192.168.10.1:9000/master/api/notifys/',
+		data:JSON.stringify(json),
+		success:function(){
+			window.location.href="/monitor/notify/";
+		}
+	})
+}
+
+function edit_notify(obj){
+	var name = $(obj).parent().siblings().eq(0).html();
+	window.location.href="/monitor/configure/editHost/"+name;
+}
+
+function del_notify(obj){
+	var name = $(obj).parent().siblings().eq(0).html();
+	$.ajax({
+		type: 'DELETE',
+		url: 'http://192.168.10.1:9000/master/api/notifys/'+name,
+		complete: function(data){
+			//console.log(data.status,data.statusText);
+			if(data.status == 204){
+				$(obj).parent().parent().remove();
+				$("#delete-name").html(name);
+				$("#mySuccessAlert").css('display','block');
+			}else{
+				$("#delete-name").html(name);
+				$("#delete-failure").html(data.statusText);
+				$("#myFailureAlert").css('display','block');
+			}
+		}
+	})
 }

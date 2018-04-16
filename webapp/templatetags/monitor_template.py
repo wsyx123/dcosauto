@@ -52,3 +52,10 @@ def item_value_show(itemobj):
             option_html = option_html +"<option>{}</option>".format(item1)
     return option_html
 
+@register.filter
+def host_manytomany(notifyconfigobj):
+    hosts_str = ""
+    hostsobj = notifyconfigobj.hosts.all()
+    for host in hostsobj:
+        hosts_str = hosts_str+host.name+'\n'
+    return hosts_str

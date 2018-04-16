@@ -8,12 +8,17 @@ Created on 2018年4月11日
 from elasticsearch import es_api
 import datetime
 from filter import threshold_filter
+from models import SystemConfig
+from common.get_es_connect_info import get_es_connect_info
+
+    
 
 class MonitorForms(object):
     def __init__(self,data,address):
         self.data = data
         self.host = self.data.get('host',address)
-        self.docops = es_api.DocumentApi('192.168.10.3',9200)
+        es_api_info = get_es_connect_info('localhost', 9000, '/master/api/configs/ES%20API/')
+        self.docops = es_api.DocumentApi(str(es_api_info[0]),int(es_api_info[1]))
         self.date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.dispatch()
         

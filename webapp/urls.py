@@ -58,5 +58,6 @@ urlpatterns = [
     url(r'^monitor/configure/delPolicy/$',del_policy),
     url(r'^monitor/configure/editPolicy/(?P<name>.+)$',edit_policy),
     url(r'^monitor/notify/$',monitor_notify),
+    url(r'^monitor/notify/addNotify/$',add_notify),
     url(r'^monitor/graph/$',monitor_graph),
 ]

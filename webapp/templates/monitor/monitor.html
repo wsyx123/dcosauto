@@ -6,6 +6,7 @@
 
 {% block js %}
 <script src="/static/js/monitor/monitor.js"></script>
+<script src="/static/js/monitor/csrf.js"></script>
 {% endblock %}
 
 {% block right %}
@@ -21,14 +22,29 @@
 	<div>
 		<div style="display:inline-block;">
 			<h4 id="zabbix-title">监控配置</h4>
-			<span style="font-size:12px;color:#9b9b9b;margin-left:18px;">目前只支持监控CPU,内存,磁盘,网络</span>
+			<span style="font-size:12px;color:#9b9b9b;margin-left:5px;">目前只支持监控CPU,内存,磁盘,网络</span>
 		</div>
-		<div style="display:inline-block;margin-left:100px;">
-			<h4 id="zabbix-title">Server API信息</h4>
-			<span style="margin-left:18px;"><a id="server-api-show">http://192.168.10.3:7001</a></span>
+		<div style="display:inline-block;margin-left:10px;">
+			<h5 id="zabbix-title">Server API</h5>
+			<span style="margin-left:5px;"><a id="server-api-show">{{serverapi.value}}</a></span>
 		</div>
-		<div style="display:inline-block;margin-left:200px;margin-top:20px;">
-				<button type="button" onclick="server_api_edit_start();" data-toggle="modal" data-target="#server-api-edit" class="btn btn-info">Server API配置</button>
+		<div style="display:inline-block;margin-left:10px;">
+			<h4 id="zabbix-title">ES API</h4>
+			<span style="margin-left:5px;"><a id="es-api-show">{{esapi.value}}</a></span>
+		</div>
+		<div style="display:inline-block;margin-left:20px;">
+		<ul>
+		    <li class="dropdown">
+		        <a class="dropdown-toggle" data-toggle="dropdown" href="#">配置API信息
+		            <span class="caret"></span></a>
+		        <ul class="dropdown-menu">
+		            <li>
+		                <a href="#" data-toggle="modal" data-target="#server-api-edit" onclick="server_api_edit_start(this)">配置 Server API</a></li>
+		            <li>
+		                <a href="#" data-toggle="modal" data-target="#es-api-edit" onclick="es_api_edit_start(this)">配置 ES API</a></li>
+		        </ul>
+		    </li>
+		</ul>
 		</div>
 	</div>
 	
@@ -191,7 +207,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">编辑Server API 信息</h4>
+                <h4 class="modal-title" id="myModalLabel">编辑Server API信息</h4>
             </div>
             <div class="modal-body">
             	<input style="width:100%;" name="server-api">
@@ -199,6 +215,26 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="server_api_edit_save();">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+<!-- 选择模态框（Modal） -->
+<div class="modal fade" id="es-api-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">编辑 ES API信息</h4>
+            </div>
+            <div class="modal-body">
+            	<input style="width:100%;" name="es-api">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="es_api_edit_save();">确定</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
