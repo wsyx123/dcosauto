@@ -1,0 +1,77 @@
+{% extends "base/bootstrap.html" %}
+
+{% block css %}
+<link href="/static/bootstrap-select-1.12.4/dist/css/bootstrap-select.min.css" rel="stylesheet">
+<link href="/static/css/monitor/monitor.css" rel="stylesheet">
+{% endblock %}
+
+{% block js %}
+<script src="/static/js/monitor/monitor.js"></script>
+<script src="/static/bootstrap-select-1.12.4/dist/js/bootstrap-select.min.js"></script>
+{% endblock %}
+
+{% block right %}
+<div class="col-md-10" style="padding:0px">
+  	<ul class="breadcrumb">
+    	<li><a href="/"><i class="glyphicon glyphicon-home"></i>Home</a></li>
+    	<li>监控告警</li>
+    	<li class="active"><a href="/monitor/notify/">告警通知</a></li>
+    	<li>通知设置</li>
+	</ul>
+</div>
+
+<div class="col-md-10" id="zabbix_config" style="padding:0px;">
+	<div style="border-bottom:1px solid #d7dde4;padding:5px 50px;">
+		<h4 id="zabbix-title">添加通知</h4>
+		<span style="font-size:12px;color:#9b9b9b;margin-left:18px;">
+			添加一个通知组，一个通知组可以包含多个主机，多个接收人。
+		</span>
+	</div>
+	<div style="padding:10px 200px;">
+		<form id="monitor-notify">
+		<table class="add_host">
+			<tr>
+				<td>名称</td>
+				<td><input type="text" name="name"></td>
+			</tr>		
+			<tr>
+				<td>通知类型</td>
+				<td>
+					<select name="type">
+						<option>Email</option>
+						<option>SMS</option>
+						<option>weChat</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>接收帐号</td>
+				<td>
+					<select name="account"  class="selectpicker show-tick form-control" multiple data-live-search="true">
+						<option>18508503875@139.com</option>
+						<option>18508503875@139.com</option>
+						<option>18508503875@139.com</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>事件主机</td>
+				<td>
+					<select name="hosts"  class="selectpicker show-tick form-control" multiple data-live-search="true">
+					{% for host in hosts %}
+						<option value="{{host.id}}">{{host.name}}</option>
+					{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr><td></td><td>
+							<button onclick="add_notify();" type="button" class="btn btn-primary">添加</button>
+							<button onclick="history.go(-1)" type="button" class="btn btn-default">取消</button>
+						 </td>
+			</tr>	
+		</table>
+		</form>
+	</div>
+</div>
+
+{% endblock %}
