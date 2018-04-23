@@ -55,6 +55,17 @@ class DisableCSRF(MiddlewareMixin):
     def process_request(self, request):
         setattr(request, '_dont_enforce_csrf_checks', True)
         
+django csrf 在process_view实现的，所以 可以在  相应的视图加   csrf_exempt （FBV跟CBV加的方式不一样）
+process_request执行时还未找到视图，执行过后才找到视图，然后再执行process_view时request是携带了视图，
+process_view才能对视图进行检查（1 检查视图是否设置免csrf 验证，2 去请求体或cookie中获取token）
+
+FBV 直接加在函数上
+CBV 需要借助django.utils.decorators.method_decorator,加在dispatch上，如下：
+
+@method_decorator(csrf_exempt,name="dispatch")
+class StudentView(View):
+	pass
+
  
 问题四：
 ajax 中 post  到django rest framework 需要设置 ：Content-Type:application/json
@@ -66,3 +77,8 @@ $.ajax({
 		url: 'http://192.168.10.1:9000/master/api/notifys/',
 		data:JSON.stringify(json),
 	})
+
+问题五:
+django rest framework默认认证使用SessionAuthentication和BasicAuthentication
+We haven't set up any authentication classes, so the defaults are currently applied, 
+which are SessionAuthentication and BasicAuthentication

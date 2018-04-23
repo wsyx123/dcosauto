@@ -17,8 +17,8 @@ def monitor_configure(request):
     templates = MonitorTemplate.objects.all()
     items = MonitorItem.objects.all()
     policys = MonitorNotifyPolicy.objects.all()
-    serverapi = SystemConfig.objects.get(name='Server API')
-    esapi = SystemConfig.objects.get(name='ES API')
+    serverapi = SystemConfig.objects.filter(name='Server API').first()
+    esapi = SystemConfig.objects.filter(name='ES API').first()
     return render_to_response("monitor/monitor.html",{'hosts':hosts,'templates':templates,'items':items,'policys':policys,'serverapi':serverapi,'esapi':esapi})
 
 def add_host(request):

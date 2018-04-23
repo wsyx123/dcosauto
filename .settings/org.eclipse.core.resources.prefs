@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//common/get_es_connect_info.py=utf-8
+encoding//devops_ci/celery.py=utf-8
 encoding//devops_ci/settings.py=utf-8
 encoding//devops_ci/urls.py=utf-8
 encoding//monitor_master/admin.py=utf-8
@@ -15,6 +16,7 @@ encoding//monitor_master/filter/threshold_filter.py=utf-8
 encoding//monitor_master/forms.py=utf-8
 encoding//monitor_master/models.py=utf-8
 encoding//monitor_master/serializers.py=utf-8
+encoding//monitor_master/tasks.py=utf-8
 encoding//monitor_master/tests.py=utf-8
 encoding//monitor_master/urls.py=utf-8
 encoding//monitor_master/views.py=utf-8

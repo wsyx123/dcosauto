@@ -1,0 +1,73 @@
+第一步： 
+在settings中开头行添加
+from __future__ import absolute_import
+import os
+
+把'djcelery' 添加到INSTALLED_APPS
+
+
+配置时区：
+TIME_ZONE = 'Asia/Shanghai'
+USE_TZ = False
+
+
+celery 相关配置：
+
+import djcelery        # 导入celery
+djcelery.setup_loader()        #加载celery
+BROKER_URL = 'redis://:root@192.168.10.3:6379/0'   # 配置clery的 broker（这里使用redis，官方推荐rabbitmq）
+# BROKER_URL = 'redis://:密码@主机地址:端口号/数据库号'
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+#计划任务
+CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+CELERY_ENABLE_UTC = False # 不是用UTC
+CELERY_TIMEZONE = 'Asia/Shanghai'
+CELERY_TASK_RESULT_EXPIRES = 10 #任务结果的时效时间
+
+
+第二步：
+ 在settings同级目录添加celery.py ,内容如下：
+
+from __future__ import absolute_import
+import os
+from celery import Celery, platforms
+
+# set the default Django settings module for the 'celery' program.
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'devops_ci.settings')
+
+from django.conf import settings  # noqa
+
+app = Celery('monitor_master')
+platforms.C_FORCE_ROOT = True
+
+# Using a string here means the worker will not have to
+# pickle the object when using Windows.
+app.config_from_object('django.conf:settings')
+app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
+
+@app.task(bind=True)
+def debug_task(self):
+    print('Request: {0.alt!r}')
+    
+第三步：
+ 在monitor_master  APP下新建tasks.py，定义各种任务
+ 
+from __future__ import absolute_import
+from celery import shared_task
+
+@shared_task
+def test_celery(x, y):
+    print x + y
+    return x + y
+ 
+ 
+第四步：
+ 启动 celery worker 执行所有分配的任务
+ celery -A devops_ci worker -l info  # -A 指定app (这个app是包含 settings的)
+ 
+启动celery beat 监控定时任务（把任务交给worker执行）
+ celery -A devops_ci beat -l info 
+ 
+ 
+ 
+
