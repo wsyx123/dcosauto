@@ -20,7 +20,10 @@ def get(host,port,url_context=None):
 
 def post(host,port,url_context=None,body=None,headers=None):
     conn = httplib.HTTPConnection(host,port)
-    conn.request("POST", url_context, body, headers)
+    try:
+        conn.request("POST", url_context, body, headers)
+    except Exception as e:
+        return e
     httpres = conn.getresponse()
     return httpres.read()
 

@@ -11,6 +11,8 @@ from monitor_master.models import MonitorHost,MonitorTemplate,MonitorNotifyPolic
 import json
 from monitor_master.models import MonitorProblem,MonitorNotifyDetail,MonitorItem,SystemConfig,MonitorNotifyConfig
 from format_es_data import FormatData
+from webapp.common.httplibapi import post
+
 
 def monitor_configure(request):
     hosts = MonitorHost.objects.all()
@@ -40,6 +42,13 @@ def del_host(request):
 
 def edit_host(request,name):
     name = name
+    if request.method == 'POST':
+        host = str(request.POST.get('host'))
+        port = int(request.POST.get('port'))
+        status = request.POST.get('status')
+        body = json.dumps({'status':status})
+        print post(host, port, '/', body, {'Content-Type':'application/json'})
+        
     host = MonitorHost.objects.get(name=name)
     return render_to_response("monitor/editHost.html",{'host':host})
 
@@ -120,13 +129,12 @@ def monitor_graph(request):
         data = json.loads(request.POST.get("data"))
         formatobj = FormatData(data)
         return_data = formatobj.dispatch()
-        print return_data
         return HttpResponse(json.dumps(return_data))
     hosts = MonitorHost.objects.all()
     return render_to_response("monitor/graph.html",{'hosts':hosts})
 
 def monitor_notify(request):
-    problems = MonitorProblem.objects.all().order_by('-time')
+    problems = MonitorProblem.objects.all()
     notifys = MonitorNotifyDetail.objects.all().order_by('-time')
     notifyconfigs = MonitorNotifyConfig.objects.all()
     return render_to_response("monitor/notify.html",{'problems':problems,'notifys':notifys,'notifyconfigs':notifyconfigs})

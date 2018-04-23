@@ -16,7 +16,7 @@ class FormatData(object):
                        'disk':{'partition':[],'used':[],'total':[]},
                        'network':{'device':"",'timestamp':[],'transmit':[],'receive':[],'drop':[]}
                        }
-        es_api_info = get_es_connect_info('192.168.10.1', 9000, '/master/api/config/ES%20API/')
+        es_api_info = get_es_connect_info('192.168.10.1', 9000, '/master/api/configs/ES%20API/')
         self.doc_api_obj = DocumentApi(str(es_api_info[0]),int(es_api_info[1]))
         self.query_data = query_data
     

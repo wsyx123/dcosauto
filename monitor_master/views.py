@@ -7,10 +7,7 @@ from .serializers import HostSerializer,DetailSerializer,PolicySerializer,\
 ProblemSerializer,TemplateSerializer,ItemSerializer,ConfigSerializer,NotifyConfigSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.http import Http404
-from rest_framework import status
 from forms import MonitorForms
-from filter import threshold_filter
 
 # Create your views here.
 
@@ -35,13 +32,13 @@ class NotifyConfigViewSet(viewsets.ModelViewSet):
     lookup_field = 'name'
     filter_backends = (filters.SearchFilter,)
     search_fields = ('name','type')
-
+    
 class ProblemViewSet(viewsets.ModelViewSet):
     queryset = MonitorProblem.objects.all()
     serializer_class = ProblemSerializer
-    lookup_field = 'name'
+    lookup_field = 'id'
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('status','level')
+    search_fields = ('id','status','level')
 
 class TemplateViewSet(viewsets.ModelViewSet):
     queryset = MonitorTemplate.objects.all()

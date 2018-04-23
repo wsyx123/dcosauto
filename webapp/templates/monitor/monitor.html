@@ -87,11 +87,11 @@
 					      <td>{{host.name}}</td>
 					      <td>{{host.address}}:{{host.port}}</td>
 					      <td onclick="tdclick(this);">{{host.template}}</td>
-					  {% if host.status %}
+					  {% ifequal host.status 'UP' %}
 					      <td class="monitor-status"><a style="cursor:pointer;color:green">已启用</a></td>
 					  {% else %}
 					      <td class="monitor-status"><a style="cursor:pointer;color:red;">停用的</a></td>
-					  {% endif %}
+					  {% endifequal %}
 					  {% ifequal host.agent 'UP' %}
 					      <td><span class="status-green">agent</span></td>
 					  {% else %}

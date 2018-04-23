@@ -82,3 +82,13 @@ $.ajax({
 django rest framework默认认证使用SessionAuthentication和BasicAuthentication
 We haven't set up any authentication classes, so the defaults are currently applied, 
 which are SessionAuthentication and BasicAuthentication
+
+
+问题六：
+ajax 如何获取 返回状态信息
+服务器返回有三个对象
+$.ajax({
+    success: function(data, status, xhr) { 
+        console.log(xhr.getResponseHeader("Content-Type"));
+    }
+});

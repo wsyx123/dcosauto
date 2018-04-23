@@ -1,3 +1,36 @@
+function set_agent_status(agent,status,agent_info){
+	$.ajax({
+		type: 'PATCH',
+		url: 'http://192.168.10.1:9000/master/api/hosts/'+agent+'/',
+		data:{"name": agent,"status": status,},
+		success: function(data,respons_status,xhr){
+			if(xhr.status == 200){
+				if(status == 'UP'){
+					agent_status = 'enabled';
+				}else{
+					agent_status = 'disabled';
+				}
+				var host = agent_info.split(':')[0];
+				var port = agent_info.split(':')[1];
+				$.ajax({
+					type: 'POST',
+					url: 'editHost/'+agent,
+					data:{"host":host,"port":port,"status":agent_status,},
+				})
+			}
+		}
+	})
+}
+
+function set_problem_status(id,status){
+	$.ajax({
+		type: 'PATCH',
+		url: 'http://192.168.10.1:9000/master/api/problems/'+id+'/',
+		data:{"id": id,"status": status,},
+	})
+	
+}
+
 $(document).ready(function(){
 	$("#zabbix-menu div").bind("click",function(){
 		var displayobj = $(".zabbix-detail");
@@ -9,16 +42,20 @@ $(document).ready(function(){
 	})
 	
 	$(".monitor-status").bind('click',function(){
+		var name = $(this).siblings().eq(0).html();
+		var agent_info = $(this).siblings().eq(1).html();
 		var status = $(this).children().html();
 		if( status == '已启用' ){
 			var result = confirm('停用主机?');
 			if( result == true ){
+				set_agent_status(name,'DOWN',agent_info);
 				$(this).html('<a style="cursor:pointer;color:red;">停用的</a>');
 			}
 		}
 		if( status == '停用的' ){
 			var result = confirm('启用主机?');
 			if( result == true ){
+				set_agent_status(name,'UP',agent_info);
 				$(this).html('<a style="cursor:pointer;color:green;">已启用</a>');
 			}
 		}
@@ -26,16 +63,19 @@ $(document).ready(function(){
 	})
 	
 	$(".notify-status").bind('click',function(){
+		var id = $(this).siblings().eq(0).html();
 		var status = $(this).children().html();
 		if( status == '已确认' ){
 			var result = confirm('取消确认?');
 			if( result == true ){
+				set_problem_status(id,'UNCONFIRMED');
 				$(this).html('<a class="notify-status-grey">未确认</a>');
 			}
 		}
 		if( status == '未确认' ){
 			var result = confirm('问题已确认?');
 			if( result == true ){
+				set_problem_status(id,'CONFIRMED');
 				$(this).html('<a class="notify-status-green">已确认</a>');
 			}
 		}
