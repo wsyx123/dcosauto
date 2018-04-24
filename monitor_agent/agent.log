@@ -1,0 +1,9 @@
+{'status': 'disabled'}
+192.168.10.1 - - [23/Apr/2018 22:14:08] "POST / HTTP/1.1" 200 21
+{'status': 'disabled'}
+192.168.10.1 - - [23/Apr/2018 22:25:00] "POST / HTTP/1.1" 200 21
+{'status': 'enabled'}
+192.168.10.1 - - [23/Apr/2018 22:55:37] "POST / HTTP/1.1" 200 21
+{'cpu': {'usage': 0.0, 'iowait': 0.0}, 'host': 'keystone', 'disk': {'/data': {'total': 16.18, 'used': 12.91}, '/': {'total': 16.18, 'used': 12.91}}, 'network': {'eth0': {'transmit_total': 165.38, 'drop_total': 0.0, 'receive_total': 203.87}}, 'memory': {'total': 7.82, 'free': 7.49}}
+{'status': 'disabled'}
+192.168.10.1 - - [23/Apr/2018 22:57:23] "POST / HTTP/1.1" 200 21

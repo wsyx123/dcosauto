@@ -28,7 +28,7 @@ class ImageRegistryAdmin(admin.ModelAdmin):
 #     list_display = ('name','items','interval','cpu','memory','disk','network')  
 #     
 # class MonitorHostAdmin(admin.ModelAdmin):
-#     list_display = ('name','address','port','template','status','agent')  
+#     list_display = ('name','address','port','template','status','monitor_agent')  
 #     
 # class MonitorNotifyPolicyAdmin(admin.ModelAdmin):
 #     list_display = ('name','warning_threshold','danger_threshold','promote')

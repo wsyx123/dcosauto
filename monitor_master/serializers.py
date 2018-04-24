@@ -12,7 +12,7 @@ MonitorNotifyPolicy,MonitorProblem,MonitorTemplate,SystemConfig,MonitorNotifyCon
 class HostSerializer(serializers.ModelSerializer):
     class Meta:
         model = MonitorHost
-        #fields = ('address', 'agent','name','port','status','template')
+        #fields = ('address', 'agemonitor_agentname','port','status','template')
         fields = '__all__'
         
 class DetailSerializer(serializers.ModelSerializer):

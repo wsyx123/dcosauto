@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=64, verbose_name='\u540d\u79f0')),
                 ('address', models.CharField(max_length=32, unique=True, verbose_name='IP\u5730\u5740')),
                 ('status', models.CharField(default='enabled', max_length=15, verbose_name='\u72b6\u6001')),
-                ('agent', models.CharField(default='down', max_length=5, verbose_name='Agent\u72b6\u6001')),
+                ('monitor_agent', models.CharField(default='down', max_length=5, verbose_name='Agent\u72b6\u6001')),
             ],
         ),
         migrations.CreateModel(

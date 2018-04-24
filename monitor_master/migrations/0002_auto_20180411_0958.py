@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterField(
             model_name='monitorhost',
-            name='agent',
+            name='monitor_agent',
             field=models.CharField(choices=[('UP', 'UP'), ('DOWN', 'DOWN')], default='DOWN', max_length=5, verbose_name='Agent\u72b6\u6001'),
         ),
         migrations.AlterField(

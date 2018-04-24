@@ -95,8 +95,7 @@ class platformcomponent(models.Model):
 #     template = models.ForeignKey('MonitorTemplate',on_delete=models.PROTECT,verbose_name='模版')
 #     status = models.CharField(max_length=15,default='enabled',verbose_name='状态')
 #     agent = models.CharField(max_length=5,default='down',verbose_name='Agent状态')
-#     
-#     def __unicode__(self):
+#    monitor_agent    def __unicode__(self):
 #         return '%s' %(self.name)
 # 
 # class MonitorProblem(models.Model):
