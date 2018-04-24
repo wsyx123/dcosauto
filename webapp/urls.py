@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
-from platformcenter.component import component,component_delete
+from platformcenter.component import component,component_delete,component_status
 from platformcenter.template import template,edit_template,del_platform_template
 from platformcenter.install import auto_install, custom_install
 from platformcenter.log import log
@@ -36,6 +36,7 @@ urlpatterns = [
     url(r'^image/$',image),
     url(r'^platform/manage/$',component),
     url(r'^platform/manage/delete/$',component_delete),
+    url(r'^platform/manage/status/$',component_status),
     url(r'^platform/template/$',template),
     url(r'^platform/template/editTemplate/(?P<name>.+)$',edit_template),
     url(r'^platform/template/delTemplate/$',del_platform_template),

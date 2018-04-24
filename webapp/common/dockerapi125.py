@@ -62,13 +62,15 @@ class DockerOps(object):
         pass
     
     @classmethod    
-    def list(cls,host,port,alls):
+    def list(cls,host,port,container_name,alls):
         self=cls()
         if alls:
             baseurl='http://'+host+':'+port+'/containers/json?all=true'
-        
         else:
-            baseurl='http://'+host+':'+port+'/containers/json'
+            if container_name:
+                baseurl='http://'+host+':'+port+'/containers/'+container_name+'/json'
+            else:
+                baseurl='http://'+host+':'+port+'/containers/json'
         http_api_obj = HttpApi(baseurl)
         return http_api_obj.get()   
     @classmethod    
@@ -184,8 +186,14 @@ class DockerOps(object):
             return result 
     @classmethod        
     def status(cls,host,port,container_name,alls):
-        status_result = cls.list(host,port,container_name, alls=False)
-        return status_result["State"]["Status"]
+        status_result = cls.list(host,port,container_name, alls)
+#         for key,value in status_result.items():
+#             print key,':',value
+        if status_result['code'] == 200:
+            return status_result["reason"]["State"]["Status"]
+        else:
+            return None
+        
     
     @classmethod    
     def getarchive(cls,host,port,container_name,filename):

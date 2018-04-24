@@ -12,6 +12,8 @@ from webapp.common.docker_create_pull import create_pull,delete_container
 from webapp.forms.component import ComponentForm
 from webapp.common.page import page
 import json
+from webapp.common.dockerapi125 import DockerOps
+import threading
 
 def component(request):
     if request.method == 'POST':
@@ -42,6 +44,27 @@ def component(request):
     hosts = platformhosts.objects.values('address')
     return render_to_response('platform/component.html',{'components':components,'templates':templates,
                                                          'clusters':clusters,'hosts':hosts})
+def component_status(request):
+    status = {}
+    component_obj = platformcomponent.objects.all()
+    for component in component_obj:
+        get_container_status(component)
+#         t = threading.Thread(target=get_container_status,args=(component,))
+#         t.start()
+    component_obj = platformcomponent.objects.all()
+    for component in component_obj:
+        status[component.name] = component.status
+    return HttpResponse(json.dumps(status))
+
+def get_container_status(containerobj):
+    host = str(containerobj.host)
+    container_name = str(containerobj.name)
+    status = DockerOps.status(host=host, port='6071', container_name=container_name,alls=False)
+    if status == 'running':
+        platformcomponent.objects.filter(name=container_name).update(status='up')
+    else:
+        platformcomponent.objects.filter(name=container_name).update(status='down')
+        
 def component_delete(request):
     if request.method == 'POST':
         name = request.POST.get('name')

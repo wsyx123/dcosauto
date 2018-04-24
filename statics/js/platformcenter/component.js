@@ -1,3 +1,29 @@
+$(document).ready(function(){
+	var settime = setInterval(function(){
+		$.ajax({
+			type: 'GET',
+			url: '/platform/manage/status/',
+			success: function(data,status,rhx){
+				dataobj = eval('('+data+')');
+				currentobj = $("#component-list table tbody tr");
+				for(var i=0;i<currentobj.length;i++){
+					name = $(currentobj[i]).children().eq(1).html();
+					for(obj in dataobj){
+						if(obj == name && dataobj[obj] == 'up'){
+							$(currentobj[i]).children().eq(8).html('<span style="background-color:#006400;color:white;">up</span>');
+						}
+						if(obj == name && dataobj[obj] == 'down'){
+							$(currentobj[i]).children().eq(8).html('<span style="background-color:#880000;color:white;">down</span>');
+						}
+					}
+					
+				}
+			}
+		})
+	},50000);
+	
+})
+
 function deploy_component(){
 	$("#deploy-host").html($("select[name='host']").val());
 	$("#deploy-name").html($("input[name='name']").val());
