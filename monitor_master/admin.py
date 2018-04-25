@@ -14,7 +14,7 @@ class MonitorTemplateAdmin(admin.ModelAdmin):
 
     
 class MonitorHostAdmin(admin.ModelAdmin):
-    list_display = ('name','address','port','template','status','monitor_agent')  
+    list_display = ('name','address','port','template','status','agent')  
     
 class MonitorNotifyPolicyAdmin(admin.ModelAdmin):
     list_display = ('name','warning_threshold','danger_threshold','promote')
