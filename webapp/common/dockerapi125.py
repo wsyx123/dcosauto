@@ -177,7 +177,7 @@ class DockerOps(object):
         return "True"
     
     def get_container_id(self,host,port,container_name):
-        result = self.list(host, port,alls=True)
+        result = self.list(host, port,container_name,alls=True)
         if result['code'] == 200:
             for containter in result['reason']:
                 if container_name == str(containter["Names"])[4:-2]:

@@ -48,6 +48,7 @@
 	font-size:12px;
 	background-color:#2d8cf0;
 	border-color: #2d8cf0;
+	padding: 3px 6px;
 }
 
 #zabbix-detail-host button,#zabbix-detail-template button{
