@@ -47,7 +47,7 @@ function save_asset(obj){
 
 function delete_asset_ask(obj){
 	thisobj = $(obj);
-	address = $(obj).siblings().eq(1).html();
+	address = $(obj).parent().siblings().eq(1).html();
 	$("#delete-host").html(address);
 }
 
@@ -68,6 +68,11 @@ function delete_asset_ensure(obj){
 		}
 		
 	})
+}
+
+function terminal_connect(obj){
+	var addr = $(obj).parent().siblings().eq(1).html();
+	window.location.href='/asset/host/'+addr;
 }
 
 function collection_finish(){

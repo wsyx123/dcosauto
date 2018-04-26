@@ -3,3 +3,5 @@ djangorestframework
 django
 itchat
 email
+django-celery
+dwebsocket

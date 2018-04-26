@@ -24,7 +24,7 @@ from dashboard.dashboard import dashboard
 from system.system import system
 from monitor.monitor import *
 from document.document import document,documentdownload
-from asset.asset import asset
+from asset.asset import asset,assert_connect
 from image.image import image
 admin.autodiscover()
 
@@ -35,6 +35,7 @@ urlpatterns = [
     url(r'^system/$',system),
     url(r'^asset/$',RedirectView.as_view(url='/asset/host/')),
     url(r'^asset/host/$',asset),
+    url(r'^asset/host/(?P<addr>.+)$',assert_connect),
     url(r'^asset/file/$',asset),
     url(r'^asset/task/$',asset),
     url(r'^image/$',image),

@@ -46,7 +46,7 @@
 					      <th>docker目录</th>
 					      <th>创建时间</th>
 					      <th>状态</th>
-					      <th></th>
+					      <th>维护</th>
 					    </tr>
 					  </thead>
 					  <tbody style="max-height:200px;overflow-y: scroll;">
@@ -67,7 +67,10 @@
 						  {% else %}
 						  <td style="text-align:center;"><img alt="" src="/static/images/stop.png"></td>
 						  {% endifequal %}
-					      <td onclick="delete_asset_ask(this);"><button type="button" data-toggle="modal" data-target="#mydelete" data-dismiss="modal" class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i></button></td>
+					      <td>
+					      <button title="连接" type="button" id="terminal" onclick="terminal_connect(this)"></button>
+					      <button id="delete" onclick="delete_asset_ask(this);" type="button" data-toggle="modal" data-target="#mydelete" data-dismiss="modal"><i class="glyphicon glyphicon-trash"></i></button>
+					      </td>
 					    </tr>
 					    {% endfor %}
 					  </tbody>

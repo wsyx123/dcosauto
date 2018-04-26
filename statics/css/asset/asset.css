@@ -128,3 +128,20 @@
 .image-detail{
 	display:none;
 }
+
+#terminal{
+	background:url('/static/images/terminal.png');
+	width:16px;
+	height:16px;
+	border:none;
+}
+
+#delete{
+	padding:0px;
+	background-color:white;
+	width:16px;
+	height:16px;
+	border:none;
+	color:red;
+}
+

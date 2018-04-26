@@ -42,3 +42,6 @@ def asset(request):
     hosts = page(hosts, 1, 10)
     return render_to_response("asset/asset.html",{'hosts':hosts})
 
+def assert_connect(request,addr):
+    print addr
+    return render_to_response("asset/terminal.html",{})

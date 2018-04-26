@@ -1,0 +1,56 @@
+{% extends "base/bootstrap.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/xterm/dist/xterm.css" />
+<link rel="stylesheet" href="/static/xterm/dist/addons/fullscreen/fullscreen.css" />
+<link href="/static/css/asset/asset.css" rel="stylesheet" />
+{% endblock %}
+
+{% block js %}
+<script src="/static/xterm/dist/xterm.js" ></script>
+<script src="/static/xterm/dist/addons/fullscreen/fullscreen.js" ></script>
+<script src="/static/xterm/dist/addons/attach/attach.js" ></script>
+<script src="/static/xterm/dist/addons/fit/fit.js" ></script>
+<script src="/static/xterm/dist/addons/search/search.js" ></script>
+<script src="/static/js/asset/asset.js"></script>
+{% endblock %}
+
+{% block right %}
+<div class="col-md-10" style="padding:0px">
+  	<ul class="breadcrumb">
+    	<li><a href="/"><i class="glyphicon glyphicon-home"></i>Home</a></li>
+    	<li>资产管理</li>
+    	<li><a href="/asset/host/">主机管理</a></li>
+    	<li>远程连接</li>
+	</ul>
+</div>
+
+<div class="col-md-10" id="describe-head">
+	
+	<div>
+		<div style="display:inline-block;color:blue;">正在远程连接<span>20.26.25.154...</span></div>
+		<div style="display:inline-block;margin-left:250px;margin-top:5px;"><button class="btn btn-danger">关闭连接</button></div>
+		<div id="image-detail">
+			
+		</div>
+	</div>
+</div>
+<script>
+	var term = new Terminal({
+		rows: 30,
+		useStyle: true,
+		screenKeys: true
+		});
+       term.open(document.getElementById('image-detail'));
+       term.on('title',function(title){
+    	   document.title = title;
+       });
+       term.on('data',function(data){
+    	   console.log(data);
+       });
+       term.write('>');
+       window.term = term;
+       
+</script>
+
+{% endblock %}
