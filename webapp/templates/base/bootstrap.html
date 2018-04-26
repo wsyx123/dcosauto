@@ -35,8 +35,18 @@
 	        <ul class="nav nav-pills nav-stacked">  
 	            <li><a href="/dashboard/"><i class="glyphicon glyphicon-dashboard"></i> 展示面板</a></li> 
 	            <li><a href="/system/"><i class="glyphicon glyphicon-cog"></i> 系统管理</a></li>
-	            <li><a href="/asset/"><i class="glyphicon glyphicon-globe"></i> 资产管理</a></li>
-	            <li><a href="/image/"><i class="glyphicon glyphicon-cd"></i> 镜像管理</a></li>  
+	            <li><a href="/image/"><i class="glyphicon glyphicon-cd"></i> 镜像管理</a></li>
+	            <li>
+	            	<a class="nav-header" data-toggle="collapse" data-target="#asset">
+	            		<i class="glyphicon glyphicon-globe"></i> 资产管理
+	            		<span class="pull-right glyphicon glyphicon-chevron-left"></span>
+	            	</a>
+	            	<ul id="asset" class="nav collapse" style="height: 0px;">
+	            		<li><a href="/asset/host/"><i class="glyphicon glyphicon-th-large"></i> 主机 </a></li>
+	            		<li><a href="/asset/file/"><i class="glyphicon glyphicon-level-up"></i> 文件分发</a></li>
+	                    <li><a href="/asset/task/"><i class="glyphicon glyphicon-hourglass"></i> 定时任务</a></li>
+	                </ul>
+	            </li>
 	            <li>
 	            	<a class="nav-header" data-toggle="collapse" data-target="#platform" >
 	            		<i class="glyphicon glyphicon-th-list"></i>

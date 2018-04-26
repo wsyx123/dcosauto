@@ -19,7 +19,10 @@ class dockerhubv2(object):
         url_context="/v2/_catalog"
         conn.request("GET", url_context)
         httpres = conn.getresponse()
-        return json.loads(httpres.read())['repositories']
+        data = json.loads(httpres.read())
+        if not data['repositories']:
+            return None
+        return data['repositories']
     
     def getImageTagList(self): #这里获取每个repository下的所有tag
         image_tag_list = []

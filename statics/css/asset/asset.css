@@ -101,17 +101,17 @@
 
 #image-menu{
 	border-bottom:1px solid #d7dde4;
-	cursor:pointer;
 }
 
 #image-menu div{
 	padding:5px;
 	width:70px;
 	display:inline-block;
+	cursor:pointer;
 }
 
 #image-detail{
-	margin-top:15px;
+	margin-top:8px;
 }
 
 #add-button{
@@ -123,4 +123,8 @@
 .add-underline{
 	border-bottom:2px solid #2d8cf0;
 	color:#2d8cf0;
+}
+
+.image-detail{
+	display:none;
 }

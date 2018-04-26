@@ -6,6 +6,7 @@ import django.utils.timezone as timezone
 
 # Create your models here.
 class platformhosts(models.Model):
+    HOST_STATUS = (('up','up',),('down','down'))
     hostname = models.CharField(max_length=32,null=True,blank=True,verbose_name='主机名')
     address = models.CharField(max_length=32,unique=True,verbose_name='IP地址')
     sversion = models.CharField(max_length=32,null=True,blank=True,verbose_name='系统版本')
@@ -15,7 +16,7 @@ class platformhosts(models.Model):
     cpu = models.CharField(max_length=32,null=True,blank=True,verbose_name='CPU')
     mem = models.CharField(max_length=32,null=True,blank=True,verbose_name='内存')
     disk = models.CharField(max_length=32,null=True,blank=True,verbose_name='磁盘')
-    status = models.CharField(max_length=10,default='down',verbose_name='状态')
+    status = models.CharField(max_length=10,default='down',choices=HOST_STATUS,verbose_name='状态')
     createtime = models.DateTimeField(auto_now_add=True,verbose_name='创建时间')
     
     def __unicode__(self):

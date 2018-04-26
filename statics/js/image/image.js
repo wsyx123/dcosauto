@@ -52,3 +52,7 @@ function download_image(obj){
 	$("#imgversion").html(imgversion);
 	$("#cmds").html(cmds);
 }
+
+function search_image(){
+	image_name = $("input[name='image_name']").val();
+}

@@ -11,6 +11,8 @@ from webapp.common.dockerhubv2api import dockerhubv2
 from webapp.forms.image import ImageForm
 import urllib
 import json
+import socket
+import threading
 
 def image(request):
     if request.method == "POST":
@@ -28,8 +30,9 @@ def image(request):
         address = urllib.unquote(request.body.split('=')[1])
         count = set_one_host_status(address)
         return HttpResponse(json.dumps({'count':count}))
-    
-    set_all_host_status()
+    t = threading.Thread(target=set_all_host_status,args=())
+    t.start()
+#     set_all_host_status()
     hosts = ImageRegistry.objects.all()    
     return render_to_response("image/image.html",{'hosts':hosts,'images':images})
 
@@ -80,16 +83,19 @@ def set_all_host_status():
         for image in rImages:
             address = image.address
             host = str(address.split(":")[0])
-            port = str(address.split(":")[1])
+            port = int(address.split(":")[1])
             try:
+                sk = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                sk.connect((host,port))
+            except Exception as e:
+                imageobj = ImageRegistry.objects.get(address=address)
+                imageobj.count = 0
+                imageobj.status = 'down'
+                imageobj.save()
+            else:
                 instancev2 = dockerhubv2(host,port)
                 imagecount = instancev2.countImageAmount()
                 imageobj = ImageRegistry.objects.get(address=address)
                 imageobj.count = imagecount
                 imageobj.status = 'up'
-                imageobj.save()
-            except Exception as e:
-                imageobj = ImageRegistry.objects.get(address=address)
-                imageobj.count = 0
-                imageobj.status = 'down'
                 imageobj.save()

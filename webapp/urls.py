@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url,include
+from django.views.generic import RedirectView
 from django.contrib import admin
 from platformcenter.component import component,component_delete,component_status
 from platformcenter.template import template,edit_template,del_platform_template
@@ -32,7 +33,10 @@ urlpatterns = [
     url(r'^$',dashboard),
     url(r'^dashboard/$',dashboard,name='dashboard'),
     url(r'^system/$',system),
-    url(r'^asset/$',asset),
+    url(r'^asset/$',RedirectView.as_view(url='/asset/host/')),
+    url(r'^asset/host/$',asset),
+    url(r'^asset/file/$',asset),
+    url(r'^asset/task/$',asset),
     url(r'^image/$',image),
     url(r'^platform/manage/$',component),
     url(r'^platform/manage/delete/$',component_delete),

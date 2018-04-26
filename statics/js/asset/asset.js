@@ -24,7 +24,7 @@ function save_asset(obj){
 		data:{'address':address,'collection':collection},
 		success: function(data){
 			if( collection == 'no' ){
-				window.location.href='/asset/';
+				window.location.href='/asset/host/';
 			}
 			var dataObj=eval("("+data+")");
 			if( dataObj.status == 'success' ){

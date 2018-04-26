@@ -10,10 +10,10 @@ $(document).ready(function(){
 					name = $(currentobj[i]).children().eq(1).html();
 					for(obj in dataobj){
 						if(obj == name && dataobj[obj] == 'up'){
-							$(currentobj[i]).children().eq(8).html('<span style="background-color:#006400;color:white;">up</span>');
+							$(currentobj[i]).children().eq(8).html('<img alt="" src="/static/images/running.png">');
 						}
 						if(obj == name && dataobj[obj] == 'down'){
-							$(currentobj[i]).children().eq(8).html('<span style="background-color:#880000;color:white;">down</span>');
+							$(currentobj[i]).children().eq(8).html('<img alt="" src="/static/images/stop.png">');
 						}
 					}
 					

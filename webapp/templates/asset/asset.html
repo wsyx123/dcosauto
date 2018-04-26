@@ -4,23 +4,29 @@
 <link href="/static/css/asset/asset.css" rel="stylesheet" />
 {% endblock %}
 
+{% block js %}
+<script src="/static/js/asset/asset.js"></script>
+{% endblock %}
+
 {% block right %}
 <div class="col-md-10" style="padding:0px">
   	<ul class="breadcrumb">
     	<li><a href="/"><i class="glyphicon glyphicon-home"></i>Home</a></li>
     	<li>资产管理</li>
+    	<li>主机管理</li>
 	</ul>
 </div>
 
 <div class="col-md-10" id="describe-head">
 	<div>
-		<h3 id="describe-title">资产管理</h3>
-		<span style="font-size:12px;color:#9b9b9b;margin-left:18px;">可以添加资产，远程主机管理，定时任务</span>
+		<h3 id="describe-title">主机管理</h3>
+		<span style="font-size:12px;color:#9b9b9b;margin-left:18px;">可以添加主机，远程主机命令执行</span>
 	</div>
 	<div>
 		<div id="image-menu">
 			<div style="border-bottom:2px solid #2d8cf0;color:#2d8cf0">主机列表</div>
-			<div>任务管理</div>
+			<div>命令执行</div>
+			<div>批量任务</div>
 		</div>
 		<div id="image-detail">
 			<div class="image-detail" style="display:block;">
@@ -57,9 +63,9 @@
 					      <td>{{ host.ddata|default_if_none:'  -' }}</td>
 					      <td>{{ host.createtime|date:'Y/m/d H:i:s' }}</td>
 					      {% ifequal host.status 'up' %}
-						  <td><span style="background-color:#006400;color:white;">up</span></td>
+						  <td style="text-align:center;"><img alt="" src="/static/images/running.png"></td>
 						  {% else %}
-						  <td><span style="background-color:#880000;color:white;">down</span></td>
+						  <td style="text-align:center;"><img alt="" src="/static/images/stop.png"></td>
 						  {% endifequal %}
 					      <td onclick="delete_asset_ask(this);"><button type="button" data-toggle="modal" data-target="#mydelete" data-dismiss="modal" class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i></button></td>
 					    </tr>
@@ -68,6 +74,16 @@
 					</table>
 				</div>
 			</div>
+			
+			<div class="image-detail">
+				<button id="add-button" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>批量命令</button>
+				<button id="add-button" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>文件分发</button>
+				<button id="add-button" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>定时任务</button>
+				<div id="component-list">
+					
+				</div>
+			</div>
+			
 		</div>
 	</div>
 </div>
@@ -177,28 +193,4 @@
 	<strong>删除失败！</strong><span id='delete-failure'></span>。
 </div>
 
-{% endblock %}
-
-{% block js %}
-<script src="/static/js/asset/asset.js"></script>
-<script>
-$(function(){
-	$(".close").click(function(){
-		$(this).parent().css('display','none');
-	});
-});  
-
-$(function(){
-    $("[data-toggle='popover']").popover(
-    {
-    	trigger:'click', //触发方式
-        html: true, // 为true的话，data-content里就能放html代码了
-        content: function() {
-            return $('#component-footer').html();
-          }
-    }		
-    );
-});
-
-</script>
 {% endblock %}

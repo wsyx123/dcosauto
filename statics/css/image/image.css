@@ -19,13 +19,13 @@
 
 #image #image-menu{
 	border-bottom:1px solid #d7dde4;
-	cursor:pointer;
 }
 
 #image #image-menu div{
 	padding:5px;
 	width:70px;
 	display:inline-block;
+	cursor:pointer;
 }
 
 .add-underline{
@@ -34,7 +34,7 @@
 }
 
 #image #image-detail{
-	margin-top:15px;
+	margin-top:8px;
 }
 
 .image-detail{
