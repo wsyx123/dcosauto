@@ -21,15 +21,15 @@
 	overflow:auto;
 }
 
-#platform,#zabbix,#monitor,#asset{
+#platform,#zabbix,#monitor,#asset,#task{
 	margin-left:20px;
 }
 
-#platform a,#zabbix a,#monitor a,#asset a{
+#platform a,#zabbix a,#monitor a,#asset a,#task a{
 	color:black;
 }
 
-#platform .active a,#zabbix .active a,#monitor .active a,#asset .active a{
+#platform .active a,#zabbix .active a,#monitor .active a,#asset .active a,#task .active a{
 	color:green;
 }
 

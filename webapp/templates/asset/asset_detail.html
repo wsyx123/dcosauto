@@ -37,9 +37,15 @@
 					      <th>IP地址</th>
 					      <th>系统版本</th>
 					      <th>绑定用户</th>
+					      <th>CPU</th>
+					      <th>内存</th>
+					      <th>磁盘</th>
+					      <th>docker版本</th>
+					      <th>docker驱动</th>
+					      <th>docker目录</th>
 					      <th>创建时间</th>
 					      <th>状态</th>
-					      <th>动作</th>
+					      <th>维护</th>
 					    </tr>
 					  </thead>
 					  <tbody style="max-height:200px;overflow-y: scroll;">
@@ -48,12 +54,12 @@
 					      <td>{{ host.hostname|default_if_none:'-' }}</td>
 					      <td>{{ host.address|default_if_none:'  -' }}</td>
 					      <td>{{ host.sversion|default_if_none:'  -' }}</td>
-					      <td>
-					      	<select>
-					      		<option>root</option>
-					      		<option>yangxu</option>
-					      	</select>
-					      </td>
+					      <td>{{ host.cpu|default_if_none:'  -' }}</td>
+					      <td>{{ host.mem|default_if_none:'  -' }}</td>
+					      <td>{{ host.disk|default_if_none:'  -' }}</td>
+					      <td>{{ host.dversion|default_if_none:'  -' }}</td>
+					      <td>{{ host.ddriver|default_if_none:'  -' }}</td>
+					      <td>{{ host.ddata|default_if_none:'  -' }}</td>
 					      <td>{{ host.createtime|date:'Y/m/d H:i:s' }}</td>
 					      {% ifequal host.status 'up' %}
 						  <td style="text-align:center;"><img alt="" src="/static/images/running.png"></td>
@@ -61,8 +67,8 @@
 						  <td style="text-align:center;"><img alt="" src="/static/images/stop.png"></td>
 						  {% endifequal %}
 					      <td>
-					      <button type="button" id="terminal" onclick="terminal_connect(this)" class="btn btn-info">Login</button>
-					      <button type="button" id="delete" onclick="delete_asset_ask(this);" data-toggle="modal" data-target="#mydelete" data-dismiss="modal" class="btn btn-danger">删除</button>
+					      <button title="连接" type="button" id="terminal" onclick="terminal_connect(this)"></button>
+					      <button id="delete" onclick="delete_asset_ask(this);" type="button" data-toggle="modal" data-target="#mydelete" data-dismiss="modal"><i class="glyphicon glyphicon-trash"></i></button>
 					      </td>
 					    </tr>
 					    {% endfor %}

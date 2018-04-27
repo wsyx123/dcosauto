@@ -23,7 +23,7 @@
 		<div id="template-action">
 		<a title="编辑" type="button" onclick="edit_template();" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i></a>
 		<span>|</span>
-		<a id="template-del" title="删除" type="button" onclick="del_template();" class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i></a>
+		<a id="template-del" onclick="delete_component_ask(this);" title="删除" type="button" data-toggle="modal" data-target="#mydelete" data-dismiss="modal"  class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i></a>
 		<span>|</span>
 		</div>
 		<div id="add-template">
@@ -148,6 +148,35 @@
 		</table>
 	</div>
 </div>
+
+
+<!-- 删除模态框（Modal） -->	
+<div class="modal fade" id="mydelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+			</div>
+			<div class="modal-body" id="modal-body">
+				<h4 id="delete-component">确定删除<span id="delete-name"></span></span>模版?</h4>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="del_template();">确定</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+
+<!-- 删除结果（Alert） -->	
+<div id="mySuccessAlert" class="alert alert-success">
+	<a href="#" class="close">&times;</a>
+	<strong>删除成功！</strong>
+</div>
+<div id="myFailureAlert" class="alert alert-warning">
+	<a href="#" class="close">&times;</a>
+	<strong>删除失败！</strong><span id='delete-failure'></span>。
+</div>
+
 
 <div class="col-md-10" id="template-footer">
 	<ul class="pager" style="display:inline-block;">

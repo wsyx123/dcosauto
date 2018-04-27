@@ -19,6 +19,15 @@ function edit_template(){
 	
 }
 
+function delete_component_ask(obj){
+	var template_name_list = new Array();
+	var templateobj = $(".templateradio:checked").parent().next();
+	for(i=0;i<templateobj.length;i++){
+		template_name_list.push($(templateobj[i]).html()+'\n');
+	}
+	$("#delete-name").html(template_name_list);
+}
+
 function del_template(){
 	var template_name_list = new Array();
 	var templateobj = $(".templateradio:checked").parent().next();
@@ -51,13 +60,13 @@ function controller_all(obj){
     {
         obj.checked=false;
         obj.tag=0;
-        $(".templateradio").attr('checked',false);
+        $(".templateradio").prop('checked',false);
     }
     else
     {
         obj.checked=true;
         obj.tag=1;
-        $(".templateradio").attr('checked','checked');
+        $(".templateradio").prop('checked','checked');
     }
 }
 

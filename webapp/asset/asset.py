@@ -11,6 +11,8 @@ from webapp.common.dockerapi125 import DockerOps
 from webapp.forms.asset import AssetForm
 from django.shortcuts import render_to_response,HttpResponse
 import json
+from dwebsocket import accept_websocket
+from ssh_client.client import connect
 
 def asset(request):
     if request.method == 'POST':
@@ -42,6 +44,9 @@ def asset(request):
     hosts = page(hosts, 1, 10)
     return render_to_response("asset/asset.html",{'hosts':hosts})
 
+@accept_websocket
 def assert_connect(request,addr):
-    print addr
-    return render_to_response("asset/terminal.html",{})
+    if request.is_websocket():
+        connect(request)
+        print 'websocket connect'
+    return render_to_response("asset/terminal.html",{'address':addr})

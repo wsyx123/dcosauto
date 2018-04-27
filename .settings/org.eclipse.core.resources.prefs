@@ -20,6 +20,7 @@ encoding//monitor_master/tasks.py=utf-8
 encoding//monitor_master/tests.py=utf-8
 encoding//monitor_master/urls.py=utf-8
 encoding//monitor_master/views.py=utf-8
+encoding//ssh_client/client.py=utf-8
 encoding//webapp/admin.py=utf-8
 encoding//webapp/apps.py=utf-8
 encoding//webapp/asset/asset.py=utf-8
