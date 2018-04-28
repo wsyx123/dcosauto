@@ -2,10 +2,12 @@
 	border-radius:4px;
 	height:555px;
 	width:1105px;
+	margin-left:15px;
 	overflow:auto;
 }
 
 #asset-header{
+	margin-top:10px;
 	width:1070px;
 	color: #000000;
 	
