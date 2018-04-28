@@ -1,11 +1,28 @@
 {% extends "base/bootstrap.html" %}
 
 {% block css %}
-<link href="/static/css/asset/asset.css" rel="stylesheet" />
+<link href="/static/css/asset/asset_detail.css" rel="stylesheet" />
 {% endblock %}
 
 {% block js %}
 <script src="/static/js/asset/asset.js"></script>
+<script>
+function control_onoffswitch(){
+	var onobj=$(".onoffswitch-on")[0];
+	var offobj=$(".onoffswitch-off")[0];
+	if($(onobj).css('color') == 'rgb(255, 255, 255)'){
+		$(onobj).css('color','#DDD');
+		$(onobj).css('background-color','#fff');
+		$(offobj).css('color','#fff');
+		$(offobj).css('background-color','#00DDAA');
+	}else{
+		$(offobj).css('color','#DDD');
+		$(offobj).css('background-color','#fff');
+		$(onobj).css('color','#fff');
+		$(onobj).css('background-color','#00DDAA');
+	}
+}
+</script>
 {% endblock %}
 
 {% block right %}
@@ -13,177 +30,161 @@
   	<ul class="breadcrumb">
     	<li><a href="/"><i class="glyphicon glyphicon-home"></i>Home</a></li>
     	<li>资产管理</li>
-    	<li>资产列表</li>
+    	<li>资产详情</li>
 	</ul>
 </div>
 
 <div class="col-md-10" id="describe-head">
-	<div>
-		<h3 id="describe-title">资产管理</h3>
-		<span style="font-size:12px;color:#9b9b9b;margin-left:18px;">可以添加主机，远程主机命令执行</span>
-	</div>
-	<div>
-		<div id="image-menu">
-			<div style="border-bottom:2px solid #2d8cf0;color:#2d8cf0">资产列表</div>
-		</div>
-		<div id="image-detail">
-			<div class="image-detail" style="display:block;">
-				<button id="add-button" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>创建资产</button>
-				<div id="component-list">
-					<table class="table table-bordered">
-					  <thead>
-					    <tr>
-					      <th>主机名</th>
-					      <th>IP地址</th>
-					      <th>系统版本</th>
-					      <th>绑定用户</th>
-					      <th>CPU</th>
-					      <th>内存</th>
-					      <th>磁盘</th>
-					      <th>docker版本</th>
-					      <th>docker驱动</th>
-					      <th>docker目录</th>
-					      <th>创建时间</th>
-					      <th>状态</th>
-					      <th>维护</th>
-					    </tr>
-					  </thead>
-					  <tbody style="max-height:200px;overflow-y: scroll;">
-					  {% for host in hosts.pagedata %}
-					    <tr>
-					      <td>{{ host.hostname|default_if_none:'-' }}</td>
-					      <td>{{ host.address|default_if_none:'  -' }}</td>
-					      <td>{{ host.sversion|default_if_none:'  -' }}</td>
-					      <td>{{ host.cpu|default_if_none:'  -' }}</td>
-					      <td>{{ host.mem|default_if_none:'  -' }}</td>
-					      <td>{{ host.disk|default_if_none:'  -' }}</td>
-					      <td>{{ host.dversion|default_if_none:'  -' }}</td>
-					      <td>{{ host.ddriver|default_if_none:'  -' }}</td>
-					      <td>{{ host.ddata|default_if_none:'  -' }}</td>
-					      <td>{{ host.createtime|date:'Y/m/d H:i:s' }}</td>
-					      {% ifequal host.status 'up' %}
-						  <td style="text-align:center;"><img alt="" src="/static/images/running.png"></td>
-						  {% else %}
-						  <td style="text-align:center;"><img alt="" src="/static/images/stop.png"></td>
-						  {% endifequal %}
-					      <td>
-					      <button title="连接" type="button" id="terminal" onclick="terminal_connect(this)"></button>
-					      <button id="delete" onclick="delete_asset_ask(this);" type="button" data-toggle="modal" data-target="#mydelete" data-dismiss="modal"><i class="glyphicon glyphicon-trash"></i></button>
-					      </td>
-					    </tr>
-					    {% endfor %}
-					  </tbody>
-					</table>
-				</div>
-			</div>
-			
+	<div id="asset-header">
+		<div id="asset-header-title"><i class="glyphicon glyphicon-info-sign"></i>{{host.hostname}}资产详情</div>
+		<div id="asset-button">
+			<a id="asset-delete" type="button"><i class="glyphicon glyphicon-trash"></i> 删除</a>
+			<a id="asset-update" type="button"><i class="glyphicon glyphicon-edit"></i> 更新</a>
 		</div>
 	</div>
+	<div>
+		<div id="asset-detail">
+			<table class="table">
+			  <thead>
+			   	<tr>
+			     	<td>主机名:</td>
+			     	<td>{{host.hostname}}</td>
+			    </tr>
+			    <tr>
+			     	<td>IP:</td>
+			     	<td>{{host.address}}</td>
+			    </tr>
+			    <tr>
+			     	<td>公网IP:</td>
+			     	<td>{{host.address}}</td>
+			    </tr>
+			    <tr>
+			     	<td>制造商:</td>
+			     	<td>VMware</td>
+			    </tr>
+			    <tr>
+			     	<td>型号:</td>
+			     	<td> Virtual Machine</td>
+			    </tr>
+			    <tr>
+			     	<td>CPU(核):</td>
+			     	<td>{{host.cpu}}</td>
+			    </tr>
+			    <tr>
+			     	<td>内存:</td>
+			     	<td>{{host.mem}}</td>
+			    </tr>
+			    <tr>
+			     	<td>硬盘:</td>
+			     	<td>100G</td>
+			    </tr>
+			    <tr>
+			     	<td>docker版本:</td>
+			     	<td>{{host.dversion}}</td>
+			    </tr>
+			    <tr>
+			     	<td>docker存储驱动:</td>
+			     	<td>{{host.dversion}}</td>
+			    </tr>
+			    <tr>
+			     	<td>docker目录:</td>
+			     	<td>{{host.ddata}}</td>
+			    </tr>
+			    <tr>
+			     	<td>docker目录可用:</td>
+			     	<td>{{host.disk}}</td>
+			    </tr>
+			    <tr>
+			     	<td>创建者:</td>
+			     	<td>admin</td>
+			    </tr>
+			    <tr>
+			     	<td>创建日期:</td>
+			     	<td>{{host.createtime|date:'Y-m-d H:i:s'}}</td>
+			    </tr>
+			  </thead>
+			</table>
+		</div>
+		
+		<div id="asset-modify">
+			<div id="asset-modify-header"><i class="glyphicon glyphicon-info-sign"></i> 快速修改</div>
+			<div id="asset-modify-detail">
+				<table class="table" >
+					<thead>
+					<tr>
+						<td>上线</td>
+						<td>
+							<label class="onoffswitch-label" onclick="control_onoffswitch();">
+								<span class="onoffswitch-on">ON</span>
+								<span class="onoffswitch-off">OFF</span>
+							</label>
+						</td>
+					</tr>
+					<tr>
+						<td>测试可连接性</td>
+						<td>
+							<span class="connect-test">测试</span>
+						</td>
+					</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+		
+		<div id="asset-user">
+			<div id="asset-user-header"><i class="glyphicon glyphicon-info-sign"></i> 资产关联系统帐号</div>
+			<div id="asset-user-detail">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>帐号</th>
+							<th>属组</th>
+							<th>备注</th>
+							<th>过期时间</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>apache</td>
+							<td>web</td>
+							<td>apache服务帐号</td>
+							<td>2018-5-28 19:20:20</td>
+						</tr>
+						<tr>
+							<td>apache</td>
+							<td>web</td>
+							<td>apache服务帐号</td>
+							<td>2018-5-28 19:20:20</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<div id="asset-group">
+			<div id="asset-group-header"><i class="glyphicon glyphicon-info-sign"></i> 资产所属部门</div>
+			<div id="asset-group-detail">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>部门</th>
+							<th>使用者</th>
+							<th>备注</th>
+							<th>分配时间</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>开发部门</td>
+							<td>杨旭</td>
+							<td>web应用部署</td>
+							<td>2018-5-28 19:20:20</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+	</div>
 </div>
-<!--  
-<div class="col-md-10" id="component-footer">
-	<ul class="pager">
-    	<li><a href="#">&laquo;</a></li>
-    	<li>| Page <input disabled type="text" name="pagenum" value="{{ hosts.pagenum }}" style="width:30px;text-align:center;"> of {{ hosts.pagecount }} |</li>
-    	<li><a href="#">&raquo;</a></li>
-    	<li>
-    		<select name="datarow" style="height:25px;" onchange="change_data_row(this);">
-    			<option>5</option>
-    			<option>10</option>
-    			<option>15</option>
-    		</select>
-    	</li>
-    	<li style="margin-left:20px;">共  {{ hosts.itemcount }} 条数据</li>
-	</ul>
-</div>
--->
-	
-<!-- 输入模态框（Modal） -->
-<form action="" id="component-form">
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-					&times;
-				</button>
-				<h4 class="modal-title" id="myModalLabel">
-					添加资产
-				</h4>
-			</div>
-			<div class="modal-body">
-		        <div class="form-group">
-		            <label>IP地址</label>
-		            <input type="text" name="address" class="form-control">
-		        </div>
-		        <div class="form-group">
-		           <label>进行信息收集</label>
-		        </div>
-		        <div class="checkbox">
-				    <label style="margin-left:10px;">
-				      <input type="radio" name="collection" value="yes">是
-				    </label>
-				    <label style="margin-left:50px;">
-				      <input type="radio" name="collection" value="no">否
-				    </label>
-			   </div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-				<button type="button" onclick="save_asset(this);" data-toggle="modal" data-target="#myinstall"  data-dismiss="modal" class="btn btn-primary">确定</button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal -->
-</div>
-</form>
-
-<!-- 收集模态框（Modal） -->	
-<div class="modal fade" id="myinstall" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="myModalLabel">
-					正在收集<span id="deploy-host"></span>主机信息
-				</h4>
-			</div>
-			<div class="modal-body" id="modal-body">
-				<span id="deploying">收集中...</span>
-				<span id="deploy-success" style="color:green;font-size:16px;font-weight:bold;"></span>
-				<span id="deploy-failure" style="color:red;font-size:16px;font-weight:bold;"></span>
-				<div><img alt="" src="/static/images/installing.gif"></div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary disabled" onclick="collection_finish();">完成</button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal -->
-</div>
-
-<!-- 删除模态框（Modal） -->	
-<div class="modal fade" id="mydelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-			</div>
-			<div class="modal-body" id="modal-body">
-				<h4 id="delete-component">确定删除<span id="delete-host"></span>这条资产?</h4>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-				<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="delete_asset_ensure();">确定</button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal -->
-</div>
-
-<!-- 删除结果（Alert） -->	
-<div id="mySuccessAlert" class="alert alert-success">
-	<a href="#" class="close">&times;</a>
-	<strong>删除成功！</strong>
-</div>
-<div id="myFailureAlert" class="alert alert-warning">
-	<a href="#" class="close">&times;</a>
-	<strong>删除失败！</strong><span id='delete-failure'></span>。
-</div>
-
 {% endblock %}

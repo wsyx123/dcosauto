@@ -44,9 +44,15 @@ def asset(request):
     hosts = page(hosts, 1, 10)
     return render_to_response("asset/asset.html",{'hosts':hosts})
 
+def asset_detail(request,host):
+    hostobj = platformhosts.objects.filter(hostname=host).first()
+    return render_to_response("asset/asset_detail.html",{'host':hostobj})
+
+def asset_system_user(request):
+    return render_to_response("asset/asset_system_user.html",{})
+
 @accept_websocket
-def assert_connect(request,addr):
+def asset_connect(request,addr):
     if request.is_websocket():
         connect(request)
-        print 'websocket connect'
     return render_to_response("asset/terminal.html",{'address':addr})

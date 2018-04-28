@@ -1,0 +1,164 @@
+#describe-head{
+	border-radius:4px;
+	height:555px;
+	width:1105px;
+	overflow:auto;
+}
+
+#asset-header{
+	width:1070px;
+	color: #000000;
+	
+}
+
+#asset-header div{
+	display:inline-block;
+}
+
+#asset-header-title{
+	color:#555555;
+	font-size:18px;
+	margin-left:150px;
+}
+
+#asset-button{
+	margin-left:500px;
+}
+
+#describe-title{
+	display: inline-block;
+	font-size: 1.5em;
+    -webkit-margin-before: 0.83em;
+    -webkit-margin-after: 0.83em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+}
+
+#asset-detail{
+	margin-top:5px;
+	float:left;
+	width:600px;
+	height:470px;
+	border:1px solid #DDD;
+	padding:0px 10px;
+}
+
+#asset-modify,#asset-user,#asset-group{
+	margin-top:10px;
+	width:450px;
+	display: inline-block;
+	margin-left:20px;
+	border-radius: 4px;
+	background-color: #fff;
+}
+
+#asset-modify{
+	margin-top:5px;
+    border: 1px solid #00DDAA;
+}
+
+#asset-modify-header{
+	color: #fff;
+	background-color: #00DDAA;
+	padding: 10px 15px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+#asset-modify-detail,#asset-user-detail,#asset-group-detail{
+	margin:15px;
+}
+
+#asset-user{
+    border: 1px solid #1ab394;
+}
+
+#asset-user-header{
+	color: #fff;
+	background-color: #1ab394;
+	padding: 10px 15px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+
+#asset-group{
+    border: 1px solid #23c6c8;
+}
+
+#asset-group-header{
+	color: #fff;
+	background-color: #23c6c8;
+	padding: 10px 15px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.table{
+	margin-bottom: 0px;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 5px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+
+.btn{
+	font-size:12px;
+	padding:3px 6px;
+}
+
+.onoffswitch-label{
+    display: block;
+    width:60px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid #00DDAA;
+    border-radius: 3px;
+}
+
+.onoffswitch-on{
+	display: block;
+	float:left;
+	background-color:#00DDAA;
+	width:50%;
+	color:#fff;
+	font-size:10px;
+}
+
+.onoffswitch-off{
+	display: block;
+	float:right;
+	background-color:#fff;
+	width:50%;
+	color:#DDD;
+	font-size:10px;
+	text-align:center;
+}
+
+.connect-test{
+	cursor: pointer;
+    background-color: #00DDAA;
+    color: #FFFFFF;
+    border-radius: 3px;
+    width:60px;
+    display: block;
+    font-size: 10px;
+    line-height: 18px;
+    text-align:center;
+}
+
+#asset-delete{
+	color:red;
+	cursor:pointer;
+}
+
+#asset-update{
+	margin-left:20px;
+	color:#A7B1C2;
+	cursor:pointer;
+}
+
