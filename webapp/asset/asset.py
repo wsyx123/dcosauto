@@ -51,6 +51,13 @@ def asset_detail(request,host):
 def asset_system_user(request):
     return render_to_response("asset/asset_system_user.html",{})
 
+def organization(request):
+    return render_to_response("asset/organization.html",{})
+
+def organization_department_detail(request,deid):
+    print deid
+    return render_to_response("asset/organization_department_detail.html",{})
+
 @accept_websocket
 def asset_connect(request,addr):
     if request.is_websocket():

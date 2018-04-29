@@ -1,0 +1,104 @@
+{% extends "base/bootstrap.html" %}
+
+{% block css %}
+<link href="/static/jOrgChart/css/jquery.jOrgChart.css" rel="stylesheet" />
+<link href="/static/css/asset/organization.css" rel="stylesheet" />
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="/static/jOrgChart/jquery.jOrgChart.js"></script>
+<script src="/static/js/asset/asset.js"></script>
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+    $("#org").jOrgChart({
+        chartElement : '#structure',
+    });
+});
+
+</script>
+
+{% endblock %}
+
+{% block right %}
+<div class="col-md-10" style="padding:0px" id="breadcrumb">
+  	<ul class="breadcrumb">
+    	<li><a href="/"><i class="glyphicon glyphicon-home"></i>Home</a></li>
+    	<li>资产管理</li>
+    	<li>组织管理</li>
+	</ul>
+</div>
+
+<div class="col-md-10" id="describe-head">
+	<div>
+		<h3 id="describe-title">组织管理</h3>
+		<span style="font-size:12px;color:#9b9b9b;margin-left:18px;">可以添加、删除、更改部门相关信息</span>
+	</div>
+	<div>
+		<div id="image-menu">
+			<div style="border-bottom:2px solid #2d8cf0;color:#2d8cf0">组织结构</div>
+			<div>部门列表</div>
+		</div>
+		
+		<div id="image-detail">
+			<div class="image-detail" style="display:block;">
+				<ul id="org" style="display:none">
+					<li>
+					  火云科技
+					  <div>总经理:杨旭</div>
+					  <ul>
+					    <li>人事中心<div>经理:杨旭</div></li>
+					    <li>产品中心<div>经理:杨旭</div>
+					      <ul>
+					        <li>研发部<div>经理:杨旭</div></li>
+					        <li>测试部<div>经理:杨旭</div></li>
+					      </ul>
+					    </li>
+					    <li>财务中心<div>经理:杨旭</div></li>
+					    <li>运维中心<div>经理:杨旭</div>
+					      <ul>
+					        <li>主机组<div>组长:杨旭</div></li>
+					        <li>网络组<div>组长:杨旭</div></li>
+					        <li>应用组<div>组长:杨旭</div></li>
+					      </ul>
+					    </li>
+					  </ul>
+					</li>
+				</ul>
+				<div id="structure">
+				
+				</div>
+			</div>
+			
+			<div class="image-detail">
+				<button id="add-button" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>添加部门</button>
+				<div id="component-list">
+					<table class="table table-bordered">
+					  <thead>
+					    <tr>
+					      <th>部门或组</th>
+					      <th>中心</th>
+					      <th>负责人</th>
+					      <th>职能范围</th>
+					      <th>项目数</th>
+					      <th>人数</th>
+					    </tr>
+					  </thead>
+					  <tbody style="max-height:200px;overflow-y: scroll;">
+					    <tr>
+					      <td>研发部</td>
+					      <td>产品中心</td>
+					      <td>杨旭</td>
+					      <td>公司产品研发</td>
+					      <td><a href="{% url 'organization_department_detail' deid='1' %}" style="cursor:pointer;">10</a></td>
+					      <td><a href="{% url 'organization_department_detail' deid='1' %}" style="cursor:pointer;">10</a></td>
+					    </tr>
+					  </tbody>
+					</table>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</div>
+{% endblock %}

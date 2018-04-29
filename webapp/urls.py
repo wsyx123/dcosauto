@@ -24,7 +24,7 @@ from dashboard.dashboard import dashboard
 from system.system import system
 from monitor.monitor import *
 from document.document import document,documentdownload
-from asset.asset import asset,asset_connect,asset_detail,asset_system_user
+from asset.asset import asset,asset_connect,asset_detail,asset_system_user,organization,organization_department_detail
 from image.image import image
 admin.autodiscover()
 
@@ -35,8 +35,10 @@ urlpatterns = [
     url(r'^system/$',system),
     url(r'^asset/$',RedirectView.as_view(url='/asset/host/')),
     url(r'^asset/host/$',asset),
-    url(r'^asset/user/$',asset_system_user),
     url(r'^asset/host/detail/(?P<host>.+)$',asset_detail,name='asset_detail'),
+    url(r'^asset/user/$',asset_system_user),
+    url(r'^asset/organization/$',organization),
+    url(r'^asset/organization/detail/(?P<deid>.+)$',organization_department_detail,name='organization_department_detail'),
     url(r'^asset/host/(?P<addr>.+)$',asset_connect),
     url(r'^asset/file/$',asset),
     url(r'^asset/task/$',asset),

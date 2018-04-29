@@ -1,0 +1,155 @@
+{% extends "base/bootstrap.html" %}
+
+{% block css %}
+<link href="/static/css/asset/organization.css" rel="stylesheet" />
+{% endblock %}
+
+{% block js %}
+<script src="/static/js/asset/asset.js"></script>
+{% endblock %}
+
+{% block right %}
+<div class="col-md-10" style="padding:0px" id="breadcrumb">
+  	<ul class="breadcrumb">
+    	<li><a href="/"><i class="glyphicon glyphicon-home"></i>Home</a></li>
+    	<li>资产管理</li>
+    	<li><a href="/asset/organization/">组织管理</a></li>
+    	<li>研发部</li>
+	</ul>
+</div>
+
+<div class="col-md-10" id="describe-head">
+	<div>
+		<h3 id="describe-title">项目情况</h3>
+		<span style="font-size:12px;color:#9b9b9b;margin-left:18px;">展示部门所有相关项目信息</span>
+	</div>
+	<div>
+		<div id="image-menu">
+			<div style="border-bottom:2px solid #2d8cf0;color:#2d8cf0">项目列表</div>
+		</div>
+		
+		<div id="image-detail">
+			<div class="image-detail" style="display:block;">
+				<button id="add-button" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>添加成员</button>
+				<div id="component-list">
+					<table class="table table-bordered">
+					  <thead>
+					    <tr>
+					      <th>姓名</th>
+					      <th>中心</th>
+					      <th>部门或组</th>
+					      <th>项目</th>
+					      <th>职务</th>
+					      <th>电话</th>
+					      <th>邮箱</th>
+					    </tr>
+					  </thead>
+					  <tbody style="max-height:200px;overflow-y: scroll;">
+					    <tr>
+					      <td>杨旭</td>
+					      <td>产品中心</td>
+					      <td>研发部门</td>
+					      <td>自动化运维平台</td>
+					      <td>后端</td>
+					      <td>18508503875</td>
+					      <td>690943146@qq.com</td>
+					    </tr>
+					  </tbody>
+					</table>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+	
+<!-- 输入模态框（Modal） -->
+<form action="" id="component-form">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					添加资产
+				</h4>
+			</div>
+			<div class="modal-body">
+		        <div class="form-group">
+		            <label>IP地址</label>
+		            <input type="text" name="address" class="form-control">
+		        </div>
+		        <div class="form-group">
+		           <label>进行信息收集</label>
+		        </div>
+		        <div class="checkbox">
+				    <label style="margin-left:10px;">
+				      <input type="radio" name="collection" value="yes">是
+				    </label>
+				    <label style="margin-left:50px;">
+				      <input type="radio" name="collection" value="no">否
+				    </label>
+			   </div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="button" onclick="save_asset(this);" data-toggle="modal" data-target="#myinstall"  data-dismiss="modal" class="btn btn-primary">确定</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+</form>
+
+<!-- 收集模态框（Modal） -->	
+<div class="modal fade" id="myinstall" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">
+					正在收集<span id="deploy-host"></span>主机信息
+				</h4>
+			</div>
+			<div class="modal-body" id="modal-body">
+				<span id="deploying">收集中...</span>
+				<span id="deploy-success" style="color:green;font-size:16px;font-weight:bold;"></span>
+				<span id="deploy-failure" style="color:red;font-size:16px;font-weight:bold;"></span>
+				<div><img alt="" src="/static/images/installing.gif"></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary disabled" onclick="collection_finish();">完成</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+
+<!-- 删除模态框（Modal） -->	
+<div class="modal fade" id="mydelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+			</div>
+			<div class="modal-body" id="modal-body">
+				<h4 id="delete-component">确定删除<span id="delete-host"></span>这条资产?</h4>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="delete_asset_ensure();">确定</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+
+<!-- 删除结果（Alert） -->	
+<div id="mySuccessAlert" class="alert alert-success">
+	<a href="#" class="close">&times;</a>
+	<strong>删除成功！</strong>
+</div>
+<div id="myFailureAlert" class="alert alert-warning">
+	<a href="#" class="close">&times;</a>
+	<strong>删除失败！</strong><span id='delete-failure'></span>。
+</div>
+
+{% endblock %}
