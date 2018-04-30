@@ -51,6 +51,9 @@ def asset_detail(request,host):
 def asset_system_user(request):
     return render_to_response("asset/asset_system_user.html",{})
 
+def asset_system_user_detail(request,user):
+    return render_to_response("asset/asset_system_user_detail.html",{})
+
 def organization(request):
     return render_to_response("asset/organization.html",{})
 

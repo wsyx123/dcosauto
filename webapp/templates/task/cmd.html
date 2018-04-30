@@ -1,111 +1,59 @@
 {% extends "base/bootstrap.html" %}
 
 {% block css %}
-<link href="/static/css/asset/asset.css" rel="stylesheet" />
+<link href="/static/css/task/task.css" rel="stylesheet" />
 {% endblock %}
 
 {% block js %}
-<script src="/static/js/asset/asset.js"></script>
+<script src="/static/js/task/task.js"></script>
 {% endblock %}
 
 {% block right %}
-<div class="col-md-10" style="padding:0px;" id="breadcrumb">
+<div class="col-md-10" style="padding:0px" id="breadcrumb">
   	<ul class="breadcrumb">
     	<li><a href="/"><i class="glyphicon glyphicon-home"></i>Home</a></li>
-    	<li>资产管理</li>
-    	<li>资产列表</li>
+    	<li>作业中心</li>
+    	<li>命令执行</li>
 	</ul>
 </div>
 
 <div class="col-md-10" id="describe-head">
 	<div>
-		<h3 id="describe-title">资产管理</h3>
-		<span style="font-size:12px;color:#9b9b9b;margin-left:18px;">可以添加主机，远程主机命令执行</span>
+		<h3 id="describe-title">系统帐号</h3>
+		<span style="font-size:12px;color:#9b9b9b;margin-left:18px;">可以添加绑定、删除主机系统帐号</span>
 	</div>
 	<div>
 		<div id="image-menu">
-			<div style="border-bottom:2px solid #2d8cf0;color:#2d8cf0">资产列表</div>
-			<div>主机组</div>
+			<div style="border-bottom:2px solid #2d8cf0;color:#2d8cf0">用户列表</div>
 		</div>
 		<div id="image-detail">
 			<div class="image-detail" style="display:block;">
-				<button id="add-button" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>创建资产</button>
+				<button id="add-button" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>创建系统用户</button>
 				<div id="component-list">
 					<table class="table table-bordered">
 					  <thead>
 					    <tr>
-					      <th>主机名</th>
-					      <th>IP地址</th>
-					      <th>主机组</th>
-					      <th>使用部门</th>
-					      <th>使用人</th>
-					      <th>绑定用户</th>
-					      <th>创建时间</th>
-					      <th>状态</th>
-					      <th>动作</th>
+					      <th>帐号</th>
+					      <th>备注</th>
+					      <th>启用</th>
+					      <th>关联主机</th>
+					      <th>创建者</th>
+					      <th>创建日期</th>
+					      <th>过期日期</th>
 					    </tr>
 					  </thead>
 					  <tbody style="max-height:200px;overflow-y: scroll;">
-					  {% for host in hosts.pagedata %}
 					    <tr>
-					      <td><a href="{% url 'asset_detail' host=host.hostname %}">{{ host.hostname|default_if_none:'-' }}</a></td>
-					      <td>{{ host.address|default_if_none:'  -' }}</td>
-					      <td>DevOps</td>
-					      <td>开发部门</td>
-					      <td>杨旭</td>
-					      <td>
-					      	<select>
-					      		<option>root</option>
-					      		<option>yangxu</option>
-					      	</select>
-					      </td>
-					      <td>{{ host.createtime|date:'Y/m/d H:i:s' }}</td>
-					      {% ifequal host.status 'up' %}
-						  <td>
-						  	<button class="btn btn-success">在线</button>
-						  </td>
-						  {% else %}
-						  <td>
-						  	<button class="btn" style="color:white;">下线</button>
-						   	</td>
-						  {% endifequal %}
-					      <td>
-					      <button type="button" id="terminal" onclick="terminal_connect(this)" class="btn btn-info">Login</button>
-					      </td>
-					    </tr>
-					    {% endfor %}
+					      <td><a href="{% url 'user_detail' user='web' %}">web</a></td>
+					      <td>apache服务帐号</td>
+					      <td>True</td>
+					      <td>10</td>
+					      <td>admin</td>
+					      <td>Nov 26, 2018</td>
+					      <td>Nov 26, 2018</td>
+					     </tr>
 					  </tbody>
 					</table>
-				</div>
-			</div>
-			
-			<div class="image-detail">
-				<button id="add-button" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>创建主机组</button>
-				<div id="component-list">
-					<table class="table table-bordered">
-					  <thead>
-					    <tr>
-					    	<th>名称</th>
-					    	<th>备注</th>
-					    	<th>运维人员</th>
-					    	<th>电话</th>
-					    	<th>邮箱</th>
-					    	<th>创建者</th>
-					    	<th>创建时间</th>
-					    </tr>
-					  </thead>
-					  <tbody>
-					  	<tr>
-					  		<td>web</td>
-					  		<td>跑前端服务的主机</td>
-					  		<td>admin</td>
-					  		<td>18508503875</td>
-					  		<td>690943136@qq.com</td>
-					  		<td>admin</td>
-					  		<td>2018-4-30 23:26:21</td>
-					  	</tr>
-					  </tbody>
-					 </table>
 				</div>
 			</div>
 			

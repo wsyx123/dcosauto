@@ -1,0 +1,142 @@
+{% extends "base/bootstrap.html" %}
+
+{% block css %}
+<link href="/static/css/asset/asset_detail.css" rel="stylesheet" />
+{% endblock %}
+
+{% block js %}
+<script src="/static/js/asset/asset.js"></script>
+<script>
+function control_onoffswitch(){
+	var onobj=$(".onoffswitch-on")[0];
+	var offobj=$(".onoffswitch-off")[0];
+	if($(onobj).css('color') == 'rgb(255, 255, 255)'){
+		$(onobj).css('color','#DDD');
+		$(onobj).css('background-color','#fff');
+		$(offobj).css('color','#fff');
+		$(offobj).css('background-color','#00DDAA');
+	}else{
+		$(offobj).css('color','#DDD');
+		$(offobj).css('background-color','#fff');
+		$(onobj).css('color','#fff');
+		$(onobj).css('background-color','#00DDAA');
+	}
+}
+</script>
+{% endblock %}
+
+{% block right %}
+<div class="col-md-10" style="padding:0px" id="breadcrumb">
+  	<ul class="breadcrumb">
+    	<li><a href="/"><i class="glyphicon glyphicon-home"></i>Home</a></li>
+    	<li>资产管理</li>
+    	<li>帐号详情</li>
+	</ul>
+</div>
+
+<div class="col-md-10" id="describe-head">
+	<div id="asset-header">
+		<div id="asset-header-title"><i class="glyphicon glyphicon-info-sign"></i>帐号详情</div>
+		<div id="asset-button">
+			<a id="asset-delete" type="button"><i class="glyphicon glyphicon-trash"></i> 删除</a>
+			<a id="asset-update" type="button"><i class="glyphicon glyphicon-edit"></i> 更新</a>
+		</div>
+	</div>
+	<div>
+		<div id="asset-detail">
+			<table class="table">
+			  <thead>
+			   	<tr>
+			     	<td>帐号名:</td>
+			     	<td>web</td>
+			    </tr>
+			    <tr>
+			     	<td>备注:</td>
+			     	<td>apache服务帐号</td>
+			    </tr>
+			    <tr>
+			     	<td>组:</td>
+			     	<td>web</td>
+			    </tr>
+			    <tr>
+			     	<td>UID:</td>
+			     	<td>1000</td>
+			    </tr>
+			    <tr>
+			     	<td>GID:</td>
+			     	<td>1000</td>
+			    </tr>
+			    <tr>
+			     	<td>Home:</td>
+			     	<td>/home/web</td>
+			    </tr>
+			    <tr>
+			     	<td>最近密码修改时间:</td>
+			     	<td>Aug 28, 2015</td>
+			    </tr>
+			    <tr>
+			    	<td>密码过期时间:</td>
+			    	<td>Nov 26, 2015</td>
+			    </tr>
+			    <tr>
+			     	<td>帐号过期策略:</td>
+			     	<td>Never</td>
+			    </tr>
+			    <tr>
+			     	<td>sudo cmd:</td>
+			     	<td>/usr/local/apache/bin/httpd</td>
+			    </tr>
+			    <tr>
+			     	<td>创建日期:</td>
+			     	<td>2018-4-30 20:17:20</td>
+			    </tr>
+			  </thead>
+			</table>
+		</div>
+		
+		<div id="asset-modify">
+			<div id="asset-modify-header"><i class="glyphicon glyphicon-info-sign"></i> 快速修改</div>
+			<div id="asset-modify-detail">
+				<table class="table" >
+					<thead>
+					<tr>
+						<td>启用</td>
+						<td>
+							<label class="onoffswitch-label" onclick="control_onoffswitch();">
+								<span class="onoffswitch-on">ON</span>
+								<span class="onoffswitch-off">OFF</span>
+							</label>
+						</td>
+					</tr>
+					<tr>
+						<td>密钥文件</td>
+						<td><span class="connect-test">生成</span></td>
+					</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+		
+		<div id="asset-user">
+			<div id="asset-user-header"><i class="glyphicon glyphicon-info-sign"></i> 帐号关联主机</div>
+			<div id="asset-user-detail">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>主机</th>
+							<th>部门</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>apache</td>
+							<td>研发部</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+	</div>
+</div>
+{% endblock %}
