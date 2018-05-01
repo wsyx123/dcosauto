@@ -1,94 +1,12 @@
-#mark{
-	width:100px;
-	position:0;
-	background-color:gray;
-}
-
-#table-head{
-	margin:0px;
-	height:510px;
-	overflow:auto;
-}
-
-#component-title{
-	padding:10px;
-	color:white;
-	background-color:#5599FF;
-}
-
-#add-component{
-	float:right;
-}
-
-#delete-component{
-	color:#FF5511;
-}
-
-#component-list{
-	margin-top:10px;
-}
-
-#component-footer{
-	position: absolute;
-	top:615px;
-	left:243px;
-	width:1105px;
-	padding-top:8px;
-	height:45px;
-	text-align:center;
-	border:1px solid #ddd;
-	background-color:#eff3f8;
-}
-
-#component-footer button{
-	width:35px;
-	height:25px;
-	border-radius:10px;
-	border:1px solid;
-	color:#337ab7;
-	background-color:white;
-}
-
-#component-footer .pager{
-	margin:0px;
-}
-
-.btn{
-	font-size:12px;
-	padding:3px 6px;
-}
-
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-    padding: 6px;
-    line-height: 1.42857143;
-    vertical-align: top;
-    border-top: 1px solid #ddd;
-}
-
-#modal-body{
-	text-align:center;
-}
-
-#mySuccessAlert,#myFailureAlert{
-	display:none;
-}
-
-.alert{
-	position:absolute;
-	margin-left:1065px;
-	width:300px;
-	height:60px;
-}
-
 #describe-head{
 	border-radius:4px;
 	margin-left:15px;
 	height:555px;
 	width:1105px;
-	overflow:auto;
+	overflow:hidden;
 }
 
-#describe-title{
+#describe-title,#host-group-title{
 	display: inline-block;
 	font-size: 1.5em;
     -webkit-margin-before: 0.83em;
@@ -96,6 +14,12 @@
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
     font-weight: bold;
+}
+
+#host-group-title{
+	margin-left:15px;
+	font-size:1.5em;
+	font-weight: normal;
 }
 
 #image-menu{
@@ -126,5 +50,142 @@
 
 .image-detail{
 	display:none;
+}
+
+.host-group{
+	display:inline-block;
+	height:555px;
+	width:250px;
+	padding-right:5px;
+	border-right:5px solid #DDD;
+	overflow:auto;
+}
+
+#host-group-button{
+	margin-bottom:20px;
+}
+
+#host-group-button button{
+	background-color:#97c568;
+	border:none;
+	color:white;
+}
+
+.host-group-detail{
+	margin-top:5px;
+	border-bottom:1px solid #DDD;
+}
+
+.host-group-detail td{
+	padding:0px 10px;
+}
+
+.host-group-detail span{
+	margin-bottom:10px;
+	display:inline-block;
+	font-weight:bold;
+}
+
+.host-group-detail input{
+	background-color:#60a2dd;
+}
+
+.host-group-detail-button{
+	float:right;
+	margin-right:20px;
+}
+
+.host-group-detail-button button{
+	background-color:#60a2dd;
+	border:none;
+	color:white;
+	font-size:10px;
+	border-radius:10px;
+}
+
+.cmd-execute-area{
+	display:inline-block;
+	height:550px;
+	width:821px;
+	overflow:auto;
+	padding:0px;
+}
+
+.execute-model{
+	margin:10px 30px;
+}
+
+.shell-input{
+	margin:10px 30px;
+}
+
+.shell-execute-button{
+	background-color:#5cb85c;
+	color:white;
+	border:none;
+}
+
+.ansible-playbook-input{
+	display:none;
+}
+
+
+.execute-result{
+	 margin:5px 30px;
+}
+
+.task-id,.task-acount,.task-finished,.task-failed,.task-expand-collapse{
+	color:white;
+	border:none;
+	border-radius:15px;
+}
+
+.task-id{
+	background-color:#828282;
+}
+
+.task-acount{
+	background-color:#64a1da;
+}
+
+.task-finished{
+	background-color:#5cb85c;
+}
+
+.task-failed{
+	background-color:#f26c4b;
+}
+
+.task-expand-collapse{
+	background-color:#828282;
+}
+
+.execute-result span{
+	display:inline-block;
+	
+}
+
+.execute-result pre{
+	display:none;
+}
+
+.result-col{
+	font-weight:bold;
+}
+
+.status-col-failed{
+	background-color:#f26c4b;
+	text-align:center;
+	width:55px;
+	border-radius:15px;
+	color:white;
+}
+
+.status-col-success{
+	background-color:#5cb85c;
+	text-align:center;
+	width:55px;
+	border-radius:15px;
+	color:white;
 }
 
