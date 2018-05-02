@@ -92,23 +92,43 @@
             <input type="text" class="form-control">
         </div>
 		<div style="margin:5px 30px;">
-		    <form enctype="multipart/form-data">
-		        <div class="file-loading">
-		            <input id="file-fr" name="file-fr[]" type="file" multiple accept="image/*">
-		        </div>
-		    </form>
+			<div class="container kv-main" >
+			    <form enctype="multipart/form-data">
+			        <div class="file-loading">
+			            <input id="file-fr" name="file-fr[]" type="file" multiple>
+			        </div>
+			    </form>
+			</div>
 		</div>
 		
 		<div>
 			<span style="font-size:18px;">执行结果</span>
 			<div style="margin:5px 30px;">
-				<button disabled class="task-id">任务ID:</button>
-				<button disabled class="task-acount">总任务n/a</button>
-				<button disabled class="task-finished">已完成n/a</button>
-				<button disabled class="task-failed">失败n/a</button>
+				<button disabled class="task-id">任务ID:21</button>
+				<button disabled class="task-acount">总任务10</button>
+				<button disabled class="task-finished">已完成7</button>
+				<button disabled class="task-failed">失败3</button>
 				<button class="task-expand-collapse"><span class="pull-right glyphicon glyphicon-chevron-left"></span>收缩/展开</button>
 			</div>
 			<div id="execute-result-area">
+				<div class="execute-result">
+					<span><img alt="" src="/static/images/collapse_12px.png"></span>
+					<span>keystone [192.168.10.2]</span>
+					<span class="result-col">Result:</span>
+					<span class="status-col-failed">failed</span>
+					<pre style="display:block;">Filesystem                     Size  Used Avail Use% Mounted on
+	/dev/mapper/vg_system-lv_root  4.0G  1.2G  2.9G  28% /
+					</pre>
+				</div>
+				<div class="execute-result">
+					<span><img alt="" src="/static/images/collapse_12px.png"></span>
+					<span>keystone [192.168.10.2]</span>
+					<span class="result-col">Result:</span>
+					<span class="status-col-failed">failed</span>
+					<pre style="display:block;">Filesystem                     Size  Used Avail Use% Mounted on
+	/dev/mapper/vg_system-lv_root  4.0G  1.2G  2.9G  28% /
+					</pre>
+				</div>
 				
 			</div>
 		</div>
@@ -118,16 +138,9 @@
 <script>
     $('#file-fr').fileinput({
         language: 'zh',
-        uploadUrl: '/task/file/',
-        showUpload: true,
-        maxFileCount: 1,
-        initialPreviewAsData: false,
-        maxFilePreviewSize: 10240,
-        //allowedFileTypes: ["image", "video"],
-        //allowedFileExtensions: ['jpg', 'png', 'gif']
-    });
-    $("#file-fr").on("fileuploaded", function(event, data, previewId, index){
-		console.log(event,data,previewId,index);
+        uploadUrl: '#',
+        showUpload: false,
+        allowedFileExtensions: ['jpg', 'png', 'gif']
     });
 </script>
 </div>

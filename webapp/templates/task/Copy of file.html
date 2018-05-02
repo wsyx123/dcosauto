@@ -1,11 +1,18 @@
 {% extends "base/bootstrap.html" %}
+
 {% block css %}
-    <link href="/static/bootstrap-fileinput/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
-    <link href="/static/css/task/task.css" rel="stylesheet" />
-    <script src="/static/bootstrap-fileinput/js/plugins/sortable.js" type="text/javascript"></script>
-    <script src="/static/bootstrap-fileinput/js/fileinput.js" type="text/javascript"></script>
-	<script src="/static/bootstrap-fileinput/js/locales/zh.js" type="text/javascript"></script>
-    <script src="/static/js/task/task.js"></script>
+<link href="/static/bootstrap-fileinput/css/fileinput.css" rel="stylesheet" />
+ <link href="/static/bootstrap-fileinput/themes/explorer-fa/theme.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/static/css/task/task.css" rel="stylesheet" />
+{% endblock %}
+
+{% block js %}
+<script src="/static/bootstrap-fileinput/js/fileinput.js" type="text/javascript"></script>
+<script src="/static/bootstrap-fileinput/themes/explorer-fa/theme.js" type="text/javascript"></script>
+<script src="/static/bootstrap-fileinput/themes/fa/theme.js" type="text/javascript"></script>
+<script src="/static/bootstrap-fileinput/js/locales/zh.js"></script>
+<script src="/static/bootstrap-fileinput/js/locales/fr.js"></script>
+<script src="/static/js/task/task.js"></script>
 {% endblock %}
 
 {% block right %}
@@ -91,44 +98,55 @@
 			<span class="input-group-addon">远程文件路径</span>
             <input type="text" class="form-control">
         </div>
-		<div style="margin:5px 30px;">
-		    <form enctype="multipart/form-data">
-		        <div class="file-loading">
-		            <input id="file-fr" name="file-fr[]" type="file" multiple accept="image/*">
-		        </div>
-		    </form>
+		<div style="margin:10px 30px;">
+		<form enctype="multipart/form-data">
+        <label>French Input</label>
+        <div class="file-loading">
+            <input id="file-fr" name="file-fr[]" type="file" multiple>
+        </div>
+    	</form>
+			<input id="txt_file" name="input-b3[]" type="file" class="file" data-language="zh" multiple data-msg-placeholder="Select {files} for upload...">
 		</div>
 		
 		<div>
 			<span style="font-size:18px;">执行结果</span>
 			<div style="margin:5px 30px;">
-				<button disabled class="task-id">任务ID:</button>
-				<button disabled class="task-acount">总任务n/a</button>
-				<button disabled class="task-finished">已完成n/a</button>
-				<button disabled class="task-failed">失败n/a</button>
+				<button disabled class="task-id">任务ID:21</button>
+				<button disabled class="task-acount">总任务10</button>
+				<button disabled class="task-finished">已完成7</button>
+				<button disabled class="task-failed">失败3</button>
 				<button class="task-expand-collapse"><span class="pull-right glyphicon glyphicon-chevron-left"></span>收缩/展开</button>
 			</div>
 			<div id="execute-result-area">
+				<div class="execute-result">
+					<span><img alt="" src="/static/images/collapse_12px.png"></span>
+					<span>keystone [192.168.10.2]</span>
+					<span class="result-col">Result:</span>
+					<span class="status-col-failed">failed</span>
+					<pre style="display:block;">Filesystem                     Size  Used Avail Use% Mounted on
+	/dev/mapper/vg_system-lv_root  4.0G  1.2G  2.9G  28% /
+					</pre>
+				</div>
+				<div class="execute-result">
+					<span><img alt="" src="/static/images/collapse_12px.png"></span>
+					<span>keystone [192.168.10.2]</span>
+					<span class="result-col">Result:</span>
+					<span class="status-col-failed">failed</span>
+					<pre style="display:block;">Filesystem                     Size  Used Avail Use% Mounted on
+	/dev/mapper/vg_system-lv_root  4.0G  1.2G  2.9G  28% /
+					</pre>
+				</div>
 				
 			</div>
 		</div>
 	</div>
 </div>
-
-<script>
-    $('#file-fr').fileinput({
-        language: 'zh',
-        uploadUrl: '/task/file/',
-        showUpload: true,
-        maxFileCount: 1,
-        initialPreviewAsData: false,
-        maxFilePreviewSize: 10240,
-        //allowedFileTypes: ["image", "video"],
-        //allowedFileExtensions: ['jpg', 'png', 'gif']
-    });
-    $("#file-fr").on("fileuploaded", function(event, data, previewId, index){
-		console.log(event,data,previewId,index);
-    });
-</script>
-</div>
 {% endblock %}
+<script>
+$('#txt_file').fileinput({
+       theme: 'fa',
+       language: 'fr',
+       uploadUrl: '#',
+       allowedFileExtensions: ['jpg', 'png', 'gif']
+   });
+</script>
