@@ -1,9 +1,13 @@
 {% extends "base/bootstrap.html" %}
 {% block css %}
     <link href="/static/bootstrap-fileinput/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="/static/bootstrap-fileinput/themes/explorer-fa/theme.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/css/base/font-awesome.min.css">
     <link href="/static/css/task/task.css" rel="stylesheet" />
-    <script src="/static/bootstrap-fileinput/js/plugins/sortable.js" type="text/javascript"></script>
     <script src="/static/bootstrap-fileinput/js/fileinput.js" type="text/javascript"></script>
+    <script src="/static/bootstrap-fileinput/js/plugins/sortable.js" type="text/javascript"></script>
+    <script src="/static/bootstrap-fileinput/js/plugins/purify.js" type="text/javascript"></script>
+    <script src="/static/bootstrap-fileinput/themes/explorer-fa/theme.js" type="text/javascript"></script>
 	<script src="/static/bootstrap-fileinput/js/locales/zh.js" type="text/javascript"></script>
     <script src="/static/js/task/task.js"></script>
 {% endblock %}
@@ -126,13 +130,6 @@
         maxFilePreviewSize: 10240,
         overwriteInitial: false,
         initialPreviewFileType: 'image', // image is the default and can be overridden in config below
-        initialPreviewConfig: [
-            {caption: "Business 1", filename: "Business-1.jpg", size: 762980, url: "/site/file-delete", key: 11},
-            {previewAsData: false, size: 823782, caption: "Business 2", filename: "Business-2.jpg", url: "/site/file-delete", key: 13}, 
-            {caption: "Lorem Ipsum", filename: "LoremIpsum.txt", type: "text", size: 1430, url: "/site/file-delete", key: 12}, 
-            {type: "pdf", size: 8000, caption: "PDF Sample", filename: "PDF-Sample.pdf", url: "/file-upload-batch/2", key: 14}, 
-            {type: "video", size: 375000, filetype: "video/mp4", caption: "Krajee Sample", filename: "KrajeeSample.mp4", url: "/file-upload-batch/2", key: 15} 
-        ],
         preferIconicPreview: true, // this will force thumbnails to display icons for following file extensions
         previewFileIconSettings: { // configure your icon file extensions
             'doc': '<i class="fa fa-file-word-o text-primary"></i>',
