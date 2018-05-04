@@ -92,3 +92,6 @@ $.ajax({
         console.log(xhr.getResponseHeader("Content-Type"));
     }
 });
+
+问题七:
+html  中  多个input  name相同 ，django后端接收时使用 request.POST.get("user[]") 表示 接收列表
