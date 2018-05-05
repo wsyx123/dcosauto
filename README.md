@@ -14,3 +14,8 @@ automatic platform
  
  4 镜像管理（管理docker 私有镜像仓库）
  
+ Preview:
+ 
+ ![image](https://github.com/wsyx123/dcosauto/)
+ 
+ 
