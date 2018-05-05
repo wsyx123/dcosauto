@@ -20,6 +20,7 @@ class ComponentForm(object):
         self.hport = None
         self.env = None
         self.volume = None
+        self.type = None
         self.templateobj = None
         
     def replace_br(self,item):
@@ -39,6 +40,7 @@ class ComponentForm(object):
         self.image = self.templateobj.image
         self.env = self.templateobj.env
         self.volume = self.templateobj.volume
+        self.type = self.templateobj.type
     
     def save_component(self):
         try:
@@ -61,6 +63,9 @@ class ComponentForm(object):
                 
     def generate_docker_json(self):
         env = map(self.replace_br, self.env.split(','))
+        if self.type == 'mesos-master':
+            env[1] = env[1].replace(';',',')
+        
         if len(env) == 1 and env[0] == '':
             env = []
         volume = map(self.replace_br, self.volume.split(','))
