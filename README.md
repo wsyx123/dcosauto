@@ -20,3 +20,8 @@ automatic platform
  ![image](https://github.com/wsyx123/dcosauto/blob/May/statics/images/preview/dockerimage1.png)
  ![image](https://github.com/wsyx123/dcosauto/blob/May/statics/images/preview/dockerimage2.png)
  ![image](https://github.com/wsyx123/dcosauto/blob/May/statics/images/preview/dockerimage3.png)
+ ![image](https://github.com/wsyx123/dcosauto/blob/May/statics/images/preview/assetlist.png)
+ ![image](https://github.com/wsyx123/dcosauto/blob/May/statics/images/preview/assetgroup.png)
+ ![image](https://github.com/wsyx123/dcosauto/blob/May/statics/images/preview/cmd_execute.png)
+ ![image](https://github.com/wsyx123/dcosauto/blob/May/statics/images/preview/monitor_alert_notify.png)
+ ![image](https://github.com/wsyx123/dcosauto/blob/May/statics/images/preview/file_send.png)

@@ -187,7 +187,8 @@ def main():
     except OSError,error:
         print 'fork #2 failed: %d (%s)' % (error.errno, error.strerror)
         os._exit(1)
-    agentconf = '/root/monitor/agent/agent.conf'monitor_agentamonitor_agentinstance = AgentService(7000,agentconf)
+    agentconf = '/root/monitor_agent/agent.conf'
+    agent_instance = AgentService(7000,agentconf)
     agent_instance.init_env()
     logfile = confParse(agentconf).get_val('log','logfile')
     stream = open(logfile,'a')
