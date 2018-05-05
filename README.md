@@ -17,3 +17,6 @@ automatic platform
  Preview:
  
  ![image](https://github.com/wsyx123/dcosauto/blob/May/statics/images/preview/dashboard.png)
+ ![image](https://github.com/wsyx123/dcosauto/blob/May/statics/images/preview/dockerimage1.png)
+ ![image](https://github.com/wsyx123/dcosauto/blob/May/statics/images/preview/dockerimage2.png)
+ ![image](https://github.com/wsyx123/dcosauto/blob/May/statics/images/preview/dockerimage3.png)
