@@ -16,4 +16,4 @@ automatic platform
  
  Preview:
  
- ![image](https://github.com/wsyx123/dcosauto/tree/May/statics/images/preview/dashboard.png)
+ ![image](https://github.com/wsyx123/dcosauto/blob/May/statics/images/preview/dashboard.png)
