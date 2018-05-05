@@ -11,6 +11,7 @@ from dockerapi125 import DockerOps
 
 def create_pull(host,port,container_name,data):
     create_result = DockerOps.create(host, port, container_name, data)
+    print create_result
     if create_result['code'] == 404:
         image_result = DockerOps.pull(host=host,port=6071,image=data['Image'])
         if image_result.status == 200:

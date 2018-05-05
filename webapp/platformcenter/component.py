@@ -23,6 +23,7 @@ def component(request):
         save_result = componentformobj.save_component()
         if save_result['status']:
             data = componentformobj.generate_docker_json()
+            print data
             resultmsg = create_pull(host, '6071', name, data)
             if resultmsg['status'] == 'failure':
                 platformcomponent.objects.get(name=name).delete()

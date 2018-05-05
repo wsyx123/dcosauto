@@ -159,8 +159,13 @@ function execute_command(){
 		
 		execute_data['vars']=foreach_var(var_name_obj,var_value_obj);
 		execute_data['tasks']=foreach_task(task_name_obj,task_module_obj,task_arg_obj,task_notify_obj)
+		execute_data['handlers']=foreach_handler(task_name_obj,task_module_obj,task_arg_obj)
 	}
 	console.log(execute_data);
+	$.ajax({
+		type: 'POST',
+		data: {'execute_data':JSON.stringify(execute_data),},
+	})
 }
 
 function foreach_var(name_obj,value_obj){
@@ -182,4 +187,16 @@ function foreach_task(name_obj,module_obj,arg_obj,notify_obj){
 		task_list.push(task_dict);
 	}
 	return task_list;
+}
+
+function foreach_handler(name_obj,module_obj,arg_obj){
+	var handler_list = [];
+	for(var i=0;i<name_obj.length;i++){
+		var handler_dict = {};
+		handler_dict['name'] = $(name_obj[i]).val();
+		handler_dict['module'] = $(module_obj[i]).val();
+		handler_dict['arg'] = $(arg_obj[i]).val();
+		handler_list.push(handler_dict);
+	}
+	return handler_list;
 }
