@@ -11,7 +11,7 @@ import httplib
 import json
 
 def set_agent(agent,status):
-    agent["agemonitor_agent= status
+    agent["agent"] = status
     name = agent["name"]
     agent = json.dumps(agent)
     conn = httplib.HTTPConnection('192.168.10.1',9000)
@@ -22,7 +22,7 @@ def set_agent(agent,status):
 def check_agent(agent):
     host = str(agent['address'])
     port = int(agent['port'])
-    status = str(agent['agemonitor_agent
+    status = str(agent['agent'])
     conn = httplib.HTTPConnection(host,port)
     try:
         conn.request('GET', '/')

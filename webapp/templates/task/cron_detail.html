@@ -1,0 +1,94 @@
+{% extends "base/bootstrap.html" %}
+
+{% block css %}
+<link href="/static/css/task/cron.css" rel="stylesheet" />
+{% endblock %}
+
+{% block js %}
+<script src="/static/js/task/cron.js"></script>
+{% endblock %}
+
+{% block right %}
+<div class="col-md-10" style="padding:0px" id="breadcrumb">
+  	<ul class="breadcrumb">
+    	<li><a href="/"><i class="glyphicon glyphicon-home"></i>Home</a></li>
+    	<li>作用中心</li>
+    	<li>定时任务</li>
+    	<li>任务详情</li>
+	</ul>
+</div>
+
+<div class="col-md-10" id="describe-head">
+	<div>
+		<h3 id="describe-title">任务详情</h3>
+		<span style="font-size:12px;color:#9b9b9b;margin-left:18px;">执行周期与执行时间只能设置一个</span>
+	</div>
+	<div>
+		<div id="image-menu">
+		</div>
+		<div id="image-detail">
+			<div class="image-detail" style="display:block;">
+				<div id="component-list">
+				<table class="table">
+					<thead>
+					<tr>
+						<td>ID：</td><td>1</td><td></td>
+					</tr>
+					<tr>
+						<td>名称：</td><td><input value="清理nginx日志"></td><td></td>
+					</tr>
+					<tr>
+						<td>类型：</td><td>日志清理</td><td></td>
+					</tr>
+					<tr>
+						<td>关联主机组：</td><td>web</td><td></td>
+					</tr>
+					<tr>
+						<td>执行周期：</td>
+						<td>
+							<input value="1">
+							<select>
+								<option value="Microseconds">毫秒</option>
+								<option value="Seconds">秒</option>
+								<option value="Minutes">分</option>
+								<option value="Hours">时</option>
+								<option value="Days">天</option>
+							</select>
+						</td>
+						<td>启用  <input type="radio" name="period"></td>
+					</tr>
+					<tr>
+						<td>执行时间：</td>
+						<td>
+							<table>
+								<tr><td>Minute</td><td><input value="*"></td></tr>
+								<tr><td>Hour</td><td><input value="*"></td></tr>
+								<tr><td>Day of week</td><td><input value="*"></td></tr>
+								<tr><td>Day of month</td><td><input value="*"></td></tr>
+								<tr><td>Month of year</td><td><input value="*"></td></tr>
+							</table>
+						</td>
+						<td>启用  <input type="radio" name="period"></td>
+					</tr>
+					<tr>
+						<td>状态：</td>
+						<td>
+							已启用<input name="status" type="radio" checked>
+							<br>
+							未启用<input name="status" type="radio">
+						</td>
+						<td></td>
+					</tr>
+					</thead>
+				</table>
+				</div>
+			</div>
+		</div>
+		<div>
+			<button class="btn btn-primary">保存</button>
+			<button class="btn btn-default">取消</button>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

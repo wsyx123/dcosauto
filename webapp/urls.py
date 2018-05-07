@@ -29,7 +29,7 @@ organization,organization_department_detail
 from image.image import image
 from task.cmd import cmd
 from task.file_send import file_send
-from task.cron_task import cron_task
+from task.cron_task import cron_task,cron_task_detail,cron_task_record
 admin.autodiscover()
 
 urlpatterns = [
@@ -48,6 +48,8 @@ urlpatterns = [
     url(r'^task/cmd/$',cmd),
     url(r'^task/file/$',file_send),
     url(r'^task/cron/$',cron_task),
+    url(r'^task/cron/detail/(?P<pk>.+)$',cron_task_detail,name='task_detail'),
+    url(r'^task/cron/record/(?P<pk>.+)$',cron_task_record),
     url(r'^image/$',image),
     url(r'^platform/manage/$',component),
     url(r'^platform/manage/delete/$',component_delete),

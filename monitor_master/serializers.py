@@ -10,10 +10,14 @@ from models import MonitorHost,MonitorItem,MonitorNotifyDetail,\
 MonitorNotifyPolicy,MonitorProblem,MonitorTemplate,SystemConfig,MonitorNotifyConfig
 
 class HostSerializer(serializers.ModelSerializer):
+#     template = serializers.SerializerMethodField()
     class Meta:
         model = MonitorHost
         #fields = ('address', 'agemonitor_agentname','port','status','template')
         fields = '__all__'
+        
+#     def get_template(self,tempobj): # function name must startswith "get_" + model field
+#         pass
         
 class DetailSerializer(serializers.ModelSerializer):
     class Meta:
