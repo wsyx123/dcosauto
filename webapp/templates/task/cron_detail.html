@@ -13,7 +13,7 @@
   	<ul class="breadcrumb">
     	<li><a href="/"><i class="glyphicon glyphicon-home"></i>Home</a></li>
     	<li>作用中心</li>
-    	<li>定时任务</li>
+    	<li><a href="/task/cron/">定时任务</a></li>
     	<li>任务详情</li>
 	</ul>
 </div>
@@ -38,7 +38,14 @@
 						<td>名称：</td><td><input value="清理nginx日志"></td><td></td>
 					</tr>
 					<tr>
-						<td>类型：</td><td>日志清理</td><td></td>
+						<td>类型：</td>
+						<td>
+							<select>
+								<option>清理日志</option>
+								<option>备份数据</option>
+							</select>
+						</td>
+						<td></td>
 					</tr>
 					<tr>
 						<td>关联主机组：</td><td>web</td><td></td>

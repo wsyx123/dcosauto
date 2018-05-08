@@ -77,3 +77,77 @@
 	display:none;
 }
 
+/*
+---------------------------定时任务执行记录详情显示部分CSS-----------------------
+ */
+
+#execute-result-title{
+	margin:5px 15px;
+}
+
+#execute-result-area{
+	height:455px;
+	overflow:auto;
+}
+
+.execute-result{
+	 margin:5px 15px;
+}
+
+.task-id,.task-acount,.task-finished,.task-failed,.task-expand-collapse{
+	color:white;
+	border:none;
+	border-radius:15px;
+}
+
+.task-id{
+	background-color:#828282;
+}
+
+.task-acount{
+	background-color:#64a1da;
+}
+
+.task-finished{
+	background-color:#5cb85c;
+}
+
+.task-failed{
+	background-color:#f26c4b;
+}
+
+.task-expand-collapse{
+	background-color:#828282;
+}
+
+.execute-result span{
+	display:inline-block;
+	
+}
+
+.execute-result pre{
+	display:none;
+}
+
+.result-col{
+	font-weight:bold;
+}
+
+.status-col-failed{
+	background-color:#f26c4b;
+	text-align:center;
+	width:55px;
+	border-radius:15px;
+	color:white;
+}
+
+.status-col-success{
+	background-color:#5cb85c;
+	text-align:center;
+	width:55px;
+	border-radius:15px;
+	color:white;
+}
+/*
+---------------------------end 定时任务执行记录详情显示部分CSS-----------------------
+ */

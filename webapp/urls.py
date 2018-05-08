@@ -49,7 +49,7 @@ urlpatterns = [
     url(r'^task/file/$',file_send),
     url(r'^task/cron/$',cron_task),
     url(r'^task/cron/detail/(?P<pk>.+)$',cron_task_detail,name='task_detail'),
-    url(r'^task/cron/record/(?P<pk>.+)$',cron_task_record),
+    url(r'^task/cron/record/(?P<pk>.+)$',cron_task_record,name='task_record'),
     url(r'^image/$',image),
     url(r'^platform/manage/$',component),
     url(r'^platform/manage/delete/$',component_delete),

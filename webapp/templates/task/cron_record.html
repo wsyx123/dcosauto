@@ -13,70 +13,47 @@
   	<ul class="breadcrumb">
     	<li><a href="/"><i class="glyphicon glyphicon-home"></i>Home</a></li>
     	<li>作用中心</li>
-    	<li>定时任务</li>
+    	<li><a href="/task/cron/">定时任务</a></li>
+    	<li>执行记录</li>
 	</ul>
 </div>
 
 <div class="col-md-10" id="describe-head">
 	<div>
-		<h3 id="describe-title">定时任务</h3>
-		<span style="font-size:12px;color:#9b9b9b;margin-left:18px;">可以创建、删除定时任务</span>
+		<h3 id="describe-title">执行记录</h3>
+		<span style="font-size:12px;color:#9b9b9b;margin-left:18px;">任务执行成功失败详情</span>
 	</div>
 	<div>
 		<div id="image-menu">
-			<div style="border-bottom:2px solid #2d8cf0;color:#2d8cf0">任务列表</div>
-			<div>执行记录</div>
 		</div>
 		<div id="image-detail">
 			<div class="image-detail" style="display:block;">
-				<button id="add-button" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>创建任务</button>
 				<div id="component-list">
-					<table class="table table-bordered">
-					  <thead>
-					    <tr>
-					      <th>ID</th>
-					      <th>名称</th>
-					      <th>类型</th>
-					      <th>关联主机组</th>
-					      <th>执行周期</th>
-					      <th>执行时间</th>
-					      <th>状态</th>
-					      <th>管理操作</th>
-					    </tr>
-					  </thead>
-					  <tbody>
-					    <tr>
-					      <td>1</td>
-					      <td>清理nginx日志</td>
-					      <td>日志清理</td>
-					      <td>web</td>
-					      <td>每天</td>
-					      <td>24:00</td>
-					      <td><span style="color:#00CC33;">运行中...</span></td>
-					      <td>
-					      	<span>修改</span>
-					      	<span>|</span>
-					      	<span>删除</span>
-					      </td>
-					     </tr>
-					  </tbody>
-					  <tbody>
-					    <tr>
-					      <td>2</td>
-					      <td>备份mysql数据</td>
-					      <td>数据备份</td>
-					      <td>mysql</td>
-					      <td>每天</td>
-					      <td>24:00</td>
-					      <td><span style="color:red;">暂停</span></td>
-					      <td>
-					      	<span>修改</span>
-					      	<span>|</span>
-					      	<span>删除</span>
-					      </td>
-					     </tr>
-					  </tbody>
-					</table>
+					<div id="execute-result-title">
+						<button disabled class="task-id">任务ID:1d239e</button>
+						<button disabled class="task-acount">总任务10</button>
+						<button disabled class="task-finished">已完成7</button>
+						<button disabled class="task-failed">失败3</button>
+						<button class="task-expand-collapse"><span class="pull-right glyphicon glyphicon-chevron-left"></span>收缩/展开</button>
+					</div>
+					<div id="execute-result-area">
+						<div class="execute-result">
+							<span><img alt="" src="/static/images/expand_12px.png"></span>
+							<span>keystone [192.168.10.2]</span>
+							<span class="result-col">Result:</span>
+							<span class="status-col-success">success</span>
+							<pre>timed out</pre>
+						</div>
+						<div class="execute-result">
+							<span><img alt="" src="/static/images/collapse_12px.png"></span>
+							<span>keystone [192.168.10.2]</span>
+							<span class="result-col">Result:</span>
+							<span class="status-col-failed">failed</span>
+							<pre style="display:block;">Filesystem                     Size  Used Avail Use% Mounted on
+/dev/mapper/vg_system-lv_root  4.0G  1.2G  2.9G  28% /
+							</pre>
+						</div>
+					</div>
 				</div>
 			</div>
 			
