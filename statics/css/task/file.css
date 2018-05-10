@@ -22,36 +22,6 @@
 	font-weight: normal;
 }
 
-#image-menu{
-	border-bottom:1px solid #d7dde4;
-}
-
-#image-menu div{
-	padding:5px;
-	width:70px;
-	display:inline-block;
-	cursor:pointer;
-}
-
-#image-detail{
-	margin-top:8px;
-}
-
-#add-button{
-	font-size:12px;
-	background-color:#2d8cf0;
-	border-color: #2d8cf0;
-	
-}
-.add-underline{
-	border-bottom:2px solid #2d8cf0;
-	color:#2d8cf0;
-}
-
-.image-detail{
-	display:none;
-}
-
 .host-group{
 	display:inline-block;
 	height:555px;
@@ -111,77 +81,8 @@
 	padding:0px;
 }
 
-.execute-model{
-	margin:5px 30px;
-}
-
-.shell-input{
-	margin:10px 30px;
-	/*display:none;*/
-}
-
-.execute-button{
-	margin:5px 30px;
-	color:white;
-}
-.execute-button button{
-	background-color:#5cb85c;
-	border:none;
-}
-
-.ansible-playbook-input{
-	margin:5px 30px;
-	border:1px solid #DDD;
-	padding:0px 5px;
-	height:210px;
-	overflow:auto;
-	
-	display:none;*/
-
-}
-
-.ansible-playbook-input label{
-	margin:0px;
-}
-
-
-.vars table,.tasks table,.handlers table{
-	margin-left:15px;
-}
-
-.vars td,.tasks td,.handlers td{
-	padding-left:5px;
-}
-
-.vars span,.tasks span,.handlers span{
-	float:right;
-	margin-right:20px;
-}
-
-.glyphicon-plus{
-	color:green;
-}
-.glyphicon-minus{
-	color:red;
-}
-.vars i,.tasks i,.handlers i{
-	cursor:pointer;
-}
-
-.vars .name input,.tasks .name input,.handlers .name input{
-	width:120px;
-}
-
-.tasks .model input,.handlers .model input{
-	width:100px;
-}
-
-.tasks .args input,.handlers .args input{
-	width:200px;
-}
-
 #execute-result-area{
-	height:255px;
+	height:180px;
 	overflow:auto;
 }
 

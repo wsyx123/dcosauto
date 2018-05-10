@@ -25,6 +25,7 @@ def template(request):
         pagenum = 1
     
     templates = platformtemplate.objects.all().order_by('-createtime')
+#     print templates.filter(platformcomponent__name='icloud')   反向查询(单个)
     
     return render_to_response('platform/template.html',{'templates':page(templates, pagenum, datarow)})
 

@@ -1,0 +1,239 @@
+#describe-head{
+	border-radius:4px;
+	margin-left:15px;
+	height:555px;
+	width:1105px;
+	overflow:hidden;
+}
+
+#describe-title,#host-group-title{
+	display: inline-block;
+	font-size: 1.5em;
+    -webkit-margin-before: 0.83em;
+    -webkit-margin-after: 0.83em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+}
+
+#host-group-title{
+	margin-left:15px;
+	font-size:1.5em;
+	font-weight: normal;
+}
+
+#image-menu{
+	border-bottom:1px solid #d7dde4;
+}
+
+#image-menu div{
+	padding:5px;
+	width:70px;
+	display:inline-block;
+	cursor:pointer;
+}
+
+#image-detail{
+	margin-top:8px;
+}
+
+#add-button{
+	font-size:12px;
+	background-color:#2d8cf0;
+	border-color: #2d8cf0;
+	
+}
+
+
+.host-group{
+	display:inline-block;
+	height:555px;
+	width:250px;
+	padding-right:5px;
+	border-right:5px solid #DDD;
+	overflow:auto;
+}
+
+#host-group-button{
+	margin-bottom:20px;
+}
+
+#host-group-button button{
+	background-color:#97c568;
+	border:none;
+	color:white;
+}
+
+.host-group-detail{
+	margin-top:5px;
+	border-bottom:1px solid #DDD;
+}
+
+.host-group-detail td{
+	padding:0px 10px;
+}
+
+.host-group-detail span{
+	margin-bottom:10px;
+	display:inline-block;
+	font-weight:bold;
+}
+
+.host-group-detail input{
+	background-color:#60a2dd;
+}
+
+.host-group-detail-button{
+	float:right;
+	margin-right:20px;
+}
+
+.host-group-detail-button button{
+	background-color:#60a2dd;
+	border:none;
+	color:white;
+	font-size:10px;
+	border-radius:10px;
+}
+
+.cmd-execute-area{
+	display:inline-block;
+	height:550px;
+	width:821px;
+	overflow:auto;
+	padding:0px;
+}
+
+.execute-model{
+	margin:5px 30px;
+}
+
+.shell-input{
+	margin:10px 30px;
+	/*display:none;*/
+}
+
+.execute-button{
+	margin:5px 30px;
+	color:white;
+}
+.execute-button button{
+	background-color:#5cb85c;
+	border:none;
+}
+
+.ansible-playbook-input{
+	margin:5px 30px;
+	border:1px solid #DDD;
+	padding:0px 5px;
+	height:210px;
+	overflow:auto;
+	
+	display:none;*/
+
+}
+
+.ansible-playbook-input label{
+	margin:0px;
+}
+
+
+.vars table,.tasks table,.handlers table{
+	margin-left:15px;
+}
+
+.vars td,.tasks td,.handlers td{
+	padding-left:5px;
+}
+
+.vars span,.tasks span,.handlers span{
+	float:right;
+	margin-right:20px;
+}
+
+.glyphicon-plus{
+	color:green;
+}
+.glyphicon-minus{
+	color:red;
+}
+.vars i,.tasks i,.handlers i{
+	cursor:pointer;
+}
+
+.vars .name input,.tasks .name input,.handlers .name input{
+	width:120px;
+}
+
+.tasks .model input,.handlers .model input{
+	width:100px;
+}
+
+.tasks .args input,.handlers .args input{
+	width:200px;
+}
+
+#execute-result-area{
+	height:255px;
+	overflow:auto;
+}
+
+.execute-result{
+	 margin:5px 30px;
+}
+
+.task-id,.task-acount,.task-finished,.task-failed,.task-expand-collapse{
+	color:white;
+	border:none;
+	border-radius:15px;
+}
+
+.task-id{
+	background-color:#828282;
+}
+
+.task-acount{
+	background-color:#64a1da;
+}
+
+.task-finished{
+	background-color:#5cb85c;
+}
+
+.task-failed{
+	background-color:#f26c4b;
+}
+
+.task-expand-collapse{
+	background-color:#828282;
+}
+
+.execute-result span{
+	display:inline-block;
+	
+}
+
+.execute-result pre{
+	display:none;
+}
+
+.result-col{
+	font-weight:bold;
+}
+
+.status-col-failed{
+	background-color:#f26c4b;
+	text-align:center;
+	width:55px;
+	border-radius:15px;
+	color:white;
+}
+
+.status-col-success{
+	background-color:#5cb85c;
+	text-align:center;
+	width:55px;
+	border-radius:15px;
+	color:white;
+}
+

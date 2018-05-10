@@ -25,7 +25,7 @@
 	<div>
 		<div id="image-menu">
 			<div style="border-bottom:2px solid #2d8cf0;color:#2d8cf0">资产列表</div>
-			<div>主机组</div>
+			<div>资产组</div>
 		</div>
 		<div id="image-detail">
 			<div class="image-detail" style="display:block;">
@@ -35,7 +35,8 @@
 					  <thead>
 					    <tr>
 					      <th>主机名</th>
-					      <th>IP地址</th>
+					      <th>私网 IP</th>
+					      <th>端口</th>
 					      <th>主机组</th>
 					      <th>使用部门</th>
 					      <th>使用人</th>
@@ -50,6 +51,7 @@
 					    <tr>
 					      <td><a href="{% url 'asset_detail' host=host.hostname %}">{{ host.hostname|default_if_none:'-' }}</a></td>
 					      <td>{{ host.address|default_if_none:'  -' }}</td>
+					      <td>22</td>
 					      <td>DevOps</td>
 					      <td>开发部门</td>
 					      <td>杨旭</td>
